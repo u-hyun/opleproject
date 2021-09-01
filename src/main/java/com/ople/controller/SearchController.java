@@ -1,5 +1,8 @@
 package com.ople.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,17 +30,26 @@ public class SearchController {
 		m.addAttribute("keyword", keyword);
 		RecordingSearchResult recordingSearchResult = 
 				restTemplate.getForObject("https://musicbrainz.org/ws/2/recording/?query=recording:"
-		+ keyword + "&fmt=json", RecordingSearchResult.class);
-		m.addAttribute("recordingSearchResult", recordingSearchResult);
-		String release = recordingSearchResult.getRecordings().get(0).getReleases().get(0).getId();
-		try {
-			ImageSearchResult imageSearchResult =
-				restTemplate.getForObject("https://coverartarchive.org/release/" 
-						+ release, ImageSearchResult.class);
-			m.addAttribute("imageSearchResult", imageSearchResult);
-		} catch(Exception e) {
-			
+											+ keyword + "&fmt=json", RecordingSearchResult.class);
+		
+		for(Recordings recording : recordingSearchResult.getRecordings()) {
+			try {
+				String release = recording.getReleases().get(0).getId();
+				System.out.println("ReleaseId : " + release);	// 테스트용
+				ImageSearchResult imageSearchResult =
+						restTemplate.getForObject("https://coverartarchive.org/release/" 
+								+ release, ImageSearchResult.class);
+				System.out.println("CovArtArc Url : " + imageSearchResult.getRelease()); // 테스트용
+				String imageUrl = imageSearchResult.getImages().get(0).getThumbnails().getThumbnailUrl();
+				recording.setImageUrl(imageUrl);
+			} catch(Exception e) {
+				e.printStackTrace();
+				recording.setImageUrl("blank");
+			}
 		}
+		
+		m.addAttribute("recordingSearchResult", recordingSearchResult);
+		
 		return "searchResult";
 	}
 }

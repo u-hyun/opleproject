@@ -11,6 +11,8 @@ public class Recordings {
 	ArrayList<ArtistCredit> artistcredit;
 	ArrayList<Releases> releases;
 	
+	String imageUrl;
+	
 	public String getId() {
 		return id;
 	}
@@ -35,8 +37,12 @@ public class Recordings {
 	public void setReleases(ArrayList<Releases> releases) {
 		this.releases = releases;
 	}
-	
-	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 	
 	
 }

@@ -3,13 +3,13 @@ package com.ople.domain;
 import java.util.ArrayList;
 
 public class Images {
-	ArrayList<Thumbnails> thumbnails;
+	Thumbnails thumbnails;
 
-	public ArrayList<Thumbnails> getThumbnails() {
+	public Thumbnails getThumbnails() {
 		return thumbnails;
 	}
 
-	public void setThumbnails(ArrayList<Thumbnails> thumbnails) {
+	public void setThumbnails(Thumbnails thumbnails) {
 		this.thumbnails = thumbnails;
 	}
 	
