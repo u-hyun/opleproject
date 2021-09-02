@@ -25,24 +25,33 @@ public class SearchController {
 		return "search";
 	}
 	
-	@RequestMapping("/searchResult")
+	/**************
+	 	검색 메서드
+	 **************/
+	@RequestMapping("/searchResult")	// keyword 검색어를 GET으로 받아옴
 	public String searchResult(Model m, @RequestParam String keyword) {
 		m.addAttribute("keyword", keyword);
+		
+		// REST로 MusicBrainz API에서 곡 정보를 JSON으로 받아옴
 		RecordingSearchResult recordingSearchResult = 
 				restTemplate.getForObject("https://musicbrainz.org/ws/2/recording/?query=recording:"
 											+ keyword + "&fmt=json", RecordingSearchResult.class);
 		
+		// 앨범커버 - MB API에서 받아온 곡 하나씩 처리: 
+		// MB API의 Release ID -> 
+		// Cover Art Archive API 사용해 앨범커버 이미지 URL 받아옴
 		for(Recordings recording : recordingSearchResult.getRecordings()) {
 			try {
 				String release = recording.getReleases().get(0).getId();
-				System.out.println("ReleaseId : " + release);	// 테스트용
+				
+				// Cover Art Archive API 호출
 				ImageSearchResult imageSearchResult =
 						restTemplate.getForObject("https://coverartarchive.org/release/" 
 								+ release, ImageSearchResult.class);
-				System.out.println("CovArtArc Url : " + imageSearchResult.getRelease()); // 테스트용
 				String imageUrl = imageSearchResult.getImages().get(0).getThumbnails().getThumbnailUrl();
 				recording.setImageUrl(imageUrl);
-			} catch(Exception e) {
+				
+			} catch(Exception e) {	// 앨범 커버를 찾지 못한 경우
 				e.printStackTrace();
 				recording.setImageUrl("blank");
 			}
