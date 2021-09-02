@@ -1,4 +1,4 @@
-package com.ople.domain;
+package com.ople.search.musicbrainz;
 
 import java.util.ArrayList;
 
@@ -12,6 +12,7 @@ public class Recordings {
 	ArrayList<Releases> releases;
 	
 	String imageUrl;
+	String videoId;
 	
 	public String getId() {
 		return id;
@@ -42,6 +43,12 @@ public class Recordings {
 	}
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	public String getVideoId() {
+		return videoId;
+	}
+	public void setVideoId(String videoId) {
+		this.videoId = videoId;
 	}
 	
 	

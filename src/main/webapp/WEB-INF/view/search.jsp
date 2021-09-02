@@ -9,6 +9,10 @@
 <body>
 검색
 <form action="searchResult">
+	<select name="type" id="type">
+		<option value="song">곡 검색</option>
+		<option value="artist">아티스트 검색</option>
+	</select>
 	<input name="keyword"/>
 	<input type="submit" value="검색"/>
 </form>

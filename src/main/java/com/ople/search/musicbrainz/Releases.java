@@ -1,4 +1,4 @@
-package com.ople.domain;
+package com.ople.search.musicbrainz;
 
 public class Releases {
 	String id;

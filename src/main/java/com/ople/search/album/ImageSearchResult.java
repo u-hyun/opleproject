@@ -1,4 +1,4 @@
-package com.ople.domain;
+package com.ople.search.album;
 
 import java.util.ArrayList;
 
