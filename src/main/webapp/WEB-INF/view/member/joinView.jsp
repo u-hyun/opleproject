@@ -11,15 +11,21 @@
 <h1>회원 가입</h1>
 <form action="/join" method="post" id="joinForm">
 	<table >
-		<tr><td>id</td><td><input name="id" id="id"><input type="button" id="id_check" value="중복 확인">
+		<tr><td>아이디</td><td><input name="id" id="id" placeholder="이메일">
+		<!-- 원래 중복확인 이었는데 이메일 인증방식으로 바꿀거야 -->
+		<input type="button" id="id_check" value="중복 확인">
 		<div id="id_msg"></div></td></tr>
-		<tr><td>password</td><td><input name="password" type="password" id="password">
+		
+		<tr><td>비밀번호</td><td><input name="password" type="password" id="password" placeholder="비밀번호">
 		<div id="pw_msg"></div></td></tr>
-		<tr><td>name</td><td><input name="name" id="name">
+		
+		<tr><td>이름</td><td><input name="name" id="name" placeholder="이름">
 		<div id="name_msg"></div></td></tr>
+		
 		<tr><td>email</td><td><input name="email" id="email">
 		<div id="emailresult"></div>
 		<input type="button" id="mail_ck" value="메일 인증">
+		
 		<div id="input"><input id="ck_num"> <input type="button" id="ck_b" value="인증 확인"></div>
 		<div id="result"></div>
 		</td></tr>

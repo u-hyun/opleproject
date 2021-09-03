@@ -61,7 +61,7 @@ public class MemberController {
 		if(findMember != null && findMember.getMemberPw().equals(member.getMemberPw())) {
 			model.addAttribute("member", findMember);
 			//getBoardList대신 메인페이지 경로로 바꿔줄 것
-			return "redirect:mainPage";
+			return "redirect:index.html";
 		}else {
 			return "redirect:loginform";
 		}
@@ -74,10 +74,22 @@ public class MemberController {
 		return "redirect:index.html";		
 	}
 	
+	@PostMapping("/updateForm")
+	public String update(@ModelAttribute("member") Member member) {
+		memberService.saveMember(member);
+		return "redirect:index.html";
+	}
 	
-	
-	
-	
-	
+	@GetMapping("/deleteMember")
+	public String delete(@ModelAttribute("model") Member member, String password, SessionStatus status) {
+		Member findMember = memberService.getMember(member);
+		if(findMember != null && findMember.getMemberPw().equals(password)) {
+			status.setComplete();
+			memberService.delete(member);
+		}else {
+			return "redirect:/updateForm";
+		}
+		return "redirect:index.html";
+	}
 	
 }
