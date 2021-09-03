@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+import com.ople.domain.Member;
 import com.ople.search.album.ImageSearchResult;
+import com.ople.search.musicbrainz.AliasSearchResult;
 import com.ople.search.musicbrainz.RecordingSearchResult;
 import com.ople.search.musicbrainz.Recordings;
 import com.ople.search.youtube.YoutubeSearchResult;
@@ -31,17 +33,29 @@ public class SearchController {
 	 **************/
 	@RequestMapping("/searchResult")	// keyword 검색어를 GET으로 받아옴
 	public String searchResult(Model m, 
-							@RequestParam String type, 
-							@RequestParam String keyword) {
+					@RequestParam String type, 
+					@RequestParam String keyword) {
 		m.addAttribute("keyword", keyword);
 		m.addAttribute("type", type);
+		
+		/*
+		 곡 검색 
+		 */
 		
 		// REST로 MusicBrainz API에서 곡 정보를 JSON으로 받아옴
 		String mbQueryUrl = "";
 		if(type.equals("song")) {
+			keyword = keyword.replaceAll(" ", "-");
 			mbQueryUrl = "https://musicbrainz.org/ws/2/recording/?query=recording:"
 					+ keyword + "&fmt=json";
 		} else if (type.equals("artist")) {
+			if(keyword.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
+				AliasSearchResult aliasSearchResult = 
+						restTemplate.getForObject("https://musicbrainz.org/ws/2/artist/?query=alias:" + keyword + "&fmt=json", 
+								AliasSearchResult.class);
+				keyword = aliasSearchResult.getArtists().get(0).getName();
+			}
+			keyword = keyword.replaceAll(" ", "-");
 			mbQueryUrl = "https://musicbrainz.org/ws/2/recording/?query=artist:"
 					+ keyword + "&fmt=json";
 		}
@@ -51,6 +65,7 @@ public class SearchController {
 		for(Recordings recording : recordingSearchResult.getRecordings()) {
 			// 앨범커버 가져오기: MB API의 Release ID -> 
 			// Cover Art Archive API 사용해 앨범커버 이미지 URL 받아옴
+			/*
 			try {
 				String release = recording.getReleases().get(0).getId();
 				
@@ -65,8 +80,16 @@ public class SearchController {
 				e.printStackTrace();
 				recording.setImageUrl("blank");
 			}
+			*/
+			// 임시 
+			if (recording != null) {
+			String release = recording.getReleases().get(0).getId();
+			recording.setImageUrl(release);
+			}
 			
 			// 유튜브 링크 가져오기
+			
+			/*
 			try {
 				String title = recording.getTitle();
 				String artist = recording.getArtistcredit().get(0).getName();
@@ -80,9 +103,20 @@ public class SearchController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			*/
+			recording.setVideoId(recording.getTitle() + "_" + recording.getArtistcredit().get(0).getName()); //임시
+			
 		}
 		
 		m.addAttribute("recordingSearchResult", recordingSearchResult);
+		
+		/*
+		 유저 검색
+		 */
+		/*
+		List<Member> memberSearchResult = memberService.findByMemberNicknameContainingIgnoreCase(keyword);
+		m.addAttribute(memberSearchResult);
+		*/
 		
 		return "searchResult";
 	}
