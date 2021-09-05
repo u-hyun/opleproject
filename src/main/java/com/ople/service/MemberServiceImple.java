@@ -16,7 +16,7 @@ public class MemberServiceImple implements MemberService {
 
 	@Override
 	public Member saveMember(Member member) {
-		return null;
+		return memberRepo.save(member);
 	}
 
 	@Override
@@ -29,8 +29,8 @@ public class MemberServiceImple implements MemberService {
 	}
 
 	@Override
-	public Optional<Member> findMember(String id) {
-		Optional<Member> member = memberRepo.findById(id);
+	public Optional<Member> findMember(String memberId) {
+		Optional<Member> member = memberRepo.findById(memberId);
 		return null;
 	}
 

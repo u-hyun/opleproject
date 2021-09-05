@@ -11,15 +11,15 @@
 <h1>회원 가입</h1>
 <form action="/join" method="post" id="joinForm">
 	<table >
-		<tr><td>아이디</td><td><input name="id" id="id" placeholder="이메일">
+		<tr><td>아이디</td><td><input name="memberId" id="memberId" placeholder="이메일">
 		<!-- 원래 중복확인 이었는데 이메일 인증방식으로 바꿀거야 -->
 		<input type="button" id="id_check" value="중복 확인">
 		<div id="id_msg"></div></td></tr>
 		
-		<tr><td>비밀번호</td><td><input name="password" type="password" id="password" placeholder="비밀번호">
+		<tr><td>비밀번호</td><td><input name="memberPw" id="memberPw" type="password" placeholder="비밀번호">
 		<div id="pw_msg"></div></td></tr>
 		
-		<tr><td>이름</td><td><input name="name" id="name" placeholder="이름">
+		<tr><td>이름</td><td><input name="memberName" id="memberName" placeholder="이름">
 		<div id="name_msg"></div></td></tr>
 		
 		<tr><td>email</td><td><input name="email" id="email">
@@ -39,13 +39,13 @@
 	$(function(){
 		
 		$("#id_check").click(function(){
-			let id = $("#id").val();	
-			if(!id){
+			let memberId = $("#memberId").val();	
+			if(!memberId){
 				$("#id_msg").html("아이디를 입력하세요");
 				return false;
 			}
 			$.ajax({url:"/check_id",
-			 	data:"id="+id,
+			 	data:"memberId="+memberId,
 				dataType:"text"}
 			).done(function(data){
 				if(data == ""){
@@ -85,13 +85,13 @@
 		})
 		
 		$("#joinForm").submit(function(){
-			if(!$("#id").val()){
+			if(!$("#memberId").val()){
 				$("#id_msg").html("아이디를 입력해야 합니다.")
 				return false;
-			}if(!$("#password").val()){
+			}if(!$("#memberPw").val()){
 				$("#pw_msg").html("비밀번호를 입력해야 합니다.")
 				return false;
-			}if(!$("#name").val()){
+			}if(!$("#memberName").val()){
 				$("#name_msg").html("이름를 입력해야 합니다.")
 				return false;
 			}if(!$("#email").val()){

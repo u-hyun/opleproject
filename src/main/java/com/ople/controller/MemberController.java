@@ -34,9 +34,9 @@ public class MemberController {
 	
 	@RequestMapping("/check_id")
 	@ResponseBody
-	public String check_id(String id) {
+	public String check_id(String memberId) {
 	
-		Optional<Member> member = memberService.findMember(id);
+		Optional<Member> member = memberService.findMember(memberId);
 		Member mem =  member.orElse(new Member());
 		return mem.getMemberId();//값이 없으면(null) ""로 전송된다.
 	}

@@ -14,10 +14,10 @@
 <form action="login" method="post">
 <table align="center" cellpadding="0" cellspacint="0">
 <tr>
-	<td><input name="id" type="text" size="20" placeholder="아이디"></td>
+	<td><input name="memberId" type="text" size="20" placeholder="아이디"></td>
 </tr>
 <tr>
-	<td><input name="password" type="password" size="20" placeholder="비밀번호"></td>
+	<td><input name="memberPw" type="password" size="20" placeholder="비밀번호"></td>
 </tr>
 <tr>
 	<td colspan="2" align="center"><input type="submit" value="로그인"></td>  

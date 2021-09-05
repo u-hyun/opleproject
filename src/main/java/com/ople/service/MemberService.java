@@ -9,7 +9,7 @@ public interface MemberService {
 
 	Member getMember(Member member);
 
-	Optional<Member> findMember(String id);
+	Optional<Member> findMember(String memberId);
 
 	void delete(Member member);
 
