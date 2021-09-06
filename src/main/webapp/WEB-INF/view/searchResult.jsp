@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>검색 결과</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 
@@ -33,6 +34,8 @@
 		<tr><td>
 			<input type="button" class="playbutton" id="${recording.videoId }" value="재생"/>
 			<span class="video" id="${recording.videoId }"></span>
+		</td><td>
+			<input type="button" class="addplaylistbutton" id="${recording.id}" value="플레이리스트에 추가" />
 		</td></tr>
 	</c:forEach>
 </table>
@@ -49,8 +52,12 @@
 </table>
 <hr>
 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script type="text/javascript">
 $(function(){
 	
 	// 앨범커버 가져오기
@@ -111,7 +118,21 @@ $(function(){
 			}
 		});
 	});
+	
+	
+	$('.addplaylistbutton').click(function(){
+		$('#MoaModal .modal-content').load("addPlaylistModal?id=" + $(this).attr('id'));
+		$('#MoaModal').modal('show');
+	});
 });
 </script>
+
+<!-- 모달 -->
+<div class="modal fade" id="MoaModal" tabindex="-1" role="dialog" aria-labelledby="historyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
 </body>
 </html>
