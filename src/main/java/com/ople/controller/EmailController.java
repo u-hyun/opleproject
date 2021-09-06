@@ -20,8 +20,8 @@ public class EmailController {
 		
 		EmailVO email = new EmailVO();
 		
-		String receiver = "opleteam4@gmail.com"; //Receiver
-		String subject = "Email 제목";
+		String receiver = emailAddress; //(Receiver) opleteam4@gmail.com 
+		String subject = "Ople 인증번호";
 		String number = makeRandom();
 		String content = "인증 번호는 " + number + "입니다.";
 		
@@ -43,6 +43,5 @@ public class EmailController {
 		System.out.println("number: " + number);
 		return number;
 	}
-	
 
 }

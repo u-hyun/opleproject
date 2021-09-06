@@ -31,7 +31,7 @@ public class MemberServiceImple implements MemberService {
 	@Override
 	public Optional<Member> findMember(String memberId) {
 		Optional<Member> member = memberRepo.findById(memberId);
-		return null;
+		return member;
 	}
 
 	@Override

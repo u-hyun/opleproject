@@ -6,6 +6,7 @@
 <style type="text/css">
 	a{text-decoration: none; color: gray;}
 	h4{width: ; }
+	div{font-size: 5px; }
 </style>
 </head>
 <body>
@@ -24,7 +25,7 @@
 </tr>
 <tr>
 	<td>
-		<a href="/findAccountView">아이디/비밀번호찾기</a> <a href="/joinView">회원 가입</a>
+		<div><a href="/findAccountView">아이디/비밀번호찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/joinView">회원 가입</a></div>
 	</td>
 </tr>
 </table>

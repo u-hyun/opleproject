@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>회원 가입</title>
+<title>Ople : 회원 가입</title>
 <style>
 	#input , #result{ display: none;}
 </style>
@@ -11,8 +11,10 @@
 <h1>회원 가입</h1>
 <form action="/join" method="post" id="joinForm">
 	<table >
-		<tr><td>아이디</td><td><input name="memberId" id="memberId" placeholder="이메일">
-		<!-- 원래 중복확인 이었는데 이메일 인증방식으로 바꿀거야 -->
+		<tr><td>아이디</td><td>
+		<input type="email" name="memberId" id="memberId" placeholder="이메일">
+		<!-- 원래 중복확인 이었는데 이메일 인증방식 추가 -->
+		
 		<input type="button" id="id_check" value="중복 확인">
 		<div id="id_msg"></div></td></tr>
 		
@@ -39,6 +41,17 @@
 	$(function(){
 		
 		$("#id_check").click(function(){
+			
+			//
+			let emailVal = $("#memberId").val();
+			let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			if(emailVal.match(regExp) == null){
+				$("#id_msg").html("올바른 이메일 형식이 아닙니다.")
+				return false;
+			}else{
+			}
+			//
+			
 			let memberId = $("#memberId").val();	
 			if(!memberId){
 				$("#id_msg").html("아이디를 입력하세요");
@@ -56,6 +69,8 @@
 				}
 			})
 		});
+		
+		
 		 $("#mail_ck").click(function(){
 			 let email = $("#email").val();
 			if(!email){
