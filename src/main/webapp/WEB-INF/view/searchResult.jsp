@@ -77,7 +77,7 @@ $(function(){
 		var videoId = "";
 		$.ajax({
 			type: "GET",
-			url: "https://youtube.googleapis.com/youtube/v3/search?part=id&maxResults=1"
+			url: "https://youtube.googleapis.com/youtube/v3/search?part=id&maxResults=1&"
 				+ "q=" + youtubeQuery
 				+ "&key=AIzaSyCF96w0RUlRG5gCKGBC_4NvP3UL4Rg0Kzs",
 			dataType: "JSON",
