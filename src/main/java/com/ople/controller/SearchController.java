@@ -128,12 +128,23 @@ public class SearchController {
 	@RequestMapping("/addPlaylistModal")
 	public String showModal(HttpServletRequest request, Model m, @RequestParam String id) {
 		HttpSession session = request.getSession();
-		session.setAttribute("member", "테스트 아이디");		// 테스트
-		if(session.getAttribute("member") != null) {
+		
+		/*
+		 테스트용
+		 */
+		Member testMember = new Member();
+		testMember.setMemberId("테스트아이디123");
+		session.setAttribute("member", testMember);
+		// 이곳에 테스트할 값들을 setAttribute로 추가하시면 됩니다.
+		/*
+		 테스트용 끝
+		 */
+		
+		if(session.getAttribute("member") != null) {	// 세션에 로그인이 돼 있을 때
 			m.addAttribute("member", session.getAttribute("member"));
 			m.addAttribute("id", id);
 			return "addPlaylistModal";
-		} else {
+		} else {	// 세션에 로그인이 안 돼 있을 때 -> 로그인 창으로
 			return "loginModal";
 		}
 	}
