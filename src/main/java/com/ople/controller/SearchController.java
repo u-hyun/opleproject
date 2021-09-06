@@ -128,9 +128,9 @@ public class SearchController {
 	@RequestMapping("/addPlaylistModal")
 	public String showModal(HttpServletRequest request, Model m, @RequestParam String id) {
 		HttpSession session = request.getSession();
-		session.setAttribute("memberId", "테스트 아이디");		// 테스트
-		if(session.getAttribute("memberId") != null) {
-			m.addAttribute("memberId", session.getAttribute("memberId").toString());
+		session.setAttribute("member", "테스트 아이디");		// 테스트
+		if(session.getAttribute("member") != null) {
+			m.addAttribute("member", session.getAttribute("member"));
 			m.addAttribute("id", id);
 			return "addPlaylistModal";
 		} else {
