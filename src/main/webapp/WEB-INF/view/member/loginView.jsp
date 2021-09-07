@@ -4,16 +4,20 @@
 <head>
 <title>Ople : 로그인</title>
 <style type="text/css">
+	h4{text-align: center;}
 	a{text-decoration: none; color: gray;}
-	h4{width: ; }
 	div{font-size: 5px; }
+	#table1{text-align: center; margin: auto;}
+	
+}
+	
 </style>
 </head>
 <body>
 <br><br><br><br>
-<h4 align="center" >로그인하고 당신만의 리스트를 확인하세요!</h4>
+<h4>로그인하고 당신만의 리스트를 확인하세요!</h4>
 <form action="login" method="post">
-<table align="center" cellpadding="0" cellspacint="0">
+<table id="table1">
 <tr>
 	<td><input name="memberId" type="text" size="20" placeholder="아이디"></td>
 </tr>
@@ -25,7 +29,7 @@
 </tr>
 <tr>
 	<td>
-		<div><a href="/findAccountView">아이디/비밀번호찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/joinView">회원 가입</a></div>
+		<div><a href="/findAccountView">아이디/비밀번호찾기</a>&emsp;&emsp;&emsp;&emsp;<a href="/joinView">회원 가입</a></div>
 	</td>
 </tr>
 </table>
