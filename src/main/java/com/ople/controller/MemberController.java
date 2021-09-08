@@ -1,5 +1,7 @@
 package com.ople.controller;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +48,8 @@ public class MemberController {
 	
 	@PostMapping("/join")
 	public String join(Member member, Model m) {
+		Date today = java.sql.Timestamp.valueOf(LocalDateTime.now());
+		member.setJoinDate(today);
 		Member mem = memberService.saveMember(member);
 		
 		return "redirect:loginform";

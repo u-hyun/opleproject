@@ -19,7 +19,7 @@
 		<input type="button" id="id_check" value="인증">&emsp;&emsp;
 		<div id="id_msg"></div></td>
 		<td>
-		<div><input id="ck_num"><input type="button" id="ck_b" value="인증 확인"></div>
+		<div><input id="ck_num" placeholder="인증번호"><input type="button" id="ck_b" value="확인"></div>
 		<div id="result"></div></td>
 		</tr>
 		
@@ -43,7 +43,7 @@
 		<tr>
 		<td><input name="memberName" id="memberName" placeholder="이름">
 		<div id="name_msg"></div></td>
-		<td><input name="birthday" id="birthday" placeholder="yyyy/MM/dd">
+		<td><input type="date" name="birthday" id="birthday">
 		</tr>
 		
 		<tr>
@@ -53,12 +53,12 @@
 		<tr>
 		<td><input name="memberNickname" id="memberNickname" placeholder="닉네임"></td>
 		<td>
-		<input type="radio" name="gender" value="male">남성
-		<input type="radio" name="gender" value="female">여성
+		<input type="radio" name="gender" value="m">남성
+		<input type="radio" name="gender" value="f">여성
 		</td>
 		
 		<tr><td>프로필</td></tr>
-		<tr><td colspan="2"><textarea rows="5" cols="60" placeholder="소개글을 입력하세요"></textarea></td>
+		<tr><td colspan="2"><textarea rows="5" cols="60" placeholder="소개글을 입력하세요" name="profileComment"></textarea></td>
 		
 		<tr><td>관심있는 장르</td></tr>
 		<tr>
@@ -89,10 +89,11 @@
 		</tr>		
 		
 		
-		
-		<tr><td colspan="2" align="center"><input type="submit" value="가입"></td></tr>
+		<tr>
+		<td colspan="2" align="center"><input type="submit" value="가입">&emsp;
+		<input type="button" value="취소" onclick="history.back()"></td>
+		</tr>
 	</table>
-	
 </form>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -103,8 +104,8 @@
 		$("#id_check").click(function(){
 			
 			let emailVal = $("#memberId").val();
-			let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-			if(emailVal.match(regExp) == null){
+			let emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			if(emailVal.match(emailReg) == null){
 				$("#id_msg").html("올바른 이메일 형식이 아닙니다.")
 				return false;
 			}else{
@@ -121,7 +122,7 @@
 				dataType:"text"}
 			).done(function(data){
 				if(data == ""){
-					$("#id_msg").html("사용할 수 있는 아이디 입니다.")
+					$("#id_msg").html("인증번호가 전송되었습니다.")
 					$("#id_msg").append("<input type='hidden' id='id_ck' value='1'>");
 				}else{
 					$("#id_msg").html("이미 사용중인 아이디 입니다.")
@@ -134,7 +135,6 @@
 				).done(function(data){
 					if(eval(data[1])){
 						num = data[0];
-						alert("메일이 전송되었습니다. 인증번호를 입력하세요.")
 						$("#input,#result").css("display","block");
 					}
 				}); 
@@ -148,20 +148,34 @@
 					$("#result").html("인증 실패했습니다. 다시 확인하세요.");
 				}
 		});
-	
+		
 		
 		$("#joinForm").submit(function(){
+			
+			/* 생년월일
+			let birthdayVal = $("#birthday").val();
+			let birthdayReg = /^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/;
+			 */
+			 
 			if(!$("#memberId").val()){
 				$("#id_msg").html("아이디를 입력해야 합니다.")
 				return false;
 			}if(!$("#memberPw").val()){
 				$("#pw_msg").html("비밀번호를 입력해야 합니다.")
 				return false;
-			}if(!$("#memberPw2").val() != !$("#memberPw").val()){
+			}if($("#memberPw2").val() != $("#memberPw").val()){
 				$("#pw_msg2").html("비밀번호가 일치하지 않습니다.")
+				return false;
 			}if(!$("#memberName").val()){
 				$("#name_msg").html("이름를 입력해야 합니다.")
 				return false;
+				
+			/* 생년월일
+			}if(birthdayVal.match(birthdayReg) == null){
+				$("#birthday_msg").html("올바른 형식이 아닙니다")
+				return false;
+			*/
+				
 			}if($("#id_ck").val() != 1){
 				$("#id_msg").html("아이디 중복 체크 하셔야 합니다.")
 				return false;

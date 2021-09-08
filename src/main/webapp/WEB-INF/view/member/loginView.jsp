@@ -29,7 +29,7 @@
 </tr>
 <tr>
 	<td>
-		<div><a href="/findAccountView">아이디/비밀번호찾기</a>&emsp;&emsp;&emsp;&emsp;<a href="/joinView">회원 가입</a></div>
+		<div><a href="/findAccountView">비밀번호찾기</a>&emsp;&emsp;&emsp;&emsp;<a href="/joinView">회원 가입</a></div>
 	</td>
 </tr>
 </table>
