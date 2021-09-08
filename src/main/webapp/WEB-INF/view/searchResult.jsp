@@ -10,14 +10,19 @@
 </head>
 <body>
 
-<form action="searchResult">
-	<select name="type" id="type">
-		<option value="song" ${type == 'song' ? 'selected' : ''}>곡 검색</option>
-		<option value="artist" ${type == 'artist' ? 'selected' : ''}>아티스트 검색</option>
-	</select>
-	<input name="keyword" value="${keyword}">  <input type="submit" value="검색">
-</form>
+<div class="menu_div" style="float:left; width: 15%;">
+</div>
+<div class="collapse" id="searchbar_div" style="height:15%;">
+	<form action="searchResult">
+		<select name="type" id="type">
+			<option value="song" ${type == 'song' ? 'selected' : ''}>곡 검색</option>
+			<option value="artist" ${type == 'artist' ? 'selected' : ''}>아티스트 검색</option>
+		</select>
+		<input name="keyword" value="${keyword}" size="50">  <input type="submit" value="검색">
+	</form>
+</div>
 
+<div class="main" style="padding:30px">
 <h3>노래 ${recordingSearchResult.count}건 ><br></h3>
 <table>
 	<c:forEach items="${recordingSearchResult.recordings }" var="recording">
@@ -40,6 +45,7 @@
 	</c:forEach>
 </table>
 <hr>
+</div>
 <!-- 
 <h3>유저 ${memberSearchResult.count}건 ><br></h3>
 <table>
@@ -59,6 +65,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(function(){
+	
+	$('.menu_div').load("menu");
 	
 	// 앨범커버 가져오기
 	$('.albumcover').each(function(i, obj) {

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="modal-header">
-	<h5 class="modal-title" id="historyModalLabel">${member.memberId}님 플레이리스트에 추가: ${id}</h5>
+	<h5 class="modal-title" id="historyModalLabel">${member.memberId}님 플레이리스트에 추가: ${recording.title}</h5>
 	<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 		<span aria-hidden="true">x</span>
 	</button>

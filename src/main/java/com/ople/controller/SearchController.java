@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import com.ople.domain.Member;
 import com.ople.search.album.ImageSearchResult;
 import com.ople.search.musicbrainz.AliasSearchResult;
+import com.ople.search.musicbrainz.Recording;
 import com.ople.search.musicbrainz.RecordingSearchResult;
 import com.ople.search.musicbrainz.Recordings;
 import com.ople.search.youtube.YoutubeSearchResult;
@@ -143,10 +144,23 @@ public class SearchController {
 		if(session.getAttribute("member") != null) {	// 세션에 로그인이 돼 있을 때
 			m.addAttribute("member", session.getAttribute("member"));
 			m.addAttribute("id", id);
+			Recording recording = 
+					restTemplate.getForObject("https://musicbrainz.org/ws/2/recording/" + id, Recording.class);
+			m.addAttribute("recording", recording);
 			return "addPlaylistModal";
 		} else {	// 세션에 로그인이 안 돼 있을 때 -> 로그인 창으로
 			return "loginModal";
 		}
+	}
+	
+	@RequestMapping("/menu")
+	public String loadMenu() {
+		return "menu";
+	}
+	
+	@RequestMapping("searchbarModal")
+	public String loadSearchbar() {
+		return "searchbarModal";
 	}
 	
 }
