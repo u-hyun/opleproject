@@ -1,8 +1,11 @@
 package com.ople.search.musicbrainz;
 
+import java.util.List;
+
 public class Artists {
 	String id;
 	String name;
+	List<Aliases> aliases;
 	public String getId() {
 		return id;
 	}
@@ -14,6 +17,12 @@ public class Artists {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public List<Aliases> getAliases() {
+		return aliases;
+	}
+	public void setAliases(List<Aliases> aliases) {
+		this.aliases = aliases;
 	}
 	
 }

@@ -41,4 +41,9 @@ public class MemberServiceImple implements MemberService {
 
 	}
 
+	@Override
+	public Member getMemberById(String memberId) {
+		return memberRepo.findByMemberId(memberId);
+	}
+
 }

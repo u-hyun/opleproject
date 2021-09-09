@@ -12,5 +12,7 @@ public interface MemberService {
 	Optional<Member> findMember(String memberId);
 
 	void delete(Member member);
+	
+	Member getMemberById(String memberId);
 
 }

@@ -19,11 +19,10 @@ public class PlaylistTrack implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="ROWID")
-	private String rowid;	// Primary Key 가 없는 테이블이므로 열 번호 (rowid)를 PK로 씀
-	private String memberId;
+	private String playlistTrackId;
+	private String memberid;
 	private Long playlistId;
-	private Long order;
+	private Long listOrder;
 	private Long trackId;
    
 }

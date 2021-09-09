@@ -27,6 +27,12 @@
 					<td class="text-center">새 플레이리스트 만들기</td>
 					<td class="text-center"><input type="button" value="추가"></td>
 				</tr>
+				<c:forEach items="${playlists}" var="playlist">
+				<tr class="content" style="font-size: 12px;">
+					<td class="text-center">${playlist.playlistName}</td>
+					<td class="text-center"><input type="button" value="추가"></td>
+				</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

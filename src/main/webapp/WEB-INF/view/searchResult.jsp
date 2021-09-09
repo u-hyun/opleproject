@@ -10,14 +10,14 @@
 </head>
 <body>
 
-<div class="menu_div" style="float:left; width: 15%;">
+<div class="menu_div" style="float:left; width: 200px;">
 </div>
 <div class="collapse" id="searchbar_div" style="height:15%;">
 	<form action="searchResult">
-		<select name="type" id="type">
+		<%-- <select name="type" id="type">
 			<option value="song" ${type == 'song' ? 'selected' : ''}>곡 검색</option>
 			<option value="artist" ${type == 'artist' ? 'selected' : ''}>아티스트 검색</option>
-		</select>
+		</select> --%>
 		<input name="keyword" value="${keyword}" size="50">  <input type="submit" value="검색">
 	</form>
 </div>

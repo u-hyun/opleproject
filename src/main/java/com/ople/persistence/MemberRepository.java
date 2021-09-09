@@ -7,5 +7,5 @@ import com.ople.domain.Member;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, String> {
-
+	Member findByMemberId(String memberId);
 }

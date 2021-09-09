@@ -15,18 +15,31 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 
 import com.ople.domain.Member;
+import com.ople.domain.Playlist;
 import com.ople.search.album.ImageSearchResult;
 import com.ople.search.musicbrainz.AliasSearchResult;
+import com.ople.search.musicbrainz.Aliases;
+import com.ople.search.musicbrainz.Artists;
 import com.ople.search.musicbrainz.Recording;
 import com.ople.search.musicbrainz.RecordingSearchResult;
 import com.ople.search.musicbrainz.Recordings;
 import com.ople.search.youtube.YoutubeSearchResult;
+import com.ople.service.MemberService;
+import com.ople.service.PlaylistService;
+import com.ople.service.PlaylistTrackService;
 
 @Controller
 public class SearchController {
 	
 	@Autowired
 	RestTemplate restTemplate;
+	
+	@Autowired
+	MemberService memberService;
+	@Autowired
+	PlaylistService playlistService;
+	@Autowired
+	PlaylistTrackService playlistTrackService;
 	
 	@RequestMapping("/search")
 	public String search() {
@@ -38,55 +51,62 @@ public class SearchController {
 	 **************/
 	@RequestMapping("/searchResult")	// keyword 검색어를 GET으로 받아옴
 	public String searchResult(Model m, 
-					@RequestParam String type, 
 					@RequestParam String keyword) {
 		m.addAttribute("keyword", keyword);
-		m.addAttribute("type", type);
-		
 		/*
 		 곡 검색 
 		 */
 		
-		// REST로 MusicBrainz API에서 곡 정보를 JSON으로 받아옴
-		String mbQueryUrl = "";
-		if(type.equals("song")) {
-			keyword = keyword.replaceAll(" ", "-");
-			mbQueryUrl = "https://musicbrainz.org/ws/2/recording/?query=recording:"
-					+ keyword + "&fmt=json";
-		} else if (type.equals("artist")) {
-			if(keyword.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
-				AliasSearchResult aliasSearchResult = 
-						restTemplate.getForObject("https://musicbrainz.org/ws/2/artist/?query=alias:" + keyword + "&fmt=json", 
-								AliasSearchResult.class);
-				keyword = aliasSearchResult.getArtists().get(0).getName();
+		// 검색어 정리 - 한글 처리
+		List<String> queries = new ArrayList<>();
+		queries.add(keyword);
+		String[] splitKeywords = keyword.split(" ");
+		List<Artists> artists;
+		if(keyword.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {	// 한글 단어가 존재할시 키워드로 alias 검색
+			AliasSearchResult aliasSearchResult = 
+					restTemplate.getForObject("https://musicbrainz.org/ws/2/artist/?query=alias:" + keyword + "&fmt=json", 
+							AliasSearchResult.class);
+			artists = aliasSearchResult.getArtists();	// alias 검색 결과: artist가 여러명이 있을 수 있고,
+			if(artists != null) {
+				for(Artists artist : artists) {				// 각 artist별로 여러개의 alias가 있을 수 있음.
+					if(artist.getAliases() != null) {		// 각 artist의 각 alias를 확인해 검색어에 포함돼있을시
+						for(Aliases alias : artist.getAliases()) {	// 해당 alias를 가진 artist의 영문명을 한글 alias와 교체해 쿼리 리스트에 추가
+							if(keyword.contains(alias.getName())) {	// 검색은 쿼리 리스트 안의 항목들을 OR연산자로 구분해 함.
+								queries.add(keyword.replace(alias.getName(), artist.getName()));
+							}
+						}
+					}
+				}
 			}
-			keyword = keyword.replaceAll(" ", "-");
-			mbQueryUrl = "https://musicbrainz.org/ws/2/recording/?query=artist:"
-					+ keyword + "&fmt=json";
 		}
+		// 쿼리 리스트를 포매팅해 한줄의 쿼리문으로 만듬
+		// 한 쿼리 안에 있는 단어들끼리는 AND 연산자,
+		// 각 쿼리들 사이에는 OR 연산자로 구분함.
+		String fmtQuery = "";
+		for(int i = 0; i < queries.size(); i++) {
+			fmtQuery += "(";
+			String[] splitQuery = queries.get(i).split(" ");
+			for(int j = 0; j < splitQuery.length; j++) {
+				fmtQuery += "\"" + splitQuery[j] + "\"";
+				if(j < (splitQuery.length - 1)) // 마지막 항목이 아니라면
+					fmtQuery += "AND";
+			}
+			fmtQuery += ")";
+			if(i < (queries.size() - 1))	// 마지막 항목이 아니라면
+				fmtQuery += "OR";
+		}
+		
+		List<RecordingSearchResult> searchResults = new ArrayList<>();
+		String mbQueryUrl = "";
+		/* keyword = keyword.replaceAll(" ", "-"); */
+		mbQueryUrl = "https://musicbrainz.org/ws/2/recording/?query="
+				+ fmtQuery + "&fmt=json";
+		System.out.println(mbQueryUrl);
 		RecordingSearchResult recordingSearchResult = 
 				restTemplate.getForObject(mbQueryUrl, RecordingSearchResult.class);
 		// MB API에서 받아온 곡 하나씩 처리: 앨범커버 + 유튜브 링크
 		for(Recordings recording : recordingSearchResult.getRecordings()) {
-			// 앨범커버 가져오기: MB API의 Release ID -> 
-			// Cover Art Archive API 사용해 앨범커버 이미지 URL 받아옴
-			/*
-			try {
-				String release = recording.getReleases().get(0).getId();
-				
-				// Cover Art Archive API 호출
-				ImageSearchResult imageSearchResult =
-						restTemplate.getForObject("https://coverartarchive.org/release/" 
-								+ release, ImageSearchResult.class);
-				String imageUrl = imageSearchResult.getImages().get(0).getThumbnails().getThumbnailUrl();
-				recording.setImageUrl(imageUrl);
-				
-			} catch(Exception e) {	// 앨범 커버를 찾지 못한 경우
-				e.printStackTrace();
-				recording.setImageUrl("blank");
-			}
-			*/
-			// 임시 
+			
 			if (recording != null) {
 			String release = recording.getReleases().get(0).getId();
 			recording.setImageUrl(release);
@@ -133,20 +153,22 @@ public class SearchController {
 		/*
 		 테스트용
 		 */
-		Member testMember = new Member();
-		testMember.setMemberId("테스트아이디123");
-		session.setAttribute("member", testMember);
+		Member testmember = memberService.getMemberById("test@test.com");
+		session.setAttribute("member", testmember);
 		// 이곳에 테스트할 값들을 setAttribute로 추가하시면 됩니다.
 		/*
 		 테스트용 끝
 		 */
 		
 		if(session.getAttribute("member") != null) {	// 세션에 로그인이 돼 있을 때
-			m.addAttribute("member", session.getAttribute("member"));
+			Member member = (Member)session.getAttribute("member");
+			m.addAttribute("member", member);
 			m.addAttribute("id", id);
 			Recording recording = 
 					restTemplate.getForObject("https://musicbrainz.org/ws/2/recording/" + id, Recording.class);
 			m.addAttribute("recording", recording);
+			List<Playlist> playlists = playlistService.getPlaylistById(member.getMemberId());
+			m.addAttribute("playlists", playlists);
 			return "addPlaylistModal";
 		} else {	// 세션에 로그인이 안 돼 있을 때 -> 로그인 창으로
 			return "loginModal";
