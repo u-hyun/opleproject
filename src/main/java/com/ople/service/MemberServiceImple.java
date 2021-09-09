@@ -40,4 +40,9 @@ public class MemberServiceImple implements MemberService {
 
 	}
 
+	@Override
+	public Member getNickname(Member member) {
+		return null;
+	}
+
 }

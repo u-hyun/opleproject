@@ -37,6 +37,11 @@ public class MemberController {
 		return "member/joinView";
 	}
 	
+	@GetMapping("/mypageView")
+	public String mypageView() {
+		return "member/mypageView";
+	}
+	
 	@RequestMapping("/check_id")
 	@ResponseBody
 	public String check_id(String memberId) {
@@ -64,11 +69,10 @@ public class MemberController {
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request, Member member, Model model) {
 		Member findMember = memberService.getMember(member);
-		
 		if(findMember != null && findMember.getMemberPw().equals(member.getMemberPw())) {
 			model.addAttribute("member", findMember);
-			HttpSession session = request.getSession();
-			session.setAttribute("member", findMember);
+//			HttpSession session = request.getSession();
+//			session.setAttribute("member", findMember);
 			//getBoardList대신 메인페이지 경로로 바꿔줄 것
 			return "redirect:index.html";
 		}else {

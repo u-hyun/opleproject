@@ -12,5 +12,8 @@ public interface MemberService {
 	Optional<Member> findMember(String memberId);
 
 	void delete(Member member);
+	
+	//마이페이지에서 저장된 닉네임 불러오기
+	Member getNickname(Member member);
 
 }

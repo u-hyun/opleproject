@@ -58,7 +58,7 @@
 		</td>
 		
 		<tr><td>프로필</td></tr>
-		<tr><td colspan="2"><textarea rows="5" cols="60" placeholder="소개글을 입력하세요" name="profileComment"></textarea></td>
+		<tr><td colspan="2"><textarea rows="5" cols="60" placeholder="소개글을 입력하세요" name="profileComment" id="profileComment"></textarea></td>
 		
 		<tr><td>관심있는 장르</td></tr>
 		<tr>
