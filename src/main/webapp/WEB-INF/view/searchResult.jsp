@@ -10,14 +10,10 @@
 </head>
 <body>
 
-<div class="menu_div" style="float:left; width: 200px;">
+<div class="menu_div" style="float:left; width: 200px; height: 100%; ">
 </div>
 <div class="collapse" id="searchbar_div" style="height:15%;">
 	<form action="searchResult">
-		<%-- <select name="type" id="type">
-			<option value="song" ${type == 'song' ? 'selected' : ''}>곡 검색</option>
-			<option value="artist" ${type == 'artist' ? 'selected' : ''}>아티스트 검색</option>
-		</select> --%>
 		<input name="keyword" value="${keyword}" size="50">  <input type="submit" value="검색">
 	</form>
 </div>
@@ -46,8 +42,8 @@
 </table>
 <hr>
 </div>
-<!-- 
-<h3>유저 ${memberSearchResult.count}건 ><br></h3>
+
+<h3>유저 ${memberSearchResult.size()}건 ><br></h3>
 <table>
 	<c:forEach items="${memberSearchResult}" var="member">
 	<tr>
@@ -57,7 +53,7 @@
 	</c:forEach>
 </table>
 <hr>
--->
+
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

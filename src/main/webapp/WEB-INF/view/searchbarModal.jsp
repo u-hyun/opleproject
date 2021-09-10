@@ -8,6 +8,7 @@
 			<option value="artist">아티스트 검색</option>
 		</select>
 		<input name="keyword"/>
-		<input type="submit" value="검색"/>
+		<input id="searchBtn" type="submit" value="검색"/>
 	</form>
 </div>
+

@@ -41,6 +41,11 @@ public class SearchController {
 	@Autowired
 	PlaylistTrackService playlistTrackService;
 	
+	@RequestMapping("/")
+	public String mainPage() {
+		return "main";
+	}
+	
 	@RequestMapping("/search")
 	public String search() {
 		return "search";
@@ -53,6 +58,8 @@ public class SearchController {
 	public String searchResult(Model m, 
 					@RequestParam String keyword) {
 		m.addAttribute("keyword", keyword);
+		List<Member> memberSearchResult = memberService.findByMemberNicknameContainingIgnoreCase(keyword);
+		m.addAttribute("memberSearchResult", memberSearchResult);
 		/*
 		 곡 검색 
 		 */
@@ -60,7 +67,6 @@ public class SearchController {
 		// 검색어 정리 - 한글 처리
 		List<String> queries = new ArrayList<>();
 		queries.add(keyword);
-		String[] splitKeywords = keyword.split(" ");
 		List<Artists> artists;
 		if(keyword.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {	// 한글 단어가 존재할시 키워드로 alias 검색
 			AliasSearchResult aliasSearchResult = 
@@ -96,7 +102,6 @@ public class SearchController {
 				fmtQuery += "OR";
 		}
 		
-		List<RecordingSearchResult> searchResults = new ArrayList<>();
 		String mbQueryUrl = "";
 		/* keyword = keyword.replaceAll(" ", "-"); */
 		mbQueryUrl = "https://musicbrainz.org/ws/2/recording/?query="
@@ -105,43 +110,20 @@ public class SearchController {
 		RecordingSearchResult recordingSearchResult = 
 				restTemplate.getForObject(mbQueryUrl, RecordingSearchResult.class);
 		// MB API에서 받아온 곡 하나씩 처리: 앨범커버 + 유튜브 링크
-		for(Recordings recording : recordingSearchResult.getRecordings()) {
-			
-			if (recording != null) {
-			String release = recording.getReleases().get(0).getId();
-			recording.setImageUrl(release);
+		if(recordingSearchResult != null) {
+			for(Recordings recording : recordingSearchResult.getRecordings()) {
+				
+				if (recording != null && recording.getReleases() != null) {
+				String release = recording.getReleases().get(0).getId();
+				recording.setImageUrl(release);
+				}
+				
+				recording.setVideoId(recording.getTitle() + "_" + recording.getArtistcredit().get(0).getName()); //임시
+				
 			}
-			
-			// 유튜브 링크 가져오기
-			
-			/*
-			try {
-				String title = recording.getTitle();
-				String artist = recording.getArtistcredit().get(0).getName();
-				YoutubeSearchResult youtubeSearchResult = 
-						restTemplate.getForObject("https://youtube.googleapis.com/youtube/v3/search?part=snippet&"
-								+ "q=" + artist + title
-								+ "&key=AIzaSyCF96w0RUlRG5gCKGBC_4NvP3UL4Rg0Kzs"
-								, YoutubeSearchResult.class);
-				String videoId = youtubeSearchResult.getItems().get(0).getId().getVideoId();
-				recording.setVideoId(videoId);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			*/
-			recording.setVideoId(recording.getTitle() + "_" + recording.getArtistcredit().get(0).getName()); //임시
-			
 		}
 		
 		m.addAttribute("recordingSearchResult", recordingSearchResult);
-		
-		/*
-		 유저 검색
-		 */
-		/*
-		List<Member> memberSearchResult = memberService.findByMemberNicknameContainingIgnoreCase(keyword);
-		m.addAttribute(memberSearchResult);
-		*/
 		
 		return "searchResult";
 	}

@@ -24,8 +24,8 @@
 			</thead>
 			<tbody class="text-center">
 				<tr class="content" style="font-size: 12px;">
-					<td class="text-center">새 플레이리스트 만들기</td>
-					<td class="text-center"><input type="button" value="추가"></td>
+					<td class="text-center"><input id="newPlaylistName" placeholder="새 플레이리스트 만들기"></td>
+					<td class="text-center"><input id="newPlaylistBtn" type="button" value="추가"></td>
 				</tr>
 				<c:forEach items="${playlists}" var="playlist">
 				<tr class="content" style="font-size: 12px;">
@@ -41,3 +41,11 @@
 <div class="modal-footer">
 	<button class="btn btn-secondary" type="button" data-dismiss="modal">닫기</button>
 </div>
+
+<script>
+$(function(){
+	$('#newPlaylistBtn').click(function(){
+		
+	})
+})
+</script>
