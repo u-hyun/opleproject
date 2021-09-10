@@ -1,5 +1,9 @@
 package com.ople.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
@@ -14,9 +18,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ople.domain.Member;
 import com.ople.service.MemberService;
@@ -40,6 +47,11 @@ public class MemberController {
 	@GetMapping("/mypageView")
 	public String mypageView() {
 		return "member/mypageView";
+	}
+	
+	@PostMapping("/updateMypage")
+	public String mypageEdit() {
+		return "member/mypageEditView";
 	}
 	
 	@RequestMapping("/check_id")
@@ -89,6 +101,11 @@ public class MemberController {
 	
 	@PostMapping("/updateForm")
 	public String update(@ModelAttribute("member") Member member) {
+		/*
+		 * String filePath = "/" + member.getMemberId(); File dest = new File(filePath);
+		 * try { byte[] bytes = file.getBytes(); Files.write(Paths.get(filePath),
+		 * bytes); } catch (IOException e) { e.printStackTrace(); }
+		 */
 		memberService.saveMember(member);
 		return "redirect:index.html";
 	}
@@ -104,5 +121,6 @@ public class MemberController {
 		}
 		return "redirect:index.html";
 	}
+	
 	
 }
