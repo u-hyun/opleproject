@@ -11,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 
 import com.ople.domain.Member;
 import com.ople.domain.Playlist;
+import com.ople.domain.PlaylistTrack;
 import com.ople.search.album.ImageSearchResult;
 import com.ople.search.musicbrainz.AliasSearchResult;
 import com.ople.search.musicbrainz.Aliases;
@@ -132,16 +134,6 @@ public class SearchController {
 	public String showModal(HttpServletRequest request, Model m, @RequestParam String id) {
 		HttpSession session = request.getSession();
 		
-		/*
-		 테스트용
-		 */
-		Member testmember = memberService.getMemberById("test@test.com");
-		session.setAttribute("member", testmember);
-		// 이곳에 테스트할 값들을 setAttribute로 추가하시면 됩니다.
-		/*
-		 테스트용 끝
-		 */
-		
 		if(session.getAttribute("member") != null) {	// 세션에 로그인이 돼 있을 때
 			Member member = (Member)session.getAttribute("member");
 			m.addAttribute("member", member);
@@ -158,13 +150,75 @@ public class SearchController {
 	}
 	
 	@RequestMapping("/menu")
-	public String loadMenu() {
-		return "menu";
+	public String loadMenu(HttpServletRequest request, Model m) {
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("member");
+		if(member != null) {
+			m.addAttribute(member);
+			return "menu_member";
+		}
+		else
+			return "menu";
 	}
 	
 	@RequestMapping("searchbarModal")
 	public String loadSearchbar() {
 		return "searchbarModal";
+	}
+	
+	@RequestMapping("logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	@RequestMapping("newPlaylist")
+	@ResponseBody
+	public String newPlaylist(HttpServletRequest request, @RequestParam String playlistName, @RequestParam String trackId) {
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("member");
+		try {
+			// 새로운 플레이리스트 생성
+			Playlist playlist = new Playlist();
+			playlist.setPlaylistName(playlistName);
+			playlist.setMemberId(member.getMemberId());
+			playlist = playlistService.savePlaylist(playlist);
+			
+			// 새로운 플레이리스트에 곡 넣기
+			Long playlistId = playlist.getPlaylistId();
+			PlaylistTrack track = new PlaylistTrack();
+			track.setTrackId(trackId);
+			track.setPlaylistId(playlistId);
+			track.setMemberid(member.getMemberId());
+			track.setListOrder(Long.valueOf(0)); // 신규 플레이리스트(곡없음): 0번째 곡으로 설정
+			playlistTrackService.savePlaylistTrack(track);
+			return "success";
+		} catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+	
+	@RequestMapping("addPlaylist")
+	@ResponseBody
+	public String addPlaylist(HttpServletRequest request, @RequestParam Long playlistId, @RequestParam String trackId) {
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("member");
+		try {
+			// 플레이리스트에 곡 넣기
+			List<PlaylistTrack> pTrackList = playlistTrackService.getPlaylistTrackByPlaylistId(playlistId);
+			PlaylistTrack track = new PlaylistTrack();
+			track.setTrackId(trackId);
+			track.setPlaylistId(playlistId);
+			track.setMemberid(member.getMemberId());
+			track.setListOrder(Long.valueOf(pTrackList.size()));	// 현재 플레이리스트에 있는 곡수 = 플레이리스트 안의 곡순서
+			playlistTrackService.savePlaylistTrack(track);
+			return "success";
+		} catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 	
 }
