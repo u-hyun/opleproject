@@ -1,4 +1,3 @@
-
 package com.ople.service;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class MemberServiceImple implements MemberService {
 	@Override
 	public Optional<Member> findMember(String memberId) {
 		Optional<Member> member = memberRepo.findById(memberId);
-		return null;
+		return member;
 	}
 
 	@Override
@@ -50,6 +49,11 @@ public class MemberServiceImple implements MemberService {
 	@Override
 	public List<Member> findByMemberNicknameContainingIgnoreCase(String memberNickname) {
 		return memberRepo.findByMemberNicknameContainingIgnoreCase(memberNickname);
+	}
+
+}
+	public Member getNickname(Member member) {
+		return null;
 	}
 
 }

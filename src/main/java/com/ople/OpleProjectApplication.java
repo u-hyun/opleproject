@@ -9,5 +9,6 @@ public class OpleProjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OpleProjectApplication.class, args);
 	}
+	
 
 }

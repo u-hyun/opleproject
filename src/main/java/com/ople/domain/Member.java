@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,7 +27,10 @@ public class Member implements Serializable {
 	private String memberPw;
 	private String memberName;
 	private Date joinDate;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
+	
 	private char admin;
 	private String memberNickname;
 	private char gender;
@@ -92,7 +97,5 @@ public class Member implements Serializable {
 	public void setLikedTags(String likedTags) {
 		this.likedTags = likedTags;
 	}
-   
-	
-	
+  
 }

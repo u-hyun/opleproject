@@ -17,5 +17,7 @@ public interface MemberService {
 	Member getMemberById(String memberId);
 	
 	List<Member> findByMemberNicknameContainingIgnoreCase(String memberNickname);
+  //마이페이지에서 저장된 닉네임 불러오기
+	Member getNickname(Member member);
 
 }
