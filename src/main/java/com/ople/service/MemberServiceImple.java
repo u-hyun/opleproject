@@ -1,5 +1,6 @@
 package com.ople.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,16 @@ public class MemberServiceImple implements MemberService {
 	}
 
 	@Override
+	public Member getMemberById(String memberId) {
+		return memberRepo.findByMemberId(memberId);
+	}
+
+	@Override
+	public List<Member> findByMemberNicknameContainingIgnoreCase(String memberNickname) {
+		return memberRepo.findByMemberNicknameContainingIgnoreCase(memberNickname);
+	}
+
+}
 	public Member getNickname(Member member) {
 		return null;
 	}

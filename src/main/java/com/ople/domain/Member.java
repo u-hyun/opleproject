@@ -97,7 +97,5 @@ public class Member implements Serializable {
 	public void setLikedTags(String likedTags) {
 		this.likedTags = likedTags;
 	}
-   
-	
-	
+  
 }
