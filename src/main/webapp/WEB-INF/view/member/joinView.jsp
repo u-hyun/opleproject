@@ -63,28 +63,28 @@
 		<tr><td>관심있는 장르</td></tr>
 		<tr>
 		<td colspan="2">
-		<input type="checkbox" name="likedTags" id="likedTags" value="rock">rock&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="electronic">electronic&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="pop">pop&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="funk">funk
+		<input type="checkbox" name="likedTags" value="rock">rock&emsp;
+		<input type="checkbox" name="likedTags" value="electronic">electronic&emsp;
+		<input type="checkbox" name="likedTags" value="pop">pop&emsp;
+		<input type="checkbox" name="likedTags" value="funk">funk
 		</td>
 		</tr>
 		
 		<tr>
 		<td colspan="2">
-		<input type="checkbox" name="likedTags" id="likedTags" value="metal">metal&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="jazz">jazz&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="hip-hop">hip-hop&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="classical">classical
+		<input type="checkbox" name="likedTags" value="metal">metal&emsp;
+		<input type="checkbox" name="likedTags" value="jazz">jazz&emsp;
+		<input type="checkbox" name="likedTags" value="hip-hop">hip-hop&emsp;
+		<input type="checkbox" name="likedTags" value="classical">classical
 		</td>
 		</tr>
 		
 		<tr>
 		<td colspan="2">
-		<input type="checkbox" name="likedTags" id="likedTags" value="blues">blues&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="acoustic">acoustic&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="instrumental">instrumental&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="soundtrack">soundtrack
+		<input type="checkbox" name="likedTags" value="blues">blues&emsp;
+		<input type="checkbox" name="likedTags" value="acoustic">acoustic&emsp;
+		<input type="checkbox" name="likedTags" value="instrumental">instrumental&emsp;
+		<input type="checkbox" name="likedTags" value="soundtrack">soundtrack
 		</td>
 		</tr>		
 		
