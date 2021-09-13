@@ -32,6 +32,7 @@ import com.ople.search.youtube.YoutubeSearchResult;
 import com.ople.service.MemberService;
 import com.ople.service.PlaylistService;
 import com.ople.service.PlaylistTrackService;
+import com.ople.service.TrackService;
 import com.sun.mail.iap.Response;
 
 @Controller
@@ -46,6 +47,8 @@ public class SearchController {
 	PlaylistService playlistService;
 	@Autowired
 	PlaylistTrackService playlistTrackService;
+	@Autowired
+	TrackService trackService;
 	
 	@RequestMapping("/")
 	public String mainPage() {
@@ -250,6 +253,10 @@ public class SearchController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void playlistTrackToTrack(PlaylistTrack pTrack) {
+		
 	}
 	
 }

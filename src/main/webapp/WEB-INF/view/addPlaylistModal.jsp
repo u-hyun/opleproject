@@ -62,14 +62,17 @@ $(function(){
 	
 	$('.addPlaylistBtn').click(function(){
 		var playlist;
+		var playlistId = $(this).attr('id');
 		$.ajax({
 			type:"GET",
 			url:"addPlaylist?playlistId=" + $(this).attr('id') + "&trackId=${id}",
 			success: function(data){
-				$('.playlist-status#' + $(this).attr('id')).html('성공적으로 추가되었습니다.');
+				alert('.playlist-status#' + playlistId);
+				$('.playlist-status#' + playlistId).html('성공적으로 추가되었습니다.');
 			},
 			error: function(xhr, textStatus, errorThrown){
-				$('.playlist-status#' + $(this).attr('id')).html('에러가 발생했습니다.');
+				alert("error")
+				$('.playlist-status#' + playlistId).html('에러가 발생했습니다.');
 			}
 		});
 	});
