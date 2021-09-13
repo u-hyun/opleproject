@@ -51,7 +51,6 @@ public class MemberServiceImple implements MemberService {
 		return memberRepo.findByMemberNicknameContainingIgnoreCase(memberNickname);
 	}
 
-}
 	public Member getNickname(Member member) {
 		return null;
 	}

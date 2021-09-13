@@ -67,7 +67,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/login")
-	public String login(HttpServletRequest request, Member member, Model model) {
+	public String login(Member member, Model model) {
 		Member findMember = memberService.getMember(member);
 		if(findMember != null && findMember.getMemberPw().equals(member.getMemberPw())) {
 			model.addAttribute("member", findMember);

@@ -8,4 +8,5 @@ public interface PlaylistService {
 	Playlist savePlaylist(Playlist playlist);
 	
 	List<Playlist> getPlaylistById(String memberId);
+
 }

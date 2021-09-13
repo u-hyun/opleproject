@@ -7,9 +7,9 @@
 	    검색
 	</a>
 	<ul class="nav flex-column">
-		<li class="nav-item"><a class="nav-link active" id="login" href="login">로그인</a>
+		<li class="nav-item"><a class="nav-link active" id="login" href="loginform">로그인</a>
 		</li>
-		<li class="nav-item"><a class="nav-link" id="register" href="register">회원가입</a>
+		<li class="nav-item"><a class="nav-link" id="register" href="joinView">회원가입</a>
 		</li>
 		<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
 		<li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a>
