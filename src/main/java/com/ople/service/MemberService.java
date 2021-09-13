@@ -3,6 +3,8 @@ package com.ople.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.ople.domain.Member;
 
 public interface MemberService {
@@ -19,5 +21,9 @@ public interface MemberService {
 	List<Member> findByMemberNicknameContainingIgnoreCase(String memberNickname);
   //마이페이지에서 저장된 닉네임 불러오기
 	Member getNickname(Member member);
+	
+	void profileImage(String path, String id);
+	
+	
 
 }

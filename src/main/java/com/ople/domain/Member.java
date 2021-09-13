@@ -37,6 +37,15 @@ public class Member implements Serializable {
 	private String profileComment;
 	private String likedTags;
 	
+	@Column(length=600)
+	private String imagePath;
+	
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 	public String getMemberId() {
 		return memberId;
 	}
