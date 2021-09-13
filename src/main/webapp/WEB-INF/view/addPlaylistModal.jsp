@@ -25,13 +25,13 @@
 			<tbody class="text-center">
 				<tr class="content" style="font-size: 12px;">
 					<td class="text-center"><input id="newPlaylistName" placeholder="새 플레이리스트 이름"></td>
-					<td class="text-center"><input id="newPlaylistBtn" type="button" value="추가"></td>
+					<td class="text-center"><input class="newPlaylistBtn" type="button" value="추가"></td>
 					<td class="text-center"><span class="playlist-status" id="new"></span></td>
 				</tr>
 				<c:forEach items="${playlists}" var="playlist">
 				<tr class="content" style="font-size: 12px;">
 					<td class="text-center">${playlist.playlistName}</td>
-					<td class="text-center"><input id="addPlaylistBtn" type="button" id="${playlist.playlistId}" value="추가"></td>
+					<td class="text-center"><input class="addPlaylistBtn" type="button" id="${playlist.playlistId}" value="추가"></td>
 					<td class="text-center"><span class="playlist-status" id="${playlist.playlistId}"></span></td>
 				</tr>
 				</c:forEach>
@@ -46,11 +46,11 @@
 
 <script>
 $(function(){
-	$('#newPlaylistBtn').click(function(){
-		var playlist
+	$('.newPlaylistBtn').click(function(){
+		var playlist;
 		$.ajax({
 			type:"GET",
-			url:"newPlaylist?playlistName=" + $('#newPlaylistName').val() + "&trackId=111",
+			url:"newPlaylist?playlistName=" + $('#newPlaylistName').val() + "&trackId=${id}",
 			success: function(data){
 				$('.playlist-status#new').html('성공적으로 추가되었습니다.');
 			},
@@ -60,11 +60,11 @@ $(function(){
 		});
 	});
 	
-	$('#addPlaylistBtn').click(function(){
-		var playlist
+	$('.addPlaylistBtn').click(function(){
+		var playlist;
 		$.ajax({
 			type:"GET",
-			url:"addPlaylist?playlistId=" + $(this).attr('id') + "&trackId=111",
+			url:"addPlaylist?playlistId=" + $(this).attr('id') + "&trackId=${id}",
 			success: function(data){
 				$('.playlist-status#' + $(this).attr('id')).html('성공적으로 추가되었습니다.');
 			},

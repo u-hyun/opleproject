@@ -20,22 +20,22 @@ public class PlaylistTrack implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String playlistTrackId;
-	private String memberid;
-	private Long playlistId;
-	private Long listOrder;
-	private String trackId;
-	public String getPlaylistTrackId() {
+	private Long playlistTrackId;	// 자동생성 (숫자)
+	private String memberId;		// 유저 이메일
+	private Long playlistId;		// 자동생성 (숫자)
+	private Long listOrder;			// 숫자
+	private String trackId;			// recording mbid (문자열)
+	public Long getPlaylistTrackId() {
 		return playlistTrackId;
 	}
-	public void setPlaylistTrackId(String playlistTrackId) {
+	public void setPlaylistTrackId(Long playlistTrackId) {
 		this.playlistTrackId = playlistTrackId;
 	}
-	public String getMemberid() {
-		return memberid;
+	public String getMemberId() {
+		return memberId;
 	}
-	public void setMemberid(String memberid) {
-		this.memberid = memberid;
+	public void setMemberId(String memberid) {
+		this.memberId = memberid;
 	}
 	public Long getPlaylistId() {
 		return playlistId;
@@ -58,5 +58,12 @@ public class PlaylistTrack implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	@Override
+	public String toString() {
+		return "PlaylistTrack [playlistTrackId=" + playlistTrackId + ", memberId=" + memberId + ", playlistId="
+				+ playlistId + ", listOrder=" + listOrder + ", trackId=" + trackId + "]";
+	}
+	
+	
 	
 }

@@ -1,11 +1,14 @@
 package com.ople.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +32,7 @@ import com.ople.search.youtube.YoutubeSearchResult;
 import com.ople.service.MemberService;
 import com.ople.service.PlaylistService;
 import com.ople.service.PlaylistTrackService;
+import com.sun.mail.iap.Response;
 
 @Controller
 public class SearchController {
@@ -175,14 +179,22 @@ public class SearchController {
 	
 	@RequestMapping("newPlaylist")
 	@ResponseBody
-	public String newPlaylist(HttpServletRequest request, @RequestParam String playlistName, @RequestParam String trackId) {
+	public void newPlaylist(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam String playlistName, @RequestParam String trackId) {
+		
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("member");
+		JSONObject resultJson = new JSONObject();
+		
 		try {
 			// 새로운 플레이리스트 생성
 			Playlist playlist = new Playlist();
 			playlist.setPlaylistName(playlistName);
 			playlist.setMemberId(member.getMemberId());
+			playlist.setDescription("");
+			playlist.setCustomTag("");
+			playlist.setLikeCount((long) 0);
+			playlist.setViewCount((long) 0);
 			playlist = playlistService.savePlaylist(playlist);
 			
 			// 새로운 플레이리스트에 곡 넣기
@@ -190,34 +202,53 @@ public class SearchController {
 			PlaylistTrack track = new PlaylistTrack();
 			track.setTrackId(trackId);
 			track.setPlaylistId(playlistId);
-			track.setMemberid(member.getMemberId());
+			track.setMemberId(member.getMemberId());
 			track.setListOrder(Long.valueOf(0)); // 신규 플레이리스트(곡없음): 0번째 곡으로 설정
+			System.out.println(track.toString());
 			playlistTrackService.savePlaylistTrack(track);
-			return "success";
+			
+			resultJson.put("success", true);
 		} catch(Exception e) {
+			resultJson.put("success", false);
 			e.printStackTrace();
-			return "error";
 		}
+			response.setContentType("application/json");
+			try {
+				response.getWriter().write(resultJson.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 	
 	@RequestMapping("addPlaylist")
 	@ResponseBody
-	public String addPlaylist(HttpServletRequest request, @RequestParam Long playlistId, @RequestParam String trackId) {
+	public void addPlaylist(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam Long playlistId, @RequestParam String trackId) {
+		
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("member");
+		JSONObject resultJson = new JSONObject();
+		
 		try {
 			// 플레이리스트에 곡 넣기
 			List<PlaylistTrack> pTrackList = playlistTrackService.getPlaylistTrackByPlaylistId(playlistId);
 			PlaylistTrack track = new PlaylistTrack();
 			track.setTrackId(trackId);
 			track.setPlaylistId(playlistId);
-			track.setMemberid(member.getMemberId());
+			track.setMemberId(member.getMemberId());
 			track.setListOrder(Long.valueOf(pTrackList.size()));	// 현재 플레이리스트에 있는 곡수 = 플레이리스트 안의 곡순서
 			playlistTrackService.savePlaylistTrack(track);
-			return "success";
+			System.out.println(track.toString());
+			resultJson.put("success", true);
 		} catch(Exception e) {
+			resultJson.put("success", false);
 			e.printStackTrace();
-			return "error";
+		}
+		response.setContentType("application/json");
+		try {
+			response.getWriter().write(resultJson.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
