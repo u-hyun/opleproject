@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -68,6 +69,19 @@ public class MemberController implements ApplicationContextAware {
 	 * @PostMapping("/updateMypage") public String mypageEdit() { return
 	 * "member/mypageEditView"; }
 	 */
+	
+	@RequestMapping("/pwChangeView")
+	public String pwChangeView() {
+		return "member/pwChangeView";
+	}
+	
+	@PostMapping("/pwChange")
+	public String pwChange(@ModelAttribute("member") Member member) {
+		memberService.saveMember(member);
+		return "redirect:index.html";
+	}
+	
+	
 
 	@RequestMapping("/check_id")
 	@ResponseBody

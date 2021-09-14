@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ople : 마이페이지 수정</title>
+<title>Ople : 마이페이지</title>
 <style type="text/css">
 .box {
     width: 150px;
@@ -41,8 +41,13 @@
 <table id="table1">
 <tr><td>닉네임: </td><td><input name="memberNickname" id="memberNickname" value="${member.memberNickname}"></td></tr>
 <tr><td>생&emsp;일: </td><td><fmt:formatDate value="${member.birthday}" pattern="yyyy-MM-dd" /></td></tr>
-<tr><td>비밀번호: </td><td><input name="memberPassword" id="memberPassword" ></td></tr>
-<tr><td>비밀번호 확인: </td><td><input name="memberPassword2" id="memberPassword2" ></td></tr>
+
+<!-- 지울 예정 -->
+<tr><td>현재 비밀번호: </td><td><input type="password" name="memberPw" id="memberPw" ></td></tr>
+<tr><td>새 비밀번호: </td><td><input type="password" name="newPw" id="newPw" ></td></tr>
+<tr><td>새 비밀번호 확인: </td><td><input type="password" name="newPw2" id="newPw2" ></td></tr>
+<!-- 지울 예정 -->
+
 </table>
 <br><br>
 
@@ -74,31 +79,6 @@
 	</td></tr>
 </table>
 
-
-<!-- <table id="table2">  
-<tr><td>관심있는 장르: </td>
-	<td>&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="rock">rock&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="electronic">electronic&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="pop">pop&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="funk">funk
-	</td></tr>
-	<tr><td></td>
-	<td>&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="metal">metal&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="jazz">jazz&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="hip-hop">hip-hop&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="classical">classical
-	</td></tr>
-		
-	<tr><td></td>
-	<td>&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="blues">blues&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="acoustic">acoustic&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="instrumental">instrumental&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="soundtrack">soundtrack
-	</td></tr>
-</table> -->
 <br><br>
 <br><br><br><br><input type="submit" value="변경"><input type="button" value="취소" onclick="history.back()">
 </form>

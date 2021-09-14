@@ -23,7 +23,7 @@ public class Member implements Serializable {
 
 	@Id
 	@Column(name = "MEMBERID")
-	private String memberId;   
+	private String memberId;
 	private String memberPw;
 	private String memberName;
 	private Date joinDate;
