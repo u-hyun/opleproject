@@ -25,4 +25,9 @@ public class TrackServiceImpl implements TrackService{
 		return foundTrack.isPresent();
 	}
 
+	@Override
+	public Optional<Track> findTrack(String trackId) {
+		return trackRepo.findById(trackId);
+	}
+
 }

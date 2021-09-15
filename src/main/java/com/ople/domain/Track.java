@@ -21,10 +21,10 @@ public class Track implements Serializable {
 	String trackName;
 	String artistName;
 	String albumName;
-	int playcount;
-	int todayPlaycount;
+	Long playcount;
+	Long todayPlaycount;
 	String topTags;
-	int trackCount;
+	Long trackCount;
 	public String getTrackId() {
 		return trackId;
 	}
@@ -55,16 +55,16 @@ public class Track implements Serializable {
 	public void setAlbumName(String albumName) {
 		this.albumName = albumName;
 	}
-	public int getPlaycount() {
+	public Long getPlaycount() {
 		return playcount;
 	}
-	public void setPlaycount(int playcount) {
+	public void setPlaycount(Long playcount) {
 		this.playcount = playcount;
 	}
-	public int getTodayPlaycount() {
+	public Long getTodayPlaycount() {
 		return todayPlaycount;
 	}
-	public void setTodayPlaycount(int todayPlaycount) {
+	public void setTodayPlaycount(Long todayPlaycount) {
 		this.todayPlaycount = todayPlaycount;
 	}
 	public String getTopTags() {
@@ -73,10 +73,10 @@ public class Track implements Serializable {
 	public void setTopTags(String topTags) {
 		this.topTags = topTags;
 	}
-	public int getTrackCount() {
+	public Long getTrackCount() {
 		return trackCount;
 	}
-	public void setTrackCount(int trackCount) {
+	public void setTrackCount(Long trackCount) {
 		this.trackCount = trackCount;
 	}
 	

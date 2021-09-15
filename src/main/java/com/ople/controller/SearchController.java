@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import com.ople.domain.Member;
 import com.ople.domain.Playlist;
 import com.ople.domain.PlaylistTrack;
+import com.ople.domain.Track;
 import com.ople.search.album.ImageSearchResult;
 import com.ople.search.musicbrainz.AliasSearchResult;
 import com.ople.search.musicbrainz.Aliases;
@@ -210,6 +211,11 @@ public class SearchController {
 			System.out.println(track.toString());
 			playlistTrackService.savePlaylistTrack(track);
 			
+			// Track 테이블 (고유 곡 정보 테이블)에 삽입 / 업데이트
+			Track uniqueTrack = playlistTrackToTrack(track);
+			System.out.println("Track id: " + uniqueTrack.getTrackId());
+			trackService.saveTrack(uniqueTrack);
+			
 			resultJson.put("success", true);
 		} catch(Exception e) {
 			resultJson.put("success", false);
@@ -241,6 +247,11 @@ public class SearchController {
 			track.setMemberId(member.getMemberId());
 			track.setListOrder(Long.valueOf(pTrackList.size()));	// 현재 플레이리스트에 있는 곡수 = 플레이리스트 안의 곡순서
 			playlistTrackService.savePlaylistTrack(track);
+			
+			// Track 테이블 (고유 곡 정보 테이블)에 삽입 / 업데이트
+			Track uniqueTrack = playlistTrackToTrack(track);
+			trackService.saveTrack(uniqueTrack);
+			
 			System.out.println(track.toString());
 			resultJson.put("success", true);
 		} catch(Exception e) {
@@ -255,8 +266,27 @@ public class SearchController {
 		}
 	}
 	
-	private void playlistTrackToTrack(PlaylistTrack pTrack) {
+	private Track playlistTrackToTrack(PlaylistTrack pTrack) {
+		Track track = new Track();
+		String id = pTrack.getTrackId();
+		Recording recording = restTemplate.getForObject(
+				"https://musicbrainz.org/ws/2/recording/" + id + "?inc=artists+releases&fmt=json", Recording.class);
+		track.setTrackId(id);
+		track.setTrackName(recording.getTitle());
+		track.setArtistName(recording.getArtistcredit().get(0).getName());
+		track.setAlbumName(recording.getReleases().get(0).getTitle());
+		track.setTrackCount(playlistTrackService.countByTrackId(id));
+		track.setPlaycount(Long.valueOf(0));
+		track.setTodayPlaycount(Long.valueOf(0));
+		track.setTopTags("");
+		track.setUrl("");
+		return track;
+	}
+	
+	private String getTopTags(Recording recording) {
+		String releaseId = recording.getReleases().get(0).getId();
 		
+		return "";
 	}
 	
 }

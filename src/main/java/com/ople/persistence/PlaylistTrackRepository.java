@@ -10,4 +10,5 @@ import com.ople.domain.PlaylistTrack;
 @Repository
 public interface PlaylistTrackRepository extends JpaRepository<PlaylistTrack, Long>{
 	List<PlaylistTrack> findByPlaylistId(Long playlistId);
+	Long countByTrackId(String TrackId);
 }
