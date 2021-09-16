@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ople.domain.Member;
 
 public interface MemberService {
+	Member saveMember(Member member, String newPw);
 	Member saveMember(Member member);
 
 	Member getMember(Member member);

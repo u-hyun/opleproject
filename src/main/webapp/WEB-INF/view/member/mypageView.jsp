@@ -16,6 +16,7 @@
     height: 100%;
     object-fit: cover;
 }
+
 </style>
 </head>
 <body>
@@ -32,21 +33,14 @@
 	<tr><td>가입일: &emsp;</td><td><fmt:formatDate value="${member.joinDate}" pattern="yyyy-MM-dd" /></td></tr>
 	<tr><td>프로필</td></tr>
 	<tr><td colspan="2"><textarea  rows="5" cols="30" name="profileComment" id="profileComment">${member.profileComment}</textarea></td><td></td></tr>
-
+	<tr><td><input id="delete" type="button" value="회원탈퇴" onclick="location.href='deleteMemberView'" ></td></tr>
 </table>
-<!-- </div> -->
 <h4>마이페이지</h4>
 
 
 <table id="table1">
 <tr><td>닉네임: </td><td><input name="memberNickname" id="memberNickname" value="${member.memberNickname}"></td></tr>
 <tr><td>생&emsp;일: </td><td><fmt:formatDate value="${member.birthday}" pattern="yyyy-MM-dd" /></td></tr>
-
-<!-- 지울 예정 -->
-<tr><td>현재 비밀번호: </td><td><input type="password" name="memberPw" id="memberPw" ></td></tr>
-<tr><td>새 비밀번호: </td><td><input type="password" name="newPw" id="newPw" ></td></tr>
-<tr><td>새 비밀번호 확인: </td><td><input type="password" name="newPw2" id="newPw2" ></td></tr>
-<!-- 지울 예정 -->
 
 </table>
 <br><br>

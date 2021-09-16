@@ -7,8 +7,7 @@
 </head>
 <body>
 <h4>비밀번호 변경</h4>
-<!-- <form action="/pwChange" method="post" id="changePwForm"> -->
-<form method="post" id="changePwForm">
+<form action="/pwChange" method="post" id="changePwForm">
 <table>
 
 <tr><td><div style="display: none"><input name="memberPwOri" id="memberPwOri" type="password" value="${member.memberPw}"></div></td></tr>

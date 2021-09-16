@@ -32,6 +32,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ople.domain.EmailVO;
 import com.ople.domain.Member;
 import com.ople.service.MemberService;
 
@@ -49,15 +50,22 @@ public class MemberController implements ApplicationContextAware {
 	@Autowired
 	private MemberService memberService;
 
+	
 	@ModelAttribute("member")
-	public Member getMember() {
-		return new Member();
-	}
+	public Member getMember() { 
+		return new Member(); }
+	 
 
 	@GetMapping("/joinView")
 	public String View() {
 		return "member/joinView";
 	}
+	
+	@GetMapping("/pwFindView")
+	public String pwFindView() {
+		return "member/pwFindView";
+	}
+	
 
 	@RequestMapping("/mypageView")
 	public String mypageView(@ModelAttribute("member") Member member) {
@@ -65,19 +73,14 @@ public class MemberController implements ApplicationContextAware {
 		return "member/mypageView";
 	}
 
-	/*
-	 * @PostMapping("/updateMypage") public String mypageEdit() { return
-	 * "member/mypageEditView"; }
-	 */
-	
 	@RequestMapping("/pwChangeView")
 	public String pwChangeView() {
 		return "member/pwChangeView";
 	}
 	
 	@PostMapping("/pwChange")
-	public String pwChange(@ModelAttribute("member") Member member) {
-		memberService.saveMember(member);
+	public String pwChange(@ModelAttribute("member") Member member, String newPw) {
+		memberService.saveMember(member, newPw);
 		return "redirect:index.html";
 	}
 	
@@ -112,12 +115,14 @@ public class MemberController implements ApplicationContextAware {
 		Member findMember = memberService.getMember(member);
 		if (findMember != null && findMember.getMemberPw().equals(member.getMemberPw())) {
 			model.addAttribute("member", findMember);
+			model.addAttribute("loginFailed", false);
 //			HttpSession session = request.getSession();
 //			session.setAttribute("member", findMember);
 			// getBoardList대신 메인페이지 경로로 바꿔줄 것
 			return "redirect:index.html";
 		} else {
-			return "redirect:loginform";
+			model.addAttribute("loginFailed", true);
+			return "member/loginView";
 		}
 	}
 
@@ -166,17 +171,25 @@ public class MemberController implements ApplicationContextAware {
 		return "/img/profileImg/" + fileName;
 	}
 
-	@GetMapping("/deleteMember")
-	public String delete(@ModelAttribute("model") Member member, String password, SessionStatus status) {
+	@RequestMapping("/deleteMemberView")
+	public String deleteView() {
+		return "member/deleteMemberView";
+	}
+	
+	
+	@PostMapping("/deleteMember")
+	public String delete(@ModelAttribute("model") Member member, String memberPw, SessionStatus status) {
 		Member findMember = memberService.getMember(member);
-		if (findMember != null && findMember.getMemberPw().equals(password)) {
+		if (findMember != null && findMember.getMemberPw().equals(memberPw)) {
 			status.setComplete();
 			memberService.delete(member);
 		} else {
-			return "redirect:/updateForm";
+			return "redirect:/deleteMemberView";
 		}
-		return "redirect:index.html";
+		return "member/loginView";
 	}
+	
+	
 	
 
 }

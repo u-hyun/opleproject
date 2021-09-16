@@ -19,6 +19,13 @@ public class MemberServiceImple implements MemberService {
 	@Autowired
 	MemberRepository memberRepo;
 	
+	//비밀번호 변경
+	@Override
+	public Member saveMember(Member member, String newPw) {
+		member.setMemberPw(newPw);
+		return memberRepo.save(member);
+	}
+	
 	@Override
 	public Member saveMember(Member member) {
 		return memberRepo.save(member);
