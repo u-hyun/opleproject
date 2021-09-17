@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>OPLE</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+
+</style>
 </head>
 <body>
 <div class="menu_div" style="float:left; width: 200px;">
@@ -22,7 +25,7 @@
 	<div class="dropdown">
 	  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	    태그 선택
-	  </button> <input type="submit" value="저장">
+	  </button> <input type="submit" value="저장" id="saveBtn">
 	  <br>
 	  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 	    <a class="dropdown-item" href="#" id="rock">Rock</a>
@@ -41,6 +44,20 @@
 	</div>
 	<ul class="list-group" id="tagList">
 	</ul>
+	<div style=" display: none; " >
+	<a class="dropdown-item" href="#" id="rock">Rock</a>
+	    <input type="checkbox" class="" id="electronic">
+	    <a class="dropdown-item" href="#" id="pop">Pop</a>
+	    <a class="dropdown-item" href="#" id="funk">Funk</a>
+	    <a class="dropdown-item" href="#" id="metal">Metal</a>
+	    <a class="dropdown-item" href="#" id="jazz">Jazz</a>
+	    <a class="dropdown-item" href="#" id="hiphop">Hip-hop</a>
+	    <a class="dropdown-item" href="#" id="classical">Classical</a>
+	    <a class="dropdown-item" href="#" id="blues">Blues</a>
+	    <a class="dropdown-item" href="#" id="acoustic">Acoustic</a>
+	    <a class="dropdown-item" href="#" id="instrumental">Instrumental</a>
+	    <a class="dropdown-item" href="#" id="soundtrack">Soundtrack</a>
+	</div>
 </form>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -60,9 +77,16 @@ $(function(){
 				'<a href="#" class="deleteBtn" id="' + $(this).attr('id') + '">삭제</a></li>');
 	});
 	
-	$('.deleteBtn').on('click', function(){
-		alert('dd');
-		$('.list-group-item#' + $(this.attr('id'))).remove();
+	$('#tagList').on('click', '.deleteBtn' , function(){
+		$('.list-group-item#' + $(this).attr('id')).remove();
+	});
+	
+	var taglist = [];
+	$('#saveBtn').on('submit', function(e){
+		e.preventDefault();
+		$('ul li').each(function(){
+			taglist.push($(this).text())
+		});
 	});
 	
 });
