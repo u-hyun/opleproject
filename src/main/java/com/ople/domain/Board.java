@@ -4,27 +4,22 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 /**
  * Entity implementation class for Entity: Comment
  *
  */
 @Entity
-@Getter
-@Setter
-@ToString
+@Data
 public class Board implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long commentId;
 	private Long playlistId;
-	@Column(updatable = false)
 	private String memberId;
 	private String content;
 	@Column(insertable = false, updatable = false, columnDefinition = "date default sysdate")

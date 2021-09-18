@@ -3,26 +3,25 @@ package com.ople.domain;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * Entity implementation class for Entity: PlaylistTrack
  *
  */
 @Entity
-@Getter
-@Setter
+@Data
 public class PlaylistTrack implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	private String playlistTrackId;
-	private String memberid;
-	private Long playlistId;
-	private Long listOrder;
-	private Long trackId;
-   
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long playlistTrackId;	// 자동생성 (숫자)
+	private String memberId;		// 유저 이메일
+	private Long playlistId;		// 자동생성 (숫자)
+	private Long listOrder;			// 숫자
+	private String trackId;			// recording mbid (문자열)
+	
 }

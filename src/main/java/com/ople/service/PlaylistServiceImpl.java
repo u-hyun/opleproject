@@ -20,8 +20,14 @@ public class PlaylistServiceImpl implements PlaylistService{
 	}
 
 	@Override
+	public List<Playlist> getPlaylist() {
+		return playlistRepo.findAll();
+	}
+
+	@Override
 	public List<Playlist> getPlaylistById(String memberId) {
 		return playlistRepo.findByMemberId(memberId);
 	}
+
 
 }

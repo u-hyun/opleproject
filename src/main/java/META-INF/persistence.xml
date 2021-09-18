@@ -3,5 +3,10 @@
 	<persistence-unit name="OpleProject">
 		<class>com.ople.domain.Member</class>
 		<class>com.ople.domain.Files</class>
+		<class>com.ople.domain.Playlist</class>
+		<class>com.ople.domain.PlaylistTrack</class>
+		<class>com.ople.domain.Board</class>
+		<class>com.ople.domain.Track</class>
+		<class>com.ople.domain.Tag</class>
 	</persistence-unit>
 </persistence>
