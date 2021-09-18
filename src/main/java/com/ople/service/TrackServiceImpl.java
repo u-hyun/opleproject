@@ -1,5 +1,6 @@
 package com.ople.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,16 @@ public class TrackServiceImpl implements TrackService{
 	@Override
 	public Optional<Track> findTrack(String trackId) {
 		return trackRepo.findById(trackId);
+	}
+
+	@Override
+	public List<Track> getTopTracks() {
+		return trackRepo.findFirst5ByOrderByTrackCountDesc();
+	}
+
+	@Override
+	public List<Track> getTopTracksByTags(String tags) {
+		return trackRepo.findFirst5ByTopTagsContainingOrderByTrackCountDesc(tags);
 	}
 
 }

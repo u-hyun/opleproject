@@ -10,4 +10,5 @@ import com.ople.domain.Playlist;
 @Repository
 public interface PlaylistRepository extends JpaRepository<Playlist, Long>{
 	List<Playlist> findByMemberId(String memberId);
+	List<Playlist> findFirst5ByOrderByLikeCountDesc();
 }

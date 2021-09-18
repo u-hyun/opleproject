@@ -24,7 +24,7 @@
 	<c:forEach items="${recordingSearchResult.recordings }" var="recording">
 	
 		<tr>
-		<td rowspan="3"><img class="albumcover" id="${recording.imageUrl}" src="" onError="this.onerror=null;this.src='https://image.flaticon.com/icons/png/512/26/26805.png';" style="width:100px;height:100px;"></td>
+		<td rowspan="3"><img class="albumcover ${recording.id}" id="${recording.imageUrl}" src="" onError="this.onerror=null;this.src='https://image.flaticon.com/icons/png/512/26/26805.png';" style="width:100px;height:100px;"></td>
 		<td><b>${recording.title}</b></td>
 		</tr>
 		<tr><td>
@@ -125,7 +125,11 @@ $(function(){
 	
 	
 	$('.addplaylistbutton').click(function(){
-		$('#MoaModal .modal-content').load("addPlaylistModal?id=" + $(this).attr('id'));
+		var id = $(this).attr('id');
+		var releaseId = $("." + id).attr('id');
+		var imgsrc = $("." + id).attr('src').split("/");
+		var img = imgsrc[imgsrc.length - 1]
+		$('#MoaModal .modal-content').load("addPlaylistModal?id=" + id + "&releaseId=" + releaseId + "&img=" + img);
 		$('#MoaModal').modal('show');
 	});
 });

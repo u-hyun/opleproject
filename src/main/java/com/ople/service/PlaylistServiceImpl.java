@@ -24,4 +24,9 @@ public class PlaylistServiceImpl implements PlaylistService{
 		return playlistRepo.findByMemberId(memberId);
 	}
 
+	@Override
+	public List<Playlist> getTopPlaylists() {
+		return playlistRepo.findFirst5ByOrderByLikeCountDesc();
+	}
+
 }

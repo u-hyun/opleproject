@@ -25,6 +25,8 @@ public class Track implements Serializable {
 	Long todayPlaycount;
 	String topTags;
 	Long trackCount;
+	String coverimg;
+	
 	public String getTrackId() {
 		return trackId;
 	}
@@ -79,7 +81,11 @@ public class Track implements Serializable {
 	public void setTrackCount(Long trackCount) {
 		this.trackCount = trackCount;
 	}
-	
-	
+	public String getCoverimg() {
+		return coverimg;
+	}
+	public void setCoverimg(String coverimg) {
+		this.coverimg = coverimg;
+	}
    
 }

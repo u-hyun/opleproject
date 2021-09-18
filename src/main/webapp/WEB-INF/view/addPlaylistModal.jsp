@@ -50,7 +50,7 @@ $(function(){
 		var playlist;
 		$.ajax({
 			type:"GET",
-			url:"newPlaylist?playlistName=" + $('#newPlaylistName').val() + "&trackId=${id}",
+			url:"newPlaylist?playlistName=" + $('#newPlaylistName').val() + "&trackId=${id}&releaseId=${releaseId}&img=${img}",
 			success: function(data){
 				$('.playlist-status#new').html('성공적으로 추가되었습니다.');
 			},
@@ -65,7 +65,7 @@ $(function(){
 		var playlistId = $(this).attr('id');
 		$.ajax({
 			type:"GET",
-			url:"addPlaylist?playlistId=" + $(this).attr('id') + "&trackId=${id}",
+			url:"addPlaylist?playlistId=" + $(this).attr('id') + "&trackId=${id}&releaseId=${releaseId}&img=${img}",
 			success: function(data){
 				alert('.playlist-status#' + playlistId);
 				$('.playlist-status#' + playlistId).html('성공적으로 추가되었습니다.');
