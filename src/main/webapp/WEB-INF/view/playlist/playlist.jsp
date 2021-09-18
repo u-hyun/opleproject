@@ -32,8 +32,8 @@
 <h4>playlistTrack</h4>
 <div id="center">
 <table>
-	<c:forEach items= "${ptlist}" var="track">
-	<tr><td>$track.trackName}</td>
+	<c:forEach items= "${ptrack}" var="track">
+	<tr><td>${track.trackName}</td>
 		<td>${track.artistName}</td>
 		<td>${track.albumName}</td>
 		<td>${track.trackId}</td>

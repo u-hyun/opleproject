@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ople.domain.Member;
 import com.ople.domain.Playlist;
+import com.ople.domain.PlaylistTrack;
+import com.ople.domain.Track;
 import com.ople.persistence.PlaylistRepository;
 import com.ople.domain.Board;
 import com.ople.service.BoardService;
 import com.ople.service.PlaylistService;
 import com.ople.service.PlaylistTrackService;
+import com.ople.service.TrackService;
 
 @SessionAttributes("member")
 @Controller
@@ -36,6 +39,8 @@ public class PlaylistController {
 	private PlaylistService playlistService;
 	@Autowired
 	private PlaylistTrackService playlistTrackService;
+	@Autowired
+	private TrackService trackService;
 	
 	@RequestMapping("/getList")
 	public String getBoardList(Model m, @ModelAttribute("member")Member member) {
@@ -47,6 +52,10 @@ public class PlaylistController {
 		m.addAttribute("blist", bList);
 		List<Playlist> pList = playlistService.getPlaylist();
 		m.addAttribute("plist", pList);
+		List<PlaylistTrack> ptList = playlistTrackService.getPlaylistTrack();
+		m.addAttribute("ptlist", ptList);
+		List<Track> pTrack = trackService.getTrack();
+		m.addAttribute("ptrack", pTrack);
 		
 		return "/playlist/playlist";
 	}
@@ -61,7 +70,7 @@ public class PlaylistController {
 	public String insertBoard(Board board, @ModelAttribute("member")Member member) {
 		board.setMemberId(member.getMemberId());
 		boardService.saveBoard(board);
-		return "redirect:getBoardList";
+		return "redirect:getList";
 	}
 
 	@RequestMapping("/content/{commentId}")
@@ -81,13 +90,13 @@ public class PlaylistController {
 	@PostMapping("/update")
 	public String update(Board board) {
 		boardService.saveBoard(board);
-		return "redirect:/getBoardList";
+		return "redirect:getList";
 	}
 
 	@GetMapping("/delete/{commentId}")
 	public String delete(@PathVariable Long commentId) {
 		boardService.deleteBoard(commentId);
-		return "redirect:/getBoardList";
+		return "redirect:getList";
 	}
 		
 }

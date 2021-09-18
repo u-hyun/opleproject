@@ -17,7 +17,7 @@ public class PlaylistTrack implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long playlistTrackId;	// 자동생성 (숫자)
 	private String memberId;		// 유저 이메일
 	private Long playlistId;		// 자동생성 (숫자)

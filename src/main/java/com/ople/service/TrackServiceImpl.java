@@ -1,5 +1,6 @@
 package com.ople.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,11 @@ public class TrackServiceImpl implements TrackService{
 	
 	@Autowired
 	TrackRepository trackRepo;
+	
+	@Override
+	public List<Track> getTrack() {
+		return trackRepo.findAll();
+	}
 	
 	@Override
 	public Track saveTrack(Track track) {
