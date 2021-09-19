@@ -36,6 +36,7 @@
 	     <h5 class="card-title">${track.trackName}</h5>
 	     <p class="card-text">${track.artistName}</p>
 	     <a href="#" class="btn btn-primary addplaylistbutton" id="${track.trackId}">추가</a>
+	     <a href="/editTag?trackId=${track.trackId}" class="btn btn-primary edittagbutton" id="${track.trackId}">태그 수정</a>
 	   </div>
 	 </div>
 </c:forEach>

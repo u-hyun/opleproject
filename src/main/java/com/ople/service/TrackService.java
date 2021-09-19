@@ -10,5 +10,5 @@ public interface TrackService {
 	boolean checkTrack(Track track);
 	Optional<Track> findTrack(String trackId);
 	List<Track> getTopTracks();
-	List<Track> getTopTracksByTags(String tags);
+	List<Track> getTopTracksByTag(String tag);
 }

@@ -37,7 +37,7 @@ public class TrackServiceImpl implements TrackService{
 	}
 
 	@Override
-	public List<Track> getTopTracksByTags(String tags) {
+	public List<Track> getTopTracksByTag(String tags) {
 		return trackRepo.findFirst5ByTopTagsContainingOrderByTrackCountDesc(tags);
 	}
 

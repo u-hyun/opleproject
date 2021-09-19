@@ -1,6 +1,7 @@
 package com.ople.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,11 @@ public class TagServiceImpl implements TagService{
 			tag.setTrackId(trackId);
 			tagRepo.save(tag);
 		}
+	}
+
+	@Override
+	public List<Tag> getTrackTags(String trackId) {
+		return tagRepo.findByTrackId(trackId);
 	}
 
 }

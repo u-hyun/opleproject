@@ -1,6 +1,11 @@
 package com.ople.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -45,6 +50,33 @@ public class RecommendController {
 		HttpSession session = request.getSession();
 		String memberId = ((Member)session.getAttribute("member")).getMemberId();
 		tagService.updateTags(trackId, memberId, tags);
-		return "search";
+		
+		// 곡의 topTags 업데이트
+		List<Tag> tagList = tagService.getTrackTags(trackId);
+		if(tagList != null) {
+			Map<String, Integer> tagSortMap = new HashMap<>();
+			for(Tag tag : tagList) {
+				int count;
+				try {
+					count = tagSortMap.get(tag.getTagName());
+				} catch (Exception e) {
+					count = 0;
+				}
+				tagSortMap.put(tag.getTagName(), count + 1);
+			}
+			System.out.println(tagSortMap.toString());
+			List<Entry<String, Integer>> tagSortList = new ArrayList<>(tagSortMap.entrySet());
+			tagSortList.sort(Entry.comparingByValue());
+			Collections.reverse(tagSortList);	// sort()는 오름차순으로 정렬하므로 순서를 뒤집어야 함
+			Track track = trackService.findTrack(trackId).get();
+			String topTags = tagSortList.get(0).getKey();
+			if(tagSortList.size() > 1)
+				topTags += "," + tagSortList.get(1).getKey();
+			if(tagSortList.size() > 2)
+				topTags += "," + tagSortList.get(2).getKey();
+			track.setTopTags(topTags);
+			trackService.saveTrack(track);
+		}
+		return "redirect:/";
 	}
 }

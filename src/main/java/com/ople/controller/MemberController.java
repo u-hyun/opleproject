@@ -74,7 +74,7 @@ public class MemberController {
 //			HttpSession session = request.getSession();
 //			session.setAttribute("member", findMember);
 			//getBoardList대신 메인페이지 경로로 바꿔줄 것
-			return "redirect:index.html";
+			return "redirect:/";
 		}else {
 			return "redirect:loginform";
 		}
@@ -84,13 +84,13 @@ public class MemberController {
 	public String logout(SessionStatus status) {
 		status.setComplete();// @SessionAttributes를 활용해 Session에 남긴 데이터를 정리
 		//index.html 대신에 메인? 넣을것
-		return "redirect:index.html";		
+		return "redirect:/";		
 	}
 	
 	@PostMapping("/updateForm")
 	public String update(@ModelAttribute("member") Member member) {
 		memberService.saveMember(member);
-		return "redirect:index.html";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/deleteMember")
@@ -102,7 +102,7 @@ public class MemberController {
 		}else {
 			return "redirect:/updateForm";
 		}
-		return "redirect:index.html";
+		return "redirect:/";
 	}
 	
 }

@@ -25,11 +25,20 @@ public class MainController {
 	TrackService trackService;
 	
 	@RequestMapping("/")
-	public String mainPage(Model m) {
-		List<Track> topTracks = trackService.getTopTracks();
-		List<Playlist> topPlaylists = playlistService.getTopPlaylists();
-		m.addAttribute("topTracks", topTracks);
-		m.addAttribute("topPlaylists", topPlaylists);
+	public String mainPage(HttpServletRequest request, Model m) {
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("member");
+		if(member != null) {	// 로그인 했을 때의 메인화면
+			List<Track> topTracks = trackService.getTopTracks();
+			List<Playlist> topPlaylists = playlistService.getTopPlaylists();
+			m.addAttribute("topTracks", topTracks);
+			m.addAttribute("topPlaylists", topPlaylists);
+		} else {	// 로그인 하지 않았을 때의 메인화면		
+			List<Track> topTracks = trackService.getTopTracks();
+			List<Playlist> topPlaylists = playlistService.getTopPlaylists();
+			m.addAttribute("topTracks", topTracks);
+			m.addAttribute("topPlaylists", topPlaylists);
+		}
 		return "main";
 	}
 	
