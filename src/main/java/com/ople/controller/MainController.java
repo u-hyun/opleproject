@@ -1,5 +1,6 @@
 package com.ople.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +30,10 @@ public class MainController {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("member");
 		if(member != null) {	// 로그인 했을 때의 메인화면
-			List<Track> topTracks = trackService.getTopTracks();
+			String likedTags = member.getLikedTags();
+			List<String> tags = Arrays.asList(likedTags.split(","));
+			System.out.println(tags.toString());
+			List<Track> topTracks = trackService.getTopTracksByTags(tags);
 			List<Playlist> topPlaylists = playlistService.getTopPlaylists();
 			m.addAttribute("topTracks", topTracks);
 			m.addAttribute("topPlaylists", topPlaylists);

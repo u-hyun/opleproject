@@ -1,5 +1,6 @@
 package com.ople.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,15 @@ public class TrackServiceImpl implements TrackService{
 	@Override
 	public List<Track> getTopTracksByTag(String tags) {
 		return trackRepo.findFirst5ByTopTagsContainingOrderByTrackCountDesc(tags);
+	}
+
+	@Override
+	public List<Track> getTopTracksByTags(List<String> tags) {
+		List<Track> tagList = new ArrayList<>();
+		for (String tag : tags) {
+			tagList.addAll(trackRepo.findFirst5ByTopTagsContainingOrderByTrackCountDesc(tag));
+		}
+		return tagList;
 	}
 
 }

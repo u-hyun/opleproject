@@ -6,7 +6,9 @@
 	<a class="btn btn-primary" style="float:right;margin:0;padding:0;" data-toggle="collapse" href="#searchbar_div" role="button" aria-expanded="false" aria-controls="collapseExample">
 	    검색
 	</a>
+	<div>
 	<b>${member.memberNickname}</b>님 반갑습니다.
+	</div>
 	<ul class="nav flex-column">
 		<li class="nav-item"><a class="nav-link active" id="logout" href="logout">로그아웃</a>
 		</li>
