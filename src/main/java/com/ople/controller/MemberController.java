@@ -134,8 +134,16 @@ public class MemberController implements ApplicationContextAware {
 	}
 
 	@PostMapping("/updateForm")
-	public String update(@ModelAttribute("member") Member member, MultipartFile pImage) {
+	public String update(@ModelAttribute("member") Member member, MultipartFile pImage, Model m) {
+		
 		String id = member.getMemberId();
+		
+		//태그
+		String tags = member.getLikedTags();
+		String[] tagsList = tags.split(",");
+		m.addAttribute("tagsList",tagsList);
+		
+		//프로필사진
 		if(pImage.getOriginalFilename() != "") {
 		String path = getPath(pImage);
 		

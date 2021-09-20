@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +29,7 @@
 <img class="profileImage" width="100" height="100" src="${member.imagePath }" alt="profile image">
 </div>
 <input type="file" name="pImage">
+
 <table id="table3">
 	<tr><td>아이디: &emsp;</td><td>${member.memberId}</td></tr>
 	<tr><td>이&emsp;름: &emsp;</td><td>${member.memberName}</td></tr>
@@ -51,31 +54,46 @@
 <table id="table2">  
 <tr><td>관심있는 장르: </td>
 	<td>&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="rock">rock&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="electronic">electronic&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="pop">pop&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="funk">funk
+		<input type="checkbox" class="tagBox" name="rock" id="rock" value="rock">rock&emsp;
+		<input type="checkbox" class="tagBox" name="electronic" id="electronic" value="electronic">electronic&emsp;
+		<input type="checkbox" class="tagBox" name="pop" id="pop" value="pop">pop&emsp;
+		<input type="checkbox" class="tagBox" name="funk" id="funk" value="funk">funk
 	</td></tr>
 	<tr><td></td>
 	<td>&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="metal">metal&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="jazz">jazz&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="hip-hop">hip-hop&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="classical">classical
+		<input type="checkbox" class="tagBox" name="metal" id="metal" value="metal">metal&emsp;
+		<input type="checkbox" class="tagBox" name="jazz" id="jazz" value="jazz">jazz&emsp;
+		<input type="checkbox" class="tagBox" name="hip-hop" id="hip-hop" value="hip-hop">hip-hop&emsp;
+		<input type="checkbox" class="tagBox" name="classical" id="classical" value="classical">classical
 	</td></tr>
 		
 	<tr><td></td>
 	<td>&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="blues">blues&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="acoustic">acoustic&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="instrumental">instrumental&emsp;
-		<input type="checkbox" name="likedTags" id="likedTags" value="soundtrack">soundtrack
+		<input type="checkbox" class="tagBox" name="blues" id="blues" value="blues">blues&emsp;
+		<input type="checkbox" class="tagBox" name="acoustic" id="acoustic" value="acoustic">acoustic&emsp;
+		<input type="checkbox" class="tagBox" name="instrumental" id="instrumental" value="instrumental">instrumental&emsp;
+		<input type="checkbox" class="tagBox" name="soundtrack" id="soundtrack" value="soundtrack">soundtrack
 	</td></tr>
 </table>
 
 <br><br>
 <br><br><br><br><input type="submit" value="변경"><input type="button" value="취소" onclick="history.back()">
 </form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+$(function(){
+	<c:forEach items='${tagsList}' var='tagname'>
+	$('#tagsList').append("<li class='list-group-item' id='${tagname}'>${tagname}" + 
+			"&emsp;<a href='#' class='deleteBtn' style='text-align:right;' id='${tagname}'>삭제</a></li>");
+	$(".tagBox[value='${tagname}']").attr('checked', 'checked');
+	</c:forEach>
+	
+});
+
+
+
+</script>
 </body>
 </html>
 
