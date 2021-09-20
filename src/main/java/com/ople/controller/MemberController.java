@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -67,12 +68,6 @@ public class MemberController implements ApplicationContextAware {
 	}
 	
 
-	@RequestMapping("/mypageView")
-	public String mypageView(@ModelAttribute("member") Member member) {
-		
-		return "member/mypageView";
-	}
-
 	@RequestMapping("/pwChangeView")
 	public String pwChangeView() {
 		return "member/pwChangeView";
@@ -126,22 +121,29 @@ public class MemberController implements ApplicationContextAware {
 		}
 	}
 
-	@GetMapping("/logout")
-	public String logout(SessionStatus status) {
-		status.setComplete();// @SessionAttributes를 활용해 Session에 남긴 데이터를 정리
-		// index.html 대신에 메인? 넣을것
-		return "redirect:index.html";
-	}
-
-	@PostMapping("/updateForm")
-	public String update(@ModelAttribute("member") Member member, MultipartFile pImage, Model m) {
-		
-		String id = member.getMemberId();
+	/*
+	 * @GetMapping("/logout") public String logout(SessionStatus status) {
+	 * status.setComplete();// @SessionAttributes를 활용해 Session에 남긴 데이터를 정리 //
+	 * index.html 대신에 메인? 넣을것 return "redirect:index.html"; }
+	 */
+	
+	@RequestMapping("/mypageView")
+	public String mypageView(@ModelAttribute("member") Member member, Model m) {
 		
 		//태그
 		String tags = member.getLikedTags();
 		String[] tagsList = tags.split(",");
 		m.addAttribute("tagsList",tagsList);
+		
+		return "member/mypageView";
+	}
+	
+	
+	
+	@PostMapping("/updateForm")
+	public String update(@ModelAttribute("member") Member member, MultipartFile pImage, @RequestParam(value="tagBox", required=false) String tags) {
+		
+		String id = member.getMemberId();
 		
 		//프로필사진
 		if(pImage.getOriginalFilename() != "") {
@@ -153,6 +155,21 @@ public class MemberController implements ApplicationContextAware {
 
 		member.setImagePath(path);
 		}
+		
+//		//태그 수정 (Original)
+//		for (int i=0; i<tags.length; i++) {
+//		    member.setLikedTags(tags[i]);
+//		}
+		
+		//태그 수정
+		/*
+		 * for (int i=0; i<tags.length; i++) {
+		 * 
+		 * }
+		 */
+		member.setLikedTags(tags);
+		
+		
 		memberService.saveMember(member);
 		return "redirect:index.html";
 	}

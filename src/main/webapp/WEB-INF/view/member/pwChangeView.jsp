@@ -33,7 +33,7 @@ $(function(){
 		}if($("#newPw").val() != $("#newPw2").val()){
 			alert("비밀번호 확인이 일치하지 않습니다");
 			return false;
-	}
+		}
 })
 })
 </script>

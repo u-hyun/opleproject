@@ -48,31 +48,28 @@
 </table>
 <br><br>
 
-<!-- likedTags 연동 필요 -->
-<!-- 태그를 리스트로 만든다, 모델로 가져온다, for each로 하나씩 꺼내서 checkbox를 만들고, checked 속성 추가-->
-
 <table id="table2">  
 <tr><td>관심있는 장르: </td>
 	<td>&emsp;
-		<input type="checkbox" class="tagBox" name="rock" id="rock" value="rock">rock&emsp;
-		<input type="checkbox" class="tagBox" name="electronic" id="electronic" value="electronic">electronic&emsp;
-		<input type="checkbox" class="tagBox" name="pop" id="pop" value="pop">pop&emsp;
-		<input type="checkbox" class="tagBox" name="funk" id="funk" value="funk">funk
+		<input type="checkbox" class="tagBox" name="tagBox" id="rock" value="rock" >rock&emsp;
+		<input type="checkbox" class="tagBox" name="tagBox" id="electronic" value="electronic">electronic&emsp;
+		<input type="checkbox" class="tagBox" name="tagBox" id="pop" value="pop">pop&emsp;
+		<input type="checkbox" class="tagBox" name="tagBox" id="funk" value="funk">funk
 	</td></tr>
 	<tr><td></td>
 	<td>&emsp;
-		<input type="checkbox" class="tagBox" name="metal" id="metal" value="metal">metal&emsp;
-		<input type="checkbox" class="tagBox" name="jazz" id="jazz" value="jazz">jazz&emsp;
-		<input type="checkbox" class="tagBox" name="hip-hop" id="hip-hop" value="hip-hop">hip-hop&emsp;
-		<input type="checkbox" class="tagBox" name="classical" id="classical" value="classical">classical
+		<input type="checkbox" class="tagBox" name="tagBox" id="metal" value="metal">metal&emsp;
+		<input type="checkbox" class="tagBox" name="tagBox" id="jazz" value="jazz">jazz&emsp;
+		<input type="checkbox" class="tagBox" name="tagBox" id="hip-hop" value="hip-hop">hip-hop&emsp;
+		<input type="checkbox" class="tagBox" name="tagBox" id="classical" value="classical">classical
 	</td></tr>
 		
 	<tr><td></td>
 	<td>&emsp;
-		<input type="checkbox" class="tagBox" name="blues" id="blues" value="blues">blues&emsp;
-		<input type="checkbox" class="tagBox" name="acoustic" id="acoustic" value="acoustic">acoustic&emsp;
-		<input type="checkbox" class="tagBox" name="instrumental" id="instrumental" value="instrumental">instrumental&emsp;
-		<input type="checkbox" class="tagBox" name="soundtrack" id="soundtrack" value="soundtrack">soundtrack
+		<input type="checkbox" class="tagBox" name="tagBox" id="blues" value="blues">blues&emsp;
+		<input type="checkbox" class="tagBox" name="tagBox" id="acoustic" value="acoustic">acoustic&emsp;
+		<input type="checkbox" class="tagBox" name="tagBox" id="instrumental" value="instrumental">instrumental&emsp;
+		<input type="checkbox" class="tagBox" name="tagBox" id="soundtrack" value="soundtrack">soundtrack
 	</td></tr>
 </table>
 
@@ -84,11 +81,8 @@
 
 $(function(){
 	<c:forEach items='${tagsList}' var='tagname'>
-	$('#tagsList').append("<li class='list-group-item' id='${tagname}'>${tagname}" + 
-			"&emsp;<a href='#' class='deleteBtn' style='text-align:right;' id='${tagname}'>삭제</a></li>");
 	$(".tagBox[value='${tagname}']").attr('checked', 'checked');
 	</c:forEach>
-	
 });
 
 
