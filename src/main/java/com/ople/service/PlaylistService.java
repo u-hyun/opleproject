@@ -12,4 +12,5 @@ public interface PlaylistService {
 
 	List<Playlist> getPlaylistById(String memberId);
 
+	List<Playlist> getTopPlaylists();
 }

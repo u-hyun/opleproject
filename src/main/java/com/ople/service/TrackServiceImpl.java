@@ -36,4 +36,14 @@ public class TrackServiceImpl implements TrackService{
 		return trackRepo.findById(trackId);
 	}
 
+	@Override
+	public List<Track> getTopTracks() {
+		return trackRepo.findFirst5ByOrderByTrackCountDesc();
+	}
+
+	@Override
+	public List<Track> getTopTracksByTags(String tags) {
+		return trackRepo.findFirst5ByTopTagsContainingOrderByTrackCountDesc(tags);
+	}
+	
 }

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="modal-header">
 	<h5 class="modal-title" id="historyModalLabel">${member.memberNickname}님 플레이리스트에 추가: ${recording.title}</h5>
@@ -50,7 +49,7 @@ $(function(){
 		var playlist;
 		$.ajax({
 			type:"GET",
-			url:"newPlaylist?playlistName=" + $('#newPlaylistName').val() + "&trackId=${id}",
+			url:"newPlaylist?playlistName=" + $('#newPlaylistName').val() + "&trackId=${id}&releaseId=${releaseId}&img=${img}",
 			success: function(data){
 				$('.playlist-status#new').html('성공적으로 추가되었습니다.');
 			},
@@ -65,7 +64,7 @@ $(function(){
 		var playlistId = $(this).attr('id');
 		$.ajax({
 			type:"GET",
-			url:"addPlaylist?playlistId=" + $(this).attr('id') + "&trackId=${id}",
+			url:"addPlaylist?playlistId=" + $(this).attr('id') + "&trackId=${id}&releaseId=${releaseId}&img=${img}",
 			success: function(data){
 				alert('.playlist-status#' + playlistId);
 				$('.playlist-status#' + playlistId).html('성공적으로 추가되었습니다.');

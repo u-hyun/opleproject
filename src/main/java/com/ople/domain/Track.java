@@ -25,5 +25,6 @@ public class Track implements Serializable {
 	Long todayPlaycount;
 	String topTags;
 	Long trackCount;
-	
+	String coverimg;
+
 }

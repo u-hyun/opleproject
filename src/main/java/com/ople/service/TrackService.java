@@ -10,4 +10,6 @@ public interface TrackService {
 	boolean checkTrack(Track track);
 	Optional<Track> findTrack(String trackId);
 	List<Track> getTrack();
+	List<Track> getTopTracks();
+	List<Track> getTopTracksByTags(String tags);
 }

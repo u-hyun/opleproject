@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,19 +43,22 @@
 	</div>
 	<ul class="list-group" id="tagList">
 	</ul>
-	<div style=" display: none; " >
-	<a class="dropdown-item" href="#" id="rock">Rock</a>
-	    <input type="checkbox" class="" id="electronic">
-	    <a class="dropdown-item" href="#" id="pop">Pop</a>
-	    <a class="dropdown-item" href="#" id="funk">Funk</a>
-	    <a class="dropdown-item" href="#" id="metal">Metal</a>
-	    <a class="dropdown-item" href="#" id="jazz">Jazz</a>
-	    <a class="dropdown-item" href="#" id="hiphop">Hip-hop</a>
-	    <a class="dropdown-item" href="#" id="classical">Classical</a>
-	    <a class="dropdown-item" href="#" id="blues">Blues</a>
-	    <a class="dropdown-item" href="#" id="acoustic">Acoustic</a>
-	    <a class="dropdown-item" href="#" id="instrumental">Instrumental</a>
-	    <a class="dropdown-item" href="#" id="soundtrack">Soundtrack</a>
+	<div style=' display:none; '> <!-- 보이지 않는 체크박스 리스트 (form submit 용) -->
+		<input name="trackId" value="${track.trackId}">
+		
+		
+	    <input type="checkbox" class="tagBox" name="tagBox" value="electronic">
+	    <input type="checkbox" class="tagBox" name="tagBox" value="pop">
+	    <input type="checkbox" class="tagBox" name="tagBox" value="funk">
+	    <input type="checkbox" class="tagBox" name="tagBox" value="metal">
+	    <input type="checkbox" class="tagBox" name="tagBox" value="jazz">
+	    <input type="checkbox" class="tagBox" name="tagBox" value="hiphop">
+	    <input type="checkbox" class="tagBox" name="tagBox" value="classical">
+	    <input type="checkbox" class="tagBox" name="tagBox" value="blues">
+	    <input type="checkbox" class="tagBox" name="tagBox" value="acoustic">
+	    <input type="checkbox" class="tagBox" name="tagBox" value="instrumental">
+	    <input type="checkbox" class="tagBox" name="tagBox" value="soundtrack">
+	    
 	</div>
 </form>
 </div>
@@ -71,22 +74,26 @@ $(function(){
 		$('.main').load("searchResult?keyword=" + $('#keywordInput').val());
 	});
 	
+	<c:forEach items='${tagList}' var='tagname'>
+		$('#tagList').append("<li class='list-group-item' id='${tagname}'>${tagname}" + 
+				"&emsp;<a href='#' class='deleteBtn' style='text-align:right;' id='${tagname}'>삭제</a></li>");
+		$(".tagBox[value='${tagname}']").attr('checked', 'checked');
+	</c:forEach>
+	
 	$('.dropdown-item').click(function(){
+		// 드랍다운 아이템을 클릭 -> 상응하는 체크박스가 체크돼있지 않을 때
+		if(!$(".tagBox[value='" + $(this).attr('id') + "']").is(':checked')){
 		$('#tagList').append('<li class="list-group-item" id="' + $(this).attr('id') + '">' + $(this).attr('id') + 
-				'<a href="#" class="deleteBtn" id="' + $(this).attr('id') + '">삭제</a></li>');
+				'&emsp;<a href="#" class="deleteBtn" style="text-align:right;" id="' + $(this).attr('id') + '">삭제</a></li>');
+		$(".tagBox[value='" + $(this).attr('id') + "']").attr('checked', 'checked');
+		} // 이미 해당 아이템이 리스트에 올라가 있으면 아무것도 하지 않음.
 	});
 	
 	$('#tagList').on('click', '.deleteBtn' , function(){
 		$('.list-group-item#' + $(this).attr('id')).remove();
+		$(".tagBox[value='" + $(this).attr('id') + "']").removeAttr('checked');
 	});
 	
-	var taglist = [];
-	$('#saveBtn').on('submit', function(e){
-		e.preventDefault();
-		$('ul li').each(function(){
-			taglist.push($(this).text())
-		});
-	});
 	
 });
 </script>
