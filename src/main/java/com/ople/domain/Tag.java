@@ -2,15 +2,12 @@ package com.ople.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import lombok.Data;
 
-/**
- * Entity implementation class for Entity: Tag
- *
- */
+
 @Entity
-
+@Data
 public class Tag implements Serializable {
-
 	
 	private static final long serialVersionUID = 1L;
 

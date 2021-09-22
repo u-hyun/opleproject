@@ -29,4 +29,9 @@ public class PlaylistTrackServiceImpl implements PlaylistTrackService{
 		return playlistTrackRepo.countByTrackId(trackId);
 	}
 
+	@Override
+	public List<PlaylistTrack> getPlaylistTrack() {
+		return playlistTrackRepo.findAll();
+	}
+
 }

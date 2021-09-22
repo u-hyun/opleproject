@@ -34,7 +34,4 @@ public class Recording {
 		this.releases = releases;
 	}
 	
-	
-	
-	
 }

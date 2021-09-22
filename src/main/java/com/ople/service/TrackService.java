@@ -12,4 +12,5 @@ public interface TrackService {
 	List<Track> getTopTracks();
 	List<Track> getTopTracksByTag(String tag);
 	List<Track> getTopTracksByTags(List<String> tag);
+	List<Track> getTrack();
 }

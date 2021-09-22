@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ople.domain.Playlist;
 import com.ople.domain.Track;
 import com.ople.persistence.TrackRepository;
 
@@ -57,5 +58,8 @@ public class TrackServiceImpl implements TrackService{
 			tagList = tagList.subList(0, 4);
 		return tagList;
 	}
-
+	@Override
+	public List<Track> getTrack() {
+			return trackRepo.findAll();
+	}
 }

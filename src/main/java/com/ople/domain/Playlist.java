@@ -3,16 +3,14 @@ package com.ople.domain;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * Entity implementation class for Entity: Playlist
  *
  */
 @Entity
-@Getter
-@Setter
+@Data
 public class Playlist implements Serializable {
 
 	
@@ -69,8 +67,8 @@ public class Playlist implements Serializable {
 	public void setCustomTag(String customTag) {
 		this.customTag = customTag;
 	}
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
 }

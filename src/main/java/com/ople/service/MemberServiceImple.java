@@ -3,8 +3,12 @@ package com.ople.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ople.domain.Member;
 import com.ople.persistence.MemberRepository;
@@ -14,7 +18,14 @@ public class MemberServiceImple implements MemberService {
 	
 	@Autowired
 	MemberRepository memberRepo;
-
+	
+	//비밀번호 변경
+	@Override
+	public Member saveMember(Member member, String newPw) {
+		member.setMemberPw(newPw);
+		return memberRepo.save(member);
+	}
+	
 	@Override
 	public Member saveMember(Member member) {
 		return memberRepo.save(member);
@@ -55,4 +66,9 @@ public class MemberServiceImple implements MemberService {
 		return null;
 	}
 
+	@Override
+	public void profileImage(String path, String id) {
+		memberRepo.imageUpoload(path, id);
+	}
+	
 }

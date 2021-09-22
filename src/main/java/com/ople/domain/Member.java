@@ -9,34 +9,38 @@ import javax.persistence.Id;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Data
 public class Member implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "MEMBERID")
-	private String memberId;   
+	private String memberId;
 	private String memberPw;
 	private String memberName;
 	private Date joinDate;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
-	
 	private char admin;
 	private String memberNickname;
 	private char gender;
 	private String profileComment;
 	private String likedTags;
 	
+	@Column(length=600)
+	private String imagePath;
+	
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 	public String getMemberId() {
 		return memberId;
 	}

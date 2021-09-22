@@ -3,16 +3,14 @@ package com.ople.domain;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * Entity implementation class for Entity: PlaylistTrack
  *
  */
 @Entity
-@Getter
-@Setter
+@Data
 public class PlaylistTrack implements Serializable {
 
 	
@@ -25,6 +23,7 @@ public class PlaylistTrack implements Serializable {
 	private Long playlistId;		// 자동생성 (숫자)
 	private Long listOrder;			// 숫자
 	private String trackId;			// recording mbid (문자열)
+	
 	public Long getPlaylistTrackId() {
 		return playlistTrackId;
 	}
@@ -63,7 +62,6 @@ public class PlaylistTrack implements Serializable {
 		return "PlaylistTrack [playlistTrackId=" + playlistTrackId + ", memberId=" + memberId + ", playlistId="
 				+ playlistId + ", listOrder=" + listOrder + ", trackId=" + trackId + "]";
 	}
-	
 	
 	
 }
