@@ -4,6 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Ople : 비밀번호 찾기</title>
+<style>
+table {
+	margin: auto;
+}
+
+h4{
+text-align: center;}
+</style>
 </head>
 <body>
 <h4>비밀번호 찾기</h4>

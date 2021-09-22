@@ -4,6 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Ople : 비밀번호 변경</title>
+<style>
+h4{
+text-align: center;
+}
+
+table{
+margin: auto;}
+</style>
 </head>
 <body>
 <h4>비밀번호 변경</h4>
