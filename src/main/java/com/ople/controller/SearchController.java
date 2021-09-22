@@ -52,10 +52,6 @@ public class SearchController {
 	@Autowired
 	TrackService trackService;
 	
-	/* 메인컨트롤러로 옮김.
-	 * @RequestMapping("/") public String mainPage() { return "main"; }
-	 */
-	
 	@RequestMapping("/search")
 	public String search() {
 		return "search";
@@ -159,20 +155,6 @@ public class SearchController {
 			return "loginModal";
 		}
 	}
-	
-	/*   메인컨트롤러로 옮김.
-	 * @RequestMapping("/menu") public String loadMenu(HttpServletRequest request,
-	 * Model m) { HttpSession session = request.getSession(); Member member =
-	 * (Member) session.getAttribute("member"); if(member != null) {
-	 * m.addAttribute(member); return "menu_member"; } else return "menu"; }
-	 * 
-	 * @RequestMapping("searchbarModal") public String loadSearchbar() { return
-	 * "searchbarModal"; }
-	 * 
-	 * @RequestMapping("logout") public String logout(HttpServletRequest request) {
-	 * HttpSession session = request.getSession(); session.invalidate(); return
-	 * "redirect:/"; }
-	 */
 	
 	@RequestMapping("newPlaylist")
 	@ResponseBody
