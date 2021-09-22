@@ -16,8 +16,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardRepository boardRepo;	
 	
 	@Override
-	public List<Board> getBoardList(){
-		return boardRepo.findAll(Sort.by(Sort.Direction.DESC, "commentId"));
+	public List<Board> getBoardList(Long playlistId){
+		return boardRepo.findByPlaylistIdOrderByCommentIdDesc(playlistId);
 	}
 	
 	@Override

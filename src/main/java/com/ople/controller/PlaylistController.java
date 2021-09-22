@@ -1,6 +1,7 @@
 package com.ople.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,22 +43,37 @@ public class PlaylistController {
 	@Autowired
 	private TrackService trackService;
 	
-	@RequestMapping("/getList")
-	public String getBoardList(Model m, @ModelAttribute("member")Member member) {
+	
+	@GetMapping("/playlist")
+	public String getPlayList(Model m, @ModelAttribute("member")Member member) {
 		
 		if(member.getMemberId() == null) {
 			return "redirect:loginform";
 		}
-		List<Board> bList = boardService.getBoardList();
-		m.addAttribute("blist", bList);
+		
 		List<Playlist> pList = playlistService.getPlaylist();
 		m.addAttribute("plist", pList);
+		
+		return "playlist";
+	}
+		
+	@RequestMapping("/getPlaylist")
+	public String getBoardList(Model m, @RequestParam Long playlistId,
+			@ModelAttribute("member")Member member) {
+		if(member.getMemberId() == null) {
+			return "redirect:loginform";
+		}
+		
+		Playlist pList = playlistService.getPlaylist(playlistId);
+		m.addAttribute("plist", pList);
+		List<Board> bList = boardService.getBoardList(playlistId);
+		m.addAttribute("blist", bList);
 		List<PlaylistTrack> ptList = playlistTrackService.getPlaylistTrack();
 		m.addAttribute("ptlist", ptList);
 		List<Track> pTrack = trackService.getTrack();
 		m.addAttribute("ptrack", pTrack);
 		
-		return "/playlist/playlist";
+		return "getPlaylist";
 	}
 		
 	@GetMapping("/insertBoard") 
@@ -70,7 +86,7 @@ public class PlaylistController {
 	public String insertBoard(Board board, @ModelAttribute("member")Member member) {
 		board.setMemberId(member.getMemberId());
 		boardService.saveBoard(board);
-		return "redirect:getList";
+		return "redirect:getPlaylist";
 	}
 
 	@RequestMapping("/content/{commentId}")
@@ -90,13 +106,13 @@ public class PlaylistController {
 	@PostMapping("/update")
 	public String update(Board board) {
 		boardService.saveBoard(board);
-		return "redirect:getList";
+		return "redirect:getPlaylist";
 	}
 
 	@GetMapping("/delete/{commentId}")
 	public String delete(@PathVariable Long commentId) {
 		boardService.deleteBoard(commentId);
-		return "redirect:getList";
+		return "redirect:getPlaylist";
 	}
 		
 }

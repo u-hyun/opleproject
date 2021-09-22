@@ -1,3 +1,4 @@
+
 package com.ople.service;
 
 import java.util.List;
@@ -9,7 +10,8 @@ public interface TrackService {
 	Track saveTrack(Track track);
 	boolean checkTrack(Track track);
 	Optional<Track> findTrack(String trackId);
-	List<Track> getTrack();
 	List<Track> getTopTracks();
-	List<Track> getTopTracksByTags(String tags);
+	List<Track> getTopTracksByTag(String tag);
+	List<Track> getTopTracksByTags(List<String> tag);
+	List<Track> getTrack();
 }
