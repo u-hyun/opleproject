@@ -24,5 +24,49 @@ public class Playlist implements Serializable {
 	private Long viewCount;
 	private Long likeCount;
 	private String customTag;
+	public Long getPlaylistId() {
+		return playlistId;
+	}
+	public void setPlaylistId(Long playlistId) {
+		this.playlistId = playlistId;
+	}
+	public String getPlaylistName() {
+		return playlistName;
+	}
+	public void setPlaylistName(String playlistName) {
+		this.playlistName = playlistName;
+	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Long getViewCount() {
+		return viewCount;
+	}
+	public void setViewCount(Long viewCount) {
+		this.viewCount = viewCount;
+	}
+	public Long getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(Long likeCount) {
+		this.likeCount = likeCount;
+	}
+	public String getCustomTag() {
+		return customTag;
+	}
+	public void setCustomTag(String customTag) {
+		this.customTag = customTag;
+	}
+	
+	
    
 }

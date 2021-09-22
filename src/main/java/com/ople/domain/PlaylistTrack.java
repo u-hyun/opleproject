@@ -24,4 +24,41 @@ public class PlaylistTrack implements Serializable {
 	private Long listOrder;			// 숫자
 	private String trackId;			// recording mbid (문자열)
 	
+	private String playlistTrackId;
+	private String memberid;
+	private Long playlistId;
+	private Long listOrder;
+	private Long trackId;
+	public String getPlaylistTrackId() {
+		return playlistTrackId;
+	}
+	public void setPlaylistTrackId(String playlistTrackId) {
+		this.playlistTrackId = playlistTrackId;
+	}
+	public String getMemberid() {
+		return memberid;
+	}
+	public void setMemberid(String memberid) {
+		this.memberid = memberid;
+	}
+	public Long getPlaylistId() {
+		return playlistId;
+	}
+	public void setPlaylistId(Long playlistId) {
+		this.playlistId = playlistId;
+	}
+	public Long getListOrder() {
+		return listOrder;
+	}
+	public void setListOrder(Long listOrder) {
+		this.listOrder = listOrder;
+	}
+	public Long getTrackId() {
+		return trackId;
+	}
+	public void setTrackId(Long trackId) {
+		this.trackId = trackId;
+	}
+   
+	
 }
