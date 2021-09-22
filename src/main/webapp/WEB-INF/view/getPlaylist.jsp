@@ -1,16 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>OPLE</title>
+<title>목록보기</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
-.btn-primary{
-	margin:0;
-	padding:0;
-}
+	.btn-primary{margin:0; padding:0;}
+	#center{width:800px; margin-left: auto; margin-right: auto;}
+	table{width: 800px; border-collapse : collapse;}
+	th{ background-color: orange; width: 150px;}
+	a{margin: 10px auto;}
+	#page{text-align: center;}
 </style>
 </head>
 <body>
@@ -21,42 +23,54 @@
 		<input id="keywordInput" name="keyword" size="50">  <input type="submit" value="검색">
 	</form>
 </div>
-
-<div class="main" style="padding:30px">
-
-<h3>곡 추천 ></h3>
-
-<div class="card-deck">
-<c:forEach items="${topTracks}" var="track">
-	<div class="card songcard" id="${track.trackId}">
-	   <img src="http://coverartarchive.org/release/${track.coverimg}" onError="this.onerror=null;this.src='https://image.flaticon.com/icons/png/512/26/26805.png';"
-	    class="card-img-top albumcover" alt="...">
-	   <div class="card-body">
-	     <h5 class="card-title">${track.trackName}</h5>
-	     <p class="card-text">${track.artistName}</p>
-	     <a href="#" class="btn btn-primary addplaylistbutton" id="${track.trackId}">추가</a>
-	   </div>
-	 </div>
-</c:forEach>
+<br>
+<br>
+<br>
+<br>
+<div id="playlistinfo"></div>
+<h5>playlist info</h5>
+<div id="center">
+<table>
+	<tr><td>${plist.playlistName}</td>
+		<td>${plist.description}</td>
+		<td>${plist.viewCount}</td>
+		<td>${plist.likeCount}</td>
+	</tr>	
+</table>
 </div>
-
-<hr>
-<h3>플레이리스트 추천 ></h3>
-<div class="card-deck">
-<c:forEach items="${topPlaylists}" var="playlist">
-	<div class="card songcard" id="${playlist.playlistId}">
-	   <img src="https://image.flaticon.com/icons/png/512/26/26805.png" class="card-img-top playlistcover" alt="...">
-	   <div class="card-body">
-	     <h5 class="card-title">${playlist.playlistName}</h5>
-	     <p class="card-text">${playlist.description}</p>
-	     <p class="card-text"><small class="text-muted">${playlist.memberId}</small></p>
-	     <a href="getPlaylist" class="btn btn-primary playlistDetailsButton" id="${playlist.playlistId}">자세히 보기</a>
-	     <a href="#" class="btn btn-primary playlistLikeButton" id="${playlist.playlistId}">좋아요!</a>
-	   </div>
-	 </div>
-</c:forEach>
+<h5>playlistTrack</h5>
+<div id="center">
+<table>
+	<c:forEach items= "${ptrack}" var="track">
+	<tr><td>${track.trackName}</td>
+		<td>${track.artistName}</td>
+		<td>${track.albumName}</td>
+		<td>${track.trackId}</td>
+	</tr>
+	</c:forEach>	
+</table>
 </div>
-
+<h5>Comment</h5>
+<div id="center">
+<form method="post" action="insertBoard">
+	<table>
+		<td><textarea name="content" cols="90" rows="3"></textarea></td>
+		<td><input type="submit" value="등록"></td>
+	</table>
+</form>
+	<table>
+		<c:forEach items= "${blist}" var="board">
+		<tr><td>${board.memberId}</td>
+			<td>${board.content}</td>
+			<td><fmt:formatDate value="${board.commentDate}" pattern="yyyy.MM.dd HH:mm"/></td>
+			<td>${board.likeCount}</td>
+			<c:if test="${board.memberId eq member.memberId}">
+			<td><a href="/content/${board.commentId}" >수정</a></td>
+			<td><a href="/delete/${board.commentId}" >삭제</a></td>
+			</c:if>
+		</tr>
+		</c:forEach>	
+	</table>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

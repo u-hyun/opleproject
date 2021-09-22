@@ -1,5 +1,7 @@
 package com.ople.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,21 @@ public class PlaylistTrackServiceImpl implements PlaylistTrackService{
 	@Override
 	public PlaylistTrack savePlaylistTrack(PlaylistTrack playlistTrack) {
 		return playlistTrackRepo.save(playlistTrack);
+	}
+
+	@Override
+	public List<PlaylistTrack> getPlaylistTrackByPlaylistId(Long playlistId) {
+		return playlistTrackRepo.findByPlaylistId(playlistId);
+	}
+
+	@Override
+	public Long countByTrackId(String trackId) {
+		return playlistTrackRepo.countByTrackId(trackId);
+	}
+
+	@Override
+	public List<PlaylistTrack> getPlaylistTrack() {
+		return playlistTrackRepo.findAll();
 	}
 
 }

@@ -1,10 +1,12 @@
 package com.ople.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ople.domain.Member;
 import com.ople.domain.Playlist;
 import com.ople.persistence.PlaylistRepository;
 
@@ -20,8 +22,23 @@ public class PlaylistServiceImpl implements PlaylistService{
 	}
 
 	@Override
+	public List<Playlist> getPlaylist() {
+		return playlistRepo.findAll();
+	}
+
+	@Override
 	public List<Playlist> getPlaylistById(String memberId) {
 		return playlistRepo.findByMemberId(memberId);
+	}
+
+	@Override
+	public List<Playlist> getTopPlaylists() {
+		return playlistRepo.findFirst5ByOrderByLikeCountDesc();
+	}
+
+	@Override
+	public Playlist getPlaylist(Long playlistId) {
+		return playlistRepo.getById(playlistId);
 	}
 
 }

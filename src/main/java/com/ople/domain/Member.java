@@ -9,14 +9,10 @@ import javax.persistence.Id;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Data
 public class Member implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -30,7 +26,6 @@ public class Member implements Serializable {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
-	
 	private char admin;
 	private String memberNickname;
 	private char gender;

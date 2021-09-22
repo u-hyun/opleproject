@@ -106,26 +106,30 @@ public class MemberController implements ApplicationContextAware {
 	}
 
 	@RequestMapping("/login")
-	public String login(HttpServletRequest request, Member member, Model model) {
+	public String login(Member member, Model model) {
 		Member findMember = memberService.getMember(member);
 		if (findMember != null && findMember.getMemberPw().equals(member.getMemberPw())) {
 			model.addAttribute("member", findMember);
 			model.addAttribute("loginFailed", false);
 //			HttpSession session = request.getSession();
 //			session.setAttribute("member", findMember);
-			// getBoardList대신 메인페이지 경로로 바꿔줄 것
-			return "redirect:index.html";
+      
+			//getBoardList대신 메인페이지 경로로 바꿔줄 것
+			return "redirect:/";
+
+
 		} else {
 			model.addAttribute("loginFailed", true);
 			return "member/loginView";
 		}
 	}
-
-	/*
-	 * @GetMapping("/logout") public String logout(SessionStatus status) {
-	 * status.setComplete();// @SessionAttributes를 활용해 Session에 남긴 데이터를 정리 //
-	 * index.html 대신에 메인? 넣을것 return "redirect:index.html"; }
-	 */
+  
+	@GetMapping("/logout")
+	public String logout(SessionStatus status) {
+		status.setComplete();// @SessionAttributes를 활용해 Session에 남긴 데이터를 정리
+		//index.html 대신에 메인? 넣을것
+		return "redirect:/";
+  }
 	
 	@RequestMapping("/mypageView")
 	public String mypageView(@ModelAttribute("member") Member member, Model m) {
@@ -171,7 +175,7 @@ public class MemberController implements ApplicationContextAware {
 		
 		
 		memberService.saveMember(member);
-		return "redirect:index.html";
+		return "redirect:/";
 	}
 
 	// 사진 업로드 관련
@@ -211,7 +215,7 @@ public class MemberController implements ApplicationContextAware {
 		} else {
 			return "redirect:/deleteMemberView";
 		}
-		return "member/loginView";
+		return "redirect:/";
 	}
 	
 	

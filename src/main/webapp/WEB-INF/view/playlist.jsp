@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>OPLE</title>
+<title>목록보기</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
 .btn-primary{
@@ -21,43 +21,22 @@
 		<input id="keywordInput" name="keyword" size="50">  <input type="submit" value="검색">
 	</form>
 </div>
-
-<div class="main" style="padding:30px">
-
-<h3>곡 추천 ></h3>
-
-<div class="card-deck">
-<c:forEach items="${topTracks}" var="track">
-	<div class="card songcard" id="${track.trackId}">
-	   <img src="http://coverartarchive.org/release/${track.coverimg}" onError="this.onerror=null;this.src='https://image.flaticon.com/icons/png/512/26/26805.png';"
-	    class="card-img-top albumcover" alt="...">
-	   <div class="card-body">
-	     <h5 class="card-title">${track.trackName}</h5>
-	     <p class="card-text">${track.artistName}</p>
-	     <a href="#" class="btn btn-primary addplaylistbutton" id="${track.trackId}">추가</a>
-	   </div>
-	 </div>
-</c:forEach>
-</div>
-
-<hr>
 <h3>플레이리스트 추천 ></h3>
 <div class="card-deck">
-<c:forEach items="${topPlaylists}" var="playlist">
+<c:forEach items="${plist}" var="playlist">
 	<div class="card songcard" id="${playlist.playlistId}">
 	   <img src="https://image.flaticon.com/icons/png/512/26/26805.png" class="card-img-top playlistcover" alt="...">
 	   <div class="card-body">
 	     <h5 class="card-title">${playlist.playlistName}</h5>
 	     <p class="card-text">${playlist.description}</p>
 	     <p class="card-text"><small class="text-muted">${playlist.memberId}</small></p>
-	     <a href="getPlaylist" class="btn btn-primary playlistDetailsButton" id="${playlist.playlistId}">자세히 보기</a>
+	     <a href="/getPlaylist?playlistId=${playlist.playlistId}" class="btn btn-primary playlistDetailsButton" id="${playlist.playlistId}">자세히 보기</a>
 	     <a href="#" class="btn btn-primary playlistLikeButton" id="${playlist.playlistId}">좋아요!</a>
 	   </div>
 	 </div>
 </c:forEach>
 </div>
 
-</div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

@@ -1,21 +1,27 @@
 package com.ople.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 
 import com.ople.domain.Member;
 import com.ople.domain.Playlist;
+import com.ople.domain.PlaylistTrack;
+import com.ople.domain.Track;
 import com.ople.search.album.ImageSearchResult;
 import com.ople.search.musicbrainz.AliasSearchResult;
 import com.ople.search.musicbrainz.Aliases;
@@ -27,6 +33,8 @@ import com.ople.search.youtube.YoutubeSearchResult;
 import com.ople.service.MemberService;
 import com.ople.service.PlaylistService;
 import com.ople.service.PlaylistTrackService;
+import com.ople.service.TrackService;
+import com.sun.mail.iap.Response;
 
 @Controller
 public class SearchController {
@@ -40,11 +48,12 @@ public class SearchController {
 	PlaylistService playlistService;
 	@Autowired
 	PlaylistTrackService playlistTrackService;
+	@Autowired
+	TrackService trackService;
 	
-	@RequestMapping("/")
-	public String mainPage() {
-		return "main";
-	}
+	/* 메인컨트롤러로 옮김.
+	 * @RequestMapping("/") public String mainPage() { return "main"; }
+	 */
 	
 	@RequestMapping("/search")
 	public String search() {
@@ -129,23 +138,16 @@ public class SearchController {
 	}
 	
 	@RequestMapping("/addPlaylistModal")
-	public String showModal(HttpServletRequest request, Model m, @RequestParam String id) {
+	public String showModal(HttpServletRequest request, Model m, 
+				@RequestParam String id, @RequestParam String releaseId, @RequestParam String img) {
 		HttpSession session = request.getSession();
-		
-		/*
-		 테스트용
-		 */
-		Member testmember = memberService.getMemberById("test@test.com");
-		session.setAttribute("member", testmember);
-		// 이곳에 테스트할 값들을 setAttribute로 추가하시면 됩니다.
-		/*
-		 테스트용 끝
-		 */
 		
 		if(session.getAttribute("member") != null) {	// 세션에 로그인이 돼 있을 때
 			Member member = (Member)session.getAttribute("member");
 			m.addAttribute("member", member);
 			m.addAttribute("id", id);
+			m.addAttribute("releaseId", releaseId);
+			m.addAttribute("img", img);
 			Recording recording = 
 					restTemplate.getForObject("https://musicbrainz.org/ws/2/recording/" + id, Recording.class);
 			m.addAttribute("recording", recording);
@@ -157,14 +159,131 @@ public class SearchController {
 		}
 	}
 	
-	@RequestMapping("/menu")
-	public String loadMenu() {
-		return "menu";
+	/*   메인컨트롤러로 옮김.
+	 * @RequestMapping("/menu") public String loadMenu(HttpServletRequest request,
+	 * Model m) { HttpSession session = request.getSession(); Member member =
+	 * (Member) session.getAttribute("member"); if(member != null) {
+	 * m.addAttribute(member); return "menu_member"; } else return "menu"; }
+	 * 
+	 * @RequestMapping("searchbarModal") public String loadSearchbar() { return
+	 * "searchbarModal"; }
+	 * 
+	 * @RequestMapping("logout") public String logout(HttpServletRequest request) {
+	 * HttpSession session = request.getSession(); session.invalidate(); return
+	 * "redirect:/"; }
+	 */
+	
+	@RequestMapping("newPlaylist")
+	@ResponseBody
+	public void newPlaylist(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam String playlistName, @RequestParam String trackId,
+			@RequestParam String releaseId, @RequestParam String img) {
+		
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("member");
+		JSONObject resultJson = new JSONObject();
+		
+		try {
+			// 새로운 플레이리스트 생성
+			Playlist playlist = new Playlist();
+			playlist.setPlaylistName(playlistName);
+			playlist.setMemberId(member.getMemberId());
+			playlist.setDescription("");
+			playlist.setCustomTag("");
+			playlist.setLikeCount((long) 0);
+			playlist.setViewCount((long) 0);
+			playlist = playlistService.savePlaylist(playlist);
+			
+			// 새로운 플레이리스트에 곡 넣기
+			Long playlistId = playlist.getPlaylistId();
+			PlaylistTrack track = new PlaylistTrack();
+			track.setTrackId(trackId);
+			track.setPlaylistId(playlistId);
+			track.setMemberId(member.getMemberId());
+			track.setListOrder(Long.valueOf(0)); // 신규 플레이리스트(곡없음): 0번째 곡으로 설정
+			System.out.println(track.toString());
+			playlistTrackService.savePlaylistTrack(track);
+			
+			// Track 테이블 (고유 곡 정보 테이블)에 삽입 / 업데이트
+			Track uniqueTrack = playlistTrackToTrack(track);
+			uniqueTrack.setCoverimg(releaseId + "/" + img);
+			System.out.println(uniqueTrack.getCoverimg());
+			trackService.saveTrack(uniqueTrack);
+			
+			resultJson.put("success", true);
+		} catch(Exception e) {
+			resultJson.put("success", false);
+			e.printStackTrace();
+		}
+			response.setContentType("application/json");
+			try {
+				response.getWriter().write(resultJson.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 	
-	@RequestMapping("searchbarModal")
-	public String loadSearchbar() {
-		return "searchbarModal";
+	@RequestMapping("addPlaylist")
+	@ResponseBody
+	public void addPlaylist(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam Long playlistId, @RequestParam String trackId,
+			@RequestParam String releaseId, @RequestParam String img) {
+		
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("member");
+		JSONObject resultJson = new JSONObject();
+		
+		try {
+			// 플레이리스트에 곡 넣기
+			List<PlaylistTrack> pTrackList = playlistTrackService.getPlaylistTrackByPlaylistId(playlistId);
+			PlaylistTrack track = new PlaylistTrack();
+			track.setTrackId(trackId);
+			track.setPlaylistId(playlistId);
+			track.setMemberId(member.getMemberId());
+			track.setListOrder(Long.valueOf(pTrackList.size()));	// 현재 플레이리스트에 있는 곡수 = 플레이리스트 안의 곡순서
+			playlistTrackService.savePlaylistTrack(track);
+			
+			// Track 테이블 (고유 곡 정보 테이블)에 삽입 / 업데이트
+			Track uniqueTrack = playlistTrackToTrack(track);
+			uniqueTrack.setCoverimg(releaseId + "/" + img);
+			System.out.println(uniqueTrack.getCoverimg());
+			trackService.saveTrack(uniqueTrack);
+			
+			System.out.println(track.toString());
+			resultJson.put("success", true);
+		} catch(Exception e) {
+			resultJson.put("success", false);
+			e.printStackTrace();
+		}
+		response.setContentType("application/json");
+		try {
+			response.getWriter().write(resultJson.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private Track playlistTrackToTrack(PlaylistTrack pTrack) {
+		Track track = new Track();
+		String id = pTrack.getTrackId();
+		Recording recording = restTemplate.getForObject(
+				"https://musicbrainz.org/ws/2/recording/" + id + "?inc=artists+releases&fmt=json", Recording.class);
+		track.setTrackId(id);
+		track.setTrackName(recording.getTitle());
+		track.setArtistName(recording.getArtistcredit().get(0).getName());
+		track.setAlbumName(recording.getReleases().get(0).getTitle());
+		track.setTrackCount(playlistTrackService.countByTrackId(id));
+		track.setPlaycount(Long.valueOf(0));
+		track.setTodayPlaycount(Long.valueOf(0));
+		track.setTopTags("");
+		track.setUrl("");
+		return track;
+	}
+	
+	private String getTopTags(Recording recording) {
+		String releaseId = recording.getReleases().get(0).getId();
+		
+		return "";
 	}
 	
 }
