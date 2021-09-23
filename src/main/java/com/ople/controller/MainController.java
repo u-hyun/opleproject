@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ople.domain.Member;
 import com.ople.domain.Playlist;
 import com.ople.domain.Track;
+import com.ople.service.LikedPlaylistService;
 import com.ople.service.PlaylistService;
 import com.ople.service.TrackService;
 
@@ -24,6 +25,8 @@ public class MainController {
 	PlaylistService playlistService;
 	@Autowired
 	TrackService trackService;
+	@Autowired
+	LikedPlaylistService likedPlaylistService;
 	
 	@RequestMapping("/")
 	public String mainPage(HttpServletRequest request, Model m) {
@@ -35,6 +38,9 @@ public class MainController {
 			System.out.println(tags.toString());
 			List<Track> topTracks = trackService.getTopTracksByTags(tags);
 			List<Playlist> topPlaylists = playlistService.getTopPlaylists();
+			for(Playlist playlist : topPlaylists) {
+				playlist.setLike(likedPlaylistService.checkLike(member.getMemberId(), playlist.getPlaylistId()));
+			}
 			m.addAttribute("topTracks", topTracks);
 			m.addAttribute("topPlaylists", topPlaylists);
 		} else {	// 로그인 하지 않았을 때의 메인화면		

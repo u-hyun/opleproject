@@ -112,7 +112,7 @@ public class RecommendController {
 			}
 			return "success";
 		} else { // 로그인 안 돼 있을 때
-			return null;
+			return "로그인이 필요한 기능입니다.";
 		}
 	}
 	

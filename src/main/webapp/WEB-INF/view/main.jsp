@@ -51,8 +51,8 @@
 	     <h5 class="card-title">${playlist.playlistName}</h5>
 	     <p class="card-text">${playlist.description}</p>
 	     <p class="card-text"><small class="text-muted">${playlist.memberId}</small></p>
-	     <a href="getPlaylist" class="btn btn-primary playlistDetailsButton" id="${playlist.playlistId}">자세히 보기</a>
-	     <a href="#" class="btn btn-primary playlistLikeButton" id="${playlist.playlistId}">좋아요!</a>
+	     <a href="getPlaylist?playlistId=${playlist.playlistId}" class="btn btn-primary playlistDetailsButton" id="${playlist.playlistId}">자세히 보기</a>
+	     <a href="#" class="btn btn-primary playlistLikeButton" id="${playlist.playlistId}"><c:choose><c:when test="${playlist.like eq true}">좋아요중</c:when><c:otherwise>좋아요!</c:otherwise></c:choose></a>
 	   </div>
 	 </div>
 </c:forEach>
@@ -79,18 +79,19 @@ $(function(){
 	
 	$('.playlistLikeButton').click(function(){
 		var id = $(this).attr('id');
+		var label = $(this).html();
 		$.ajax({
 			type: "GET",
 			url: "/likePlaylist?playlistId=" + id,
-			dataType: "JSON",
-			success: function(json){
-				if($(this).html() == "좋아요!"){
-					$(this).html("좋아요중")
+			success: function(data){	// ajax 잘 작동 됩니다.
+				if(label === '좋아요!'){	// 조건문 작동 됩니다.
+					$('.playlistLikeButton#' + id).text('좋아요중');	// 이 부분만 안됨!!
+					alert('.playlistLikeButton#' + id);	// 맞게 나옵니다.
 				} else {
-					$(this).html("좋아요!")
+					$('.playlistLikeButton#' + id).text('좋아요!');
 				}
-			}, error: {
-				alert("ajax에러발생");
+			}, error: function(xhr, textStatus, errorThrown){
+				alert(xhr.responseText);
 			}
 		});
 	});
