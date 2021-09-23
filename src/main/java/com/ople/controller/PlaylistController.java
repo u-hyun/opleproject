@@ -1,7 +1,6 @@
 package com.ople.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,6 @@ import com.ople.domain.Member;
 import com.ople.domain.Playlist;
 import com.ople.domain.PlaylistTrack;
 import com.ople.domain.Track;
-import com.ople.persistence.PlaylistRepository;
 import com.ople.domain.Board;
 import com.ople.service.BoardService;
 import com.ople.service.PlaylistService;
@@ -46,7 +44,15 @@ public class PlaylistController {
 	
 	@GetMapping("/playlist")
 	public String getPlayList(Model m, @ModelAttribute("member")Member member) {
+<<<<<<< HEAD
 				
+=======
+		
+		if(member.getMemberId() == null) {
+			return "redirect:loginform";
+		}
+		
+>>>>>>> 2537473a28b99e4f3c4b4fcb545d6273251251c9
 		List<Playlist> playlists = playlistService.getPlaylistById(member.getMemberId());
 		m.addAttribute("playlists", playlists);
 		
@@ -65,9 +71,11 @@ public class PlaylistController {
 		m.addAttribute("ptlist", ptList);
 		List<Track> pTrack = trackService.getTrack();
 		m.addAttribute("ptrack", pTrack);
+		m.addAttribute("playlistId", playlistId);
 		
 		return "getPlaylist";
 	}
+<<<<<<< HEAD
 		
 	
 	@PostMapping("/insertBoard")
@@ -85,25 +93,33 @@ public class PlaylistController {
 		Board board = boardService.getBoard(commentId);
 		m.addAttribute("board", board);
 		return "/board/getBoard";
+=======
+	
+	@PostMapping("/insertBoard")
+	public String insertBoard(Board board, @ModelAttribute("member")Member member, Long playlistId) {
+		board.setMemberId(member.getMemberId());
+		boardService.saveBoard(board);	
+		return "redirect:getPlaylist?playlistId="+playlistId;
+>>>>>>> 2537473a28b99e4f3c4b4fcb545d6273251251c9
 	}
 	
 	@GetMapping("/updateform/{commentId}")
 	public String updateform(@PathVariable Long commentId, Model m) {
 		Board board = boardService.onlyBoard(commentId);
 		m.addAttribute("board", board);
-		return "/board/updateform";
+		return "updateform";
 	}
 
 	@PostMapping("/update")
-	public String update(Board board) {
+	public String update(Board board, Long playlistId) {
 		boardService.saveBoard(board);
-		return "redirect:getPlaylist";
+		return "redirect:getPlaylist?playlistId="+playlistId;
 	}
 
-	@GetMapping("/delete/{commentId}")
-	public String delete(@PathVariable Long commentId) {
+	@GetMapping("/delete/{commentId}/{playlistId}")
+	public String delete(@PathVariable Long commentId,@PathVariable Long playlistId) {
 		boardService.deleteBoard(commentId);
-		return "redirect:getPlaylist";
+		return "redirect:/getPlaylist?playlistId="+playlistId;
 	}
 		
 }
