@@ -35,10 +35,7 @@
 	     <h5 class="card-title">${track.trackName}</h5>
 	     <p class="card-text">${track.artistName}</p>
 	     <a href="#" class="btn btn-primary addplaylistbutton" id="${track.trackId}">추가</a>
-<<<<<<< HEAD
 	     <a href="/editTag?trackId=${track.trackId}" class="btn btn-primary edittagbutton" id="${track.trackId}">태그 수정</a>
-=======
->>>>>>> 0962be9c5428a85663f19fcd228f92f089b773cb
 	   </div>
 	 </div>
 </c:forEach>
@@ -54,7 +51,7 @@
 	     <h5 class="card-title">${playlist.playlistName}</h5>
 	     <p class="card-text">${playlist.description}</p>
 	     <p class="card-text"><small class="text-muted">${playlist.memberId}</small></p>
-	     <a href="getPlaylist" class="btn btn-primary playlistDetailsButton" id="${playlist.playlistId}">자세히 보기</a>
+	     <a href="/getPlaylist?playlistId=${playlist.playlistId}" class="btn btn-primary playlistDetailsButton" id="${playlist.playlistId}">자세히 보기</a>
 	     <a href="#" class="btn btn-primary playlistLikeButton" id="${playlist.playlistId}">좋아요!</a>
 	   </div>
 	 </div>

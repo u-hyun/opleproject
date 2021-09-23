@@ -25,10 +25,6 @@ public class BoardServiceImpl implements BoardService {
 		boardRepo.save(board);
 	}
 	
-	@Override
-	public Board getBoard(Long commentId) {
-		return boardRepo.getById(commentId);
-	}
 	
 	@Override
 	public Board onlyBoard(Long commentId) {
