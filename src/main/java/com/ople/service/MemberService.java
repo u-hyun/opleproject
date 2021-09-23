@@ -25,6 +25,6 @@ public interface MemberService {
 	
 	void profileImage(String path, String id);
 	
-	
+	List<Member> findByIdAndNickname(String keyword);
 
 }

@@ -15,6 +15,7 @@ import com.ople.domain.Member;
 public interface MemberRepository extends JpaRepository<Member, String> {
 	Member findByMemberId(String memberId);
 	List<Member> findByMemberNicknameContainingIgnoreCase(String memberNickname);
+	List<Member> findByMemberIdContainingIgnoreCase(String memberId);
 	
 	@Transactional
 	@Modifying
