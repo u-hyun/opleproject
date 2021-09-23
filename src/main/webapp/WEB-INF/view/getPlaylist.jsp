@@ -10,9 +10,7 @@
 	.btn-primary{margin:0; padding:0;}
 	#center{width:800px; margin-left: auto; margin-right: auto;}
 	table{width: 800px; border-collapse : collapse;}
-	th{ background-color: orange; width: 150px;}
 	a{margin: 10px auto;}
-	#page{text-align: center;}
 </style>
 </head>
 <body>
@@ -26,11 +24,9 @@
 <br>
 <br>
 <br>
-<br>
-<div id="playlistinfo"></div>
-<h5>playlist info</h5>
-<div id="center">
+<div id="PlaylistInfo">
 <table>
+	<legend>Playlist Info</legend>
 	<tr><td>${plist.playlistName}</td>
 		<td>${plist.description}</td>
 		<td>${plist.viewCount}</td>
@@ -38,24 +34,29 @@
 	</tr>	
 </table>
 </div>
-<h5>playlistTrack</h5>
-<div id="center">
+<br>
+<br>
+<div id="PlaylistTrack">
 <table>
+	<legend>Playlist Track</legend>
 	<c:forEach items= "${ptrack}" var="track">
 	<tr><td>${track.trackName}</td>
 		<td>${track.artistName}</td>
 		<td>${track.albumName}</td>
-		<td>${track.trackId}</td>
 	</tr>
 	</c:forEach>	
 </table>
 </div>
-<h5>Comment</h5>
-<div id="center">
+<br>
+<br>
+<div id="Comment">
 <form method="post" action="insertBoard">
 	<table>
-		<td><textarea name="content" cols="90" rows="3"></textarea></td>
+	<legend>Comment</legend>
+    <tr><td><input type="hidden" name="playlistId" value="${playlist.playlistId}"></td>
+		<td><textarea name="content" cols="90" rows="1"></textarea></td>
 		<td><input type="submit" value="등록"></td>
+	</tr>
 	</table>
 </form>
 	<table>

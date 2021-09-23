@@ -21,9 +21,9 @@
 		<input id="keywordInput" name="keyword" size="50">  <input type="submit" value="검색">
 	</form>
 </div>
-<h3>플레이리스트 추천 ></h3>
+<h3> My 플레이리스트</h3>
 <div class="card-deck">
-<c:forEach items="${plist}" var="playlist">
+<c:forEach items="${playlists}" var="playlist">
 	<div class="card songcard" id="${playlist.playlistId}">
 	   <img src="https://image.flaticon.com/icons/png/512/26/26805.png" class="card-img-top playlistcover" alt="...">
 	   <div class="card-body">
