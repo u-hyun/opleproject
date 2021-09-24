@@ -11,7 +11,7 @@
 	<ul class="nav flex-column">
 		<li class="nav-item"><a class="nav-link active" id="logout" href="logout">로그아웃</a>
 		</li>
-		<li class="nav-item"><a class="nav-link" id="mypage" href="mypage">마이페이지</a>
+		<li class="nav-item"><a class="nav-link" id="mypage" href="mypageView">마이페이지</a>
 		</li>
 		<li class="nav-item"><a class="nav-link" id="playlist" href="playlist">플레이리스트</a></li>
 		<li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a>

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>목록보기</title>
+<title>플레이리스트 상세화면</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
 	.btn-primary{margin:0; padding:0;}
@@ -26,9 +26,9 @@
 <br>
 <br>
 <br>
-<div id="playlistinfo"></div>
-<h5>playlist info</h5>
+
 <div id="center">
+<legend>playlist info</legend>
 <table>
 	<tr><td>${plist.playlistName}</td>
 		<td>${plist.description}</td>
@@ -37,19 +37,24 @@
 	</tr>	
 </table>
 </div>
-<h5>playlistTrack</h5>
+<br>
 <div id="center">
+<legend>playlistTrack</legend>
 <table>
-	<c:forEach items= "${ptrack}" var="track">
+<c:forEach items= "${trackList}" var="track">
 	<tr><td>${track.trackName}</td>
 		<td>${track.artistName}</td>
 		<td>${track.albumName}</td>
+	<c:if test="${plist.memberId eq member.memberId}">
+		<td><a href="/deleteTrack/${track.trackId}/${board.playlistId}" >삭제</a></td>
+	</c:if>
 	</tr>
-	</c:forEach>	
+</c:forEach>
 </table>
 </div>
-<h5>Comment</h5>
+<br>
 <div id="center">
+<legend>Comment</legend>
 <form method="post" action="insertBoard">
 	<table>
 		<td><textarea name="content" cols="90" rows="1"></textarea></td>
@@ -62,10 +67,10 @@
 			<td>${board.content}</td>
 			<td><fmt:formatDate value="${board.commentDate}" pattern="yy.MM.dd HH:mm"/></td>
 			<td>${board.likeCount}</td>
-			<c:if test="${board.memberId eq member.memberId}">
+		<c:if test="${board.memberId eq member.memberId}">
 			<td><a href="/updateform/${board.commentId}" >수정</a></td>
 			<td><a href="/delete/${board.commentId}/${board.playlistId}" >삭제</a></td>
-			</c:if>
+		</c:if>
 		</tr>
 		</c:forEach>	
 	</table>

@@ -38,6 +38,7 @@ public class PlaylistServiceImpl implements PlaylistService{
 
 	@Override
 	public Playlist getPlaylist(Long playlistId) {
+		playlistRepo.updateViewCount(playlistId);
 		return playlistRepo.getById(playlistId);
 	}
 }
