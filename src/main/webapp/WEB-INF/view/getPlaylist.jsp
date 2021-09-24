@@ -10,9 +10,7 @@
 	.btn-primary{margin:0; padding:0;}
 	#center{width:800px; margin-left: auto; margin-right: auto;}
 	table{width: 800px; border-collapse : collapse;}
-	th{ background-color: orange; width: 150px;}
 	a{margin: 10px auto;}
-	#page{text-align: center;}
 </style>
 </head>
 <body>
@@ -57,8 +55,10 @@
 <legend>Comment</legend>
 <form method="post" action="insertBoard">
 	<table>
+	<tr><input type="hidden" name="playlistId" value="${playlistId }"></td>
 		<td><textarea name="content" cols="90" rows="1"></textarea></td>
-		<td><input type="submit" value="등록"><input type="hidden" name="playlistId" value="${playlistId }"></td>
+		<td><input type="submit" value="등록"></td>
+	</tr>
 	</table>
 </form>
 	<table>
