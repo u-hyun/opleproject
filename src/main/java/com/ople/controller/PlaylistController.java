@@ -1,6 +1,8 @@
 package com.ople.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,10 +65,18 @@ public class PlaylistController {
 		m.addAttribute("plist", pList);
 		List<Board> bList = boardService.getBoardList(playlistId);
 		m.addAttribute("blist", bList);
-		List<PlaylistTrack> ptList = playlistTrackService.getPlaylistTrack();
+		
+		List<PlaylistTrack> ptList = playlistTrackService.getPlaylistTrackByPlaylistId(playlistId);
 		m.addAttribute("ptlist", ptList);
-		List<Track> pTrack = trackService.getTrack();
-		m.addAttribute("ptrack", pTrack);
+		
+		List<Track> trackList = new ArrayList<>();
+			for(PlaylistTrack pTrack : ptList) {
+				Optional<Track> track = trackService.findTrack(pTrack.getTrackId());
+				trackList.add(track.get());
+			}
+		m.addAttribute("trackList", trackList);
+		
+		
 		m.addAttribute("playlistId", playlistId);
 		
 		return "getPlaylist";
@@ -105,6 +115,12 @@ public class PlaylistController {
 	@GetMapping("/delete/{commentId}/{playlistId}")
 	public String delete(@PathVariable Long commentId,@PathVariable Long playlistId) {
 		boardService.deleteBoard(commentId);
+		return "redirect:/getPlaylist?playlistId="+playlistId;
+	}
+	
+	@GetMapping("/deleteTrack/{playlistTrackId}/{playlistId}")
+	public String deleteTrack(@PathVariable Long playlistTrackId,@PathVariable Long playlistId) {
+		playlistTrackService.deleteTrack(playlistTrackId);
 		return "redirect:/getPlaylist?playlistId="+playlistId;
 	}
 		

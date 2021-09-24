@@ -8,5 +8,5 @@ public interface PlaylistTrackService {
 	PlaylistTrack savePlaylistTrack(PlaylistTrack playlistTrack);
 	List<PlaylistTrack> getPlaylistTrackByPlaylistId(Long playlistId);
 	Long countByTrackId(String trackId);
-	List<PlaylistTrack> getPlaylistTrack();
+	void deleteTrack(Long playlistTrackId);
 }
