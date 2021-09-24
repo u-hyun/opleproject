@@ -15,7 +15,7 @@
 </div>
 <div class="collapse" id="searchbar_div" style="height:15%;">
 	<form id="searchForm" action="#">
-		<input id="keywordInput" name="keyword" size="50">  <input type="submit" value="검색">
+		<input id="keywordInput" name="keyword" size="50"> <input type="submit" value="검색"> 
 	</form>
 </div>
 <div class="main" style="padding:30px">

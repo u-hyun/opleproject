@@ -11,6 +11,14 @@
 	margin:0;
 	padding:0;
 }
+
+#keywordInput{
+ border-radius: 10px;
+ }
+ 
+ h3{
+ font-size: 15px;}
+ 
 </style>
 </head>
 <body>
@@ -18,14 +26,13 @@
 </div>
 <div class="collapse" id="searchbar_div" style="height:15%;">
 	<form id="searchForm" action="searchResult" method="GET">
-		<input id="keywordInput" name="keyword" size="50">  <input type="submit" value="검색">
+		<input id="keywordInput" name="keyword" style="width:60%">  <input type="image" src="/img/icon/search_outline.png" height="35px">
 	</form>
 </div>
 
 <div class="main" style="padding:30px">
 
 <h3>곡 추천 ></h3>
-
 <div class="card-deck">
 <c:forEach items="${topTracks}" var="track">
 	<div class="card songcard" id="${track.trackId}">
@@ -41,7 +48,7 @@
 </c:forEach>
 </div>
 
-<hr>
+<hr width="87%" align="right">
 <h3>플레이리스트 추천 ></h3>
 <div class="card-deck">
 <c:forEach items="${topPlaylists}" var="playlist">
@@ -52,7 +59,7 @@
 	     <p class="card-text">${playlist.description}</p>
 	     <p class="card-text"><small class="text-muted">${playlist.memberId}</small></p>
 	     <a href="/getPlaylist?playlistId=${playlist.playlistId}" class="btn btn-primary playlistDetailsButton" id="${playlist.playlistId}">자세히 보기</a>
-	     <a href="#" class="btn btn-primary playlistLikeButton" id="${playlist.playlistId}">좋아요!</a>
+	     <a href="#" class="btn playlistLikeButton" id="${playlist.playlistId}"> <img src="/img/icon/thumbs_outline.png" height="20px"> </a>
 	   </div>
 	 </div>
 </c:forEach>

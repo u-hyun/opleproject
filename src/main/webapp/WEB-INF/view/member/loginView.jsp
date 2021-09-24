@@ -19,7 +19,7 @@
 <body>
 <br>
 <div class="img">
-<img src="img/logo/logo.png">
+<img src="/img/logo/logo.png">
 </div>
 <br><br>
 <h4>로그인하고 당신만의 리스트를 확인하세요!</h4>
