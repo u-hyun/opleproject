@@ -1,5 +1,6 @@
 package com.ople.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,5 +27,10 @@ public interface MemberService {
 	void profileImage(String path, String id);
 	
 	List<Member> findByIdAndNickname(String keyword);
-
+	
+	long countMember();
+	
+	long countByDate(Date start, Date end);
+	long countByDateUpTo(Date date);
+	long countLikedTag(String tag);
 }

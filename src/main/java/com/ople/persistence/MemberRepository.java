@@ -1,5 +1,6 @@
 package com.ople.persistence;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -21,5 +22,11 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 	@Modifying
 	@Query("UPDATE Member m SET m.imagePath = ?1 where m.memberId = ?2")
 	int imageUpoload(String imagePath, String memberId);
+	
+	// 통계용
+	long count();
+	long countByJoinDateBetween(Date start, Date end);
+	long countByJoinDateLessThanEqual(Date date);
+	long countByLikedTagsContaining(String tag);
 	
 }

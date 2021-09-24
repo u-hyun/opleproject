@@ -19,8 +19,8 @@
 	<input type="button" id="infoButton" value="상세정보" disabled>
 	<input type="button" id="deleteButton" value="회원 삭제" disabled>
 	<input type="button" id="adminButton" value="관리자로 승격" disabled>
-	<div id="selectedMember"></div>
 	<table id="memberTable"></table>
+	<div id="selectedMember"></div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -60,6 +60,51 @@ $(function(){
 		$(this).parent().parent().css("background-color", "yellow");
 		enable_buttons();
 	});
+	
+	$('#infoButton').click(function(){
+		$.ajax({
+			type: 'GET',
+			url: "/admin_member_get?memberId=" + selectedId,
+			success: function(data) {
+				$("#selectedMember").html(
+						"ID: " + data.memberId + "<br>" +
+						"닉네임: " + data.memberNickname + "<br>" +
+						"이름: " + data.memberName + "<br>" +
+						"성별: " + data.gender + "<br>" +
+						"생년월일: " + data.birthday.slice(0, 10) + "<br>" +
+						"가입일: " + data.joinDate.slice(0, 10) + "<br>" +
+						"태그: " + data.likedTags + "<br>" +
+						"가입일: " + data.memberId + "<br>"
+						);
+			}
+		});
+	});
+	
+	$('#deleteButton').click(function(){
+		if(confirm('정말로 삭제하시겠습니까?\n아이디: ' + selectedId)) {
+			$.ajax({
+				type: 'GET',
+				url: "/admin_member_delete?memberId=" + selectedId,
+				success: function(data) {
+					alert('삭제되었습니다.');
+					$('#searchButton').trigger("click");
+				}
+			});
+		}
+	});
+	
+	$('#adminButton').click(function(){
+		if(confirm('관리자 권한을 부여하겠습니까?\n아이디: ' + selectedId)){
+			$.ajax({
+				type: 'GET',
+				url: "/admin_member_makeadmin?memberId=" + selectedId,
+				success: function(data) {
+					alert('관리자로 승격되었습니다.');
+					$('#searchButton').trigger("click");
+				}
+			});
+		}
+	});
 });
 
 function enable_buttons() {
@@ -75,6 +120,7 @@ function disable_buttons(){
 }
 
 function clear_result_table(){
+	document.getElementById("selectedMember").innerHTML = "";
 	document.getElementById("memberTable").innerHTML = 
 		"<table id='memberTable'><tr><th width='250'>아이디</th><th width='100'>닉네임</th><th width='100'>가입일</th><th width='100'>관리자</th></tr></table>";
 }
