@@ -46,11 +46,11 @@ public class PlaylistController {
 	
 	@GetMapping("/playlist")
 	public String getPlayList(Model m, @ModelAttribute("member")Member member) {
-		
+
 		if(member.getMemberId() == null) {
 			return "redirect:loginform";
 		}
-		
+
 		List<Playlist> playlists = playlistService.getPlaylistById(member.getMemberId());
 		m.addAttribute("playlists", playlists);
 		
@@ -60,10 +60,7 @@ public class PlaylistController {
 	@RequestMapping("/getPlaylist")
 	public String getBoardList(Model m, @RequestParam Long playlistId,
 			@ModelAttribute("member")Member member) {
-		if(member.getMemberId() == null) {
-			return "redirect:loginform";
-		}
-		
+
 		Playlist pList = playlistService.getPlaylist(playlistId);
 		m.addAttribute("plist", pList);
 		List<Board> bList = boardService.getBoardList(playlistId);
@@ -83,6 +80,16 @@ public class PlaylistController {
 		m.addAttribute("playlistId", playlistId);
 		
 		return "getPlaylist";
+	}
+	
+	@PostMapping("/insertBoard")
+	public String insertBoard(Board board, 
+			@RequestParam Long playlistId,
+			@ModelAttribute("member")Member member) {
+		board.setMemberId(member.getMemberId());
+		board.setPlaylistId(playlistId);
+		boardService.saveBoard(board);
+		return "redirect:getPlaylist";
 	}
 	
 	@PostMapping("/insertBoard")

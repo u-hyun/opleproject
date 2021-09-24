@@ -55,7 +55,7 @@
 <legend>Comment</legend>
 <form method="post" action="insertBoard">
 	<table>
-	<tr><input type="hidden" name="playlistId" value="${playlistId }"></td>
+    <tr><td><input type="hidden" name="playlistId" value="${playlist.playlistId}"></td>
 		<td><textarea name="content" cols="90" rows="1"></textarea></td>
 		<td><input type="submit" value="등록"></td>
 	</tr>
