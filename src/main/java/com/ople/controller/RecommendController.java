@@ -58,6 +58,7 @@ public class RecommendController {
 				@RequestParam String trackId) {
 		HttpSession session = request.getSession();
 		String memberId = ((Member)session.getAttribute("member")).getMemberId();
+		if (tags == null) tags = new String[0];
 		tagService.updateTags(trackId, memberId, tags);
 		
 		// 곡의 topTags 업데이트

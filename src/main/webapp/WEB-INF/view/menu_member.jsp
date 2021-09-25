@@ -14,8 +14,7 @@
 		<li class="nav-item"><a class="nav-link" id="mypage" href="mypageView">마이페이지</a>
 		</li>
 		<li class="nav-item"><a class="nav-link" id="playlist" href="playlist">플레이리스트</a></li>
-		<li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a>
-		</li>
+
 	</ul>
 	<div style="position: relative; width: 600px; height: 800px;">    
 	
