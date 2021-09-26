@@ -136,15 +136,13 @@ public class SearchController {
 	
 	@RequestMapping("/addPlaylistModal")
 	public String showModal(HttpServletRequest request, Model m, 
-				@RequestParam String id, @RequestParam String releaseId, @RequestParam String img) {
+				@RequestParam String id) {
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("member") != null) {	// 세션에 로그인이 돼 있을 때
 			Member member = (Member)session.getAttribute("member");
 			m.addAttribute("member", member);
 			m.addAttribute("id", id);
-			m.addAttribute("releaseId", releaseId);
-			m.addAttribute("img", img);
 			Recording recording = 
 					restTemplate.getForObject("https://musicbrainz.org/ws/2/recording/" + id, Recording.class);
 			m.addAttribute("recording", recording);
@@ -159,8 +157,7 @@ public class SearchController {
 	@RequestMapping("newPlaylist")
 	@ResponseBody
 	public void newPlaylist(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam String playlistName, @RequestParam String trackId,
-			@RequestParam String releaseId, @RequestParam String img) {
+			@RequestParam String playlistName, @RequestParam String trackId) {
 		
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("member");
@@ -189,7 +186,6 @@ public class SearchController {
 			
 			// Track 테이블 (고유 곡 정보 테이블)에 삽입 / 업데이트
 			Track uniqueTrack = playlistTrackToTrack(track);
-			uniqueTrack.setCoverimg(releaseId + "/" + img);
 			System.out.println(uniqueTrack.getCoverimg());
 			trackService.saveTrack(uniqueTrack);
 			
@@ -209,8 +205,7 @@ public class SearchController {
 	@RequestMapping("addPlaylist")
 	@ResponseBody
 	public void addPlaylist(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam Long playlistId, @RequestParam String trackId,
-			@RequestParam String releaseId, @RequestParam String img) {
+			@RequestParam Long playlistId, @RequestParam String trackId) {
 		
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("member");
@@ -228,7 +223,6 @@ public class SearchController {
 			
 			// Track 테이블 (고유 곡 정보 테이블)에 삽입 / 업데이트
 			Track uniqueTrack = playlistTrackToTrack(track);
-			uniqueTrack.setCoverimg(releaseId + "/" + img);
 			System.out.println(uniqueTrack.getCoverimg());
 			trackService.saveTrack(uniqueTrack);
 			
@@ -260,12 +254,20 @@ public class SearchController {
 		track.setTodayPlaycount(Long.valueOf(0));
 		track.setTopTags("");
 		track.setUrl("");
+		String image = "";
+		try {
+			String releaseId = recording.getReleases().get(0).getId();
+			ImageSearchResult imageSearchResult = restTemplate.getForObject(
+					"https://coverartarchive.org/release/" + releaseId, ImageSearchResult.class);
+			String imageUrl = imageSearchResult.getImages().get(0).getThumbnails().getThumbnailUrl();
+			System.out.println(imageUrl);
+			String[] imageSplit = imageUrl.split("/");
+			image = imageSplit[imageSplit.length - 2] + "/" + imageSplit[imageSplit.length - 1];
+			System.out.println("IMAGE: " + image);
+		} catch(Exception e) {
+			image = "";
+		}
+		track.setCoverimg(image);
 		return track;
-	}
-	
-	private String getTopTags(Recording recording) {
-		String releaseId = recording.getReleases().get(0).getId();
-		
-		return "";
 	}
 }

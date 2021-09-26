@@ -66,7 +66,7 @@ $(function(){
 			type:"GET",
 			url:"addPlaylist?playlistId=" + $(this).attr('id') + "&trackId=${id}&releaseId=${releaseId}&img=${img}",
 			success: function(data){
-				alert('.playlist-status#' + playlistId);
+				alert("성공적으로 추가되었습니다.");
 				$('.playlist-status#' + playlistId).html('성공적으로 추가되었습니다.');
 			},
 			error: function(xhr, textStatus, errorThrown){
