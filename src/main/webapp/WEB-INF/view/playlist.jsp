@@ -7,7 +7,17 @@
 <title>목록보기</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
-.btn-primary{margin:0; padding:0;}
+.btn-primary{
+	margin:0;
+	padding:0;
+}
+#keywordInput{
+ border-radius: 10px;
+ }
+ 
+ .card-text{
+font-size: 10px;
+}
 </style>
 </head>
 <body>
@@ -15,7 +25,7 @@
 </div>
 <div class="collapse" id="searchbar_div" style="height:15%;">
 	<form id="searchForm" action="searchResult" method="GET">
-		<input id="keywordInput" name="keyword" size="50">  <input type="submit" value="검색">
+	<input id="keywordInput" name="keyword" style="width:50%">  <input type="image" src="/img/icon/search_outline.png" height="35px">
 	</form>
 </div>
 <h3> My 플레이리스트</h3>
@@ -27,8 +37,9 @@
 	     <h5 class="card-title">${playlist.playlistName}</h5>
 	     <p class="card-text">${playlist.description}</p>
 	     <p class="card-text"><small class="text-muted">${playlist.memberId}</small></p>
-	     <a href="getPlaylist?playlistId=${playlist.playlistId}" class="btn btn-primary playlistDetailsButton" id="${playlist.playlistId}">자세히 보기</a>
-	     <a href="#" class="btn btn-primary playlistLikeButton" id="${playlist.playlistId}">좋아요!</a>
+	     <a href="/getPlaylist?playlistId=${playlist.playlistId}" class="btn playlistDetailsButton" id="${playlist.playlistId}"><img src="/img/icon/menu.png" alt="자세히보기" height="20px"> </a>
+	     <a href="#" class="btn playlistLikeButton" id="${playlist.playlistId}"> <img src="/img/icon/thumbs_outline.png" height="20px" alt="좋아요"> </a>
+
 	   </div>
 	 </div>
 </c:forEach>

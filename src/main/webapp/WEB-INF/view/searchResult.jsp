@@ -6,14 +6,20 @@
 <meta charset="UTF-8">
 <title>검색 결과</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+#keywordInput{
+ border-radius: 10px;
+ }
+ </style>
 </head>
 <body>
 
 <div class="menu_div" style="float:left; width: 200px; height: 100%; ">
 </div>
 <div class="collapse" id="searchbar_div" style="height:15%;">
-	<form action="searchResult">
-		<input name="keyword" value="${keyword}" size="50">  <input type="submit" value="검색">
+	<form id="searchForm" action="searchResult" method="GET">
+	<input id="keywordInput" name="keyword" style="width:50%">  <input type="image" src="/img/icon/search_outline.png" height="35px">
 	</form>
 </div>
 
