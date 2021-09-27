@@ -44,7 +44,7 @@
 		<td>${track.artistName}</td>
 		<td>${track.albumName}</td>
 	<c:if test="${plist.memberId eq member.memberId}">
-		<td><a href="/deleteTrack/${track.trackId}/${board.playlistId}" >삭제</a></td>
+		<td><a href="/deleteTrack/${ptlist.playlistTrackId}/${plist.playlistId}" >삭제</a></td>
 	</c:if>
 	</tr>
 </c:forEach>

@@ -75,23 +75,12 @@ public class PlaylistController {
 				trackList.add(track.get());
 			}
 		m.addAttribute("trackList", trackList);
-		
-		
+			
 		m.addAttribute("playlistId", playlistId);
 		
 		return "getPlaylist";
 	}
-	
-	@PostMapping("/insertBoard")
-	public String insertBoard(Board board, 
-			@RequestParam Long playlistId,
-			@ModelAttribute("member")Member member) {
-		board.setMemberId(member.getMemberId());
-		board.setPlaylistId(playlistId);
-		boardService.saveBoard(board);
-		return "redirect:getPlaylist";
-	}
-	
+		
 	@PostMapping("/insertBoard")
 	public String insertBoard(Board board, @ModelAttribute("member")Member member, Long playlistId) {
 		board.setMemberId(member.getMemberId());
