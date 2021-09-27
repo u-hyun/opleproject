@@ -82,12 +82,7 @@ public class PlaylistController {
 		
 		return "getPlaylist";
 	}
-<<<<<<< HEAD
-		
-=======
-	
-	
->>>>>>> 28a644f660f5a05128fad8b573fe9c8190addf14
+
 	@PostMapping("/insertBoard")
 	public String insertBoard(Board board, @ModelAttribute("member")Member member, Long playlistId) {
 		board.setMemberId(member.getMemberId());
