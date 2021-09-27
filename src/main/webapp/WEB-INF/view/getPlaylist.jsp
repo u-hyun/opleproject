@@ -7,6 +7,9 @@
 <title>플레이리스트 상세화면</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
+	#keywordInput{
+	 border-radius: 10px;
+	 }
 	.btn-primary{margin:0; padding:0;}
 	#center{width:800px; margin-left: auto; margin-right: auto;}
 	table{width: 800px; border-collapse : collapse;}
@@ -18,7 +21,7 @@
 </div>
 <div class="collapse" id="searchbar_div" style="height:15%;">
 	<form id="searchForm" action="searchResult" method="GET">
-		<input id="keywordInput" name="keyword" size="50">  <input type="submit" value="검색">
+	<input id="keywordInput" name="keyword" style="width:50%">  <input type="image" src="/img/icon/search_outline.png" height="35px">
 	</form>
 </div>
 <br>
@@ -44,7 +47,11 @@
 		<td>${track.artistName}</td>
 		<td>${track.albumName}</td>
 	<c:if test="${plist.memberId eq member.memberId}">
+<<<<<<< HEAD
 		<td><a href="/deleteTrack/${ptlist.playlistTrackId}/${plist.playlistId}" >삭제</a></td>
+=======
+	<td><a href="/deleteTrack/${track.playlistTrackId}/${plist.playlistId}" >삭제</a></td>
+>>>>>>> 28a644f660f5a05128fad8b573fe9c8190addf14
 	</c:if>
 	</tr>
 </c:forEach>
@@ -55,7 +62,7 @@
 <legend>Comment</legend>
 <form method="post" action="insertBoard">
 	<table>
-    <tr><td><input type="hidden" name="playlistId" value="${playlist.playlistId}"></td>
+    <tr><td><input type="hidden" name="playlistId" value="${plist.playlistId}"></td>
 		<td><textarea name="content" cols="90" rows="1"></textarea></td>
 		<td><input type="submit" value="등록"></td>
 	</tr>
@@ -63,7 +70,7 @@
 </form>
 	<table>
 		<c:forEach items= "${blist}" var="board">
-		<tr><td>${board.memberId}</td>
+		<tr><td>${board.member.memberNickname}</td>
 			<td>${board.content}</td>
 			<td><fmt:formatDate value="${board.commentDate}" pattern="yy.MM.dd HH:mm"/></td>
 			<td>${board.likeCount}</td>

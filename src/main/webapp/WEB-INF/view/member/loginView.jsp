@@ -5,6 +5,8 @@
 <head>
 <title>Ople : 로그인</title>
 <style type="text/css">
+	.img{text-align: center;}
+	img{width: 100px;}
 	h4{text-align: center;}
 	a{text-decoration: none; color: gray;}
 	div{font-size: 5px; }
@@ -15,7 +17,11 @@
 </style>
 </head>
 <body>
-<br><br><br><br>
+<br>
+<div class="img">
+<img src="/img/logo/logo.png">
+</div>
+<br><br>
 <h4>로그인하고 당신만의 리스트를 확인하세요!</h4>
 
 <form action="login" method="post">

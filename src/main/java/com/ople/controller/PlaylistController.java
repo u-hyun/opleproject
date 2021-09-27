@@ -63,6 +63,7 @@ public class PlaylistController {
 
 		Playlist pList = playlistService.getPlaylist(playlistId);
 		m.addAttribute("plist", pList);
+		
 		List<Board> bList = boardService.getBoardList(playlistId);
 		m.addAttribute("blist", bList);
 		
@@ -71,8 +72,9 @@ public class PlaylistController {
 		
 		List<Track> trackList = new ArrayList<>();
 			for(PlaylistTrack pTrack : ptList) {
-				Optional<Track> track = trackService.findTrack(pTrack.getTrackId());
-				trackList.add(track.get());
+				Track track = trackService.findTrack(pTrack.getTrackId()).get();
+				track.setPlaylistTrackId(pTrack.getPlaylistTrackId());
+				trackList.add(track);
 			}
 		m.addAttribute("trackList", trackList);
 			
@@ -80,7 +82,12 @@ public class PlaylistController {
 		
 		return "getPlaylist";
 	}
+<<<<<<< HEAD
 		
+=======
+	
+	
+>>>>>>> 28a644f660f5a05128fad8b573fe9c8190addf14
 	@PostMapping("/insertBoard")
 	public String insertBoard(Board board, @ModelAttribute("member")Member member, Long playlistId) {
 		board.setMemberId(member.getMemberId());
