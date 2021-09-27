@@ -90,5 +90,10 @@ public class Track implements Serializable {
 	public void setCoverimg(String coverimg) {
 		this.coverimg = coverimg;
 	}
-
+	public Long getPlaylistTrackId() {
+		return playlistTrackId;
+	}
+	public void setPlaylistTrackId(Long playlistTrackId) {
+		this.playlistTrackId = playlistTrackId;
+	}
 }

@@ -69,8 +69,6 @@ public class Board implements Serializable {
 	public void setCommentLike(Long commentLike) {
 		this.commentLike = commentLike;
 	}
-	
-	
    
 	@ManyToOne
 	@JoinColumn(name="MEMBER_ID", insertable = false, updatable = false)

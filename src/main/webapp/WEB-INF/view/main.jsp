@@ -66,8 +66,10 @@ font-size: 10px;
 	     <h5 class="card-title">${playlist.playlistName}</h5>
 	     <p class="card-text">${playlist.description}</p>
 	     <p class="card-text"><small class="text-muted">${playlist.memberId}</small></p>
+
 	     <a href="/getPlaylist?playlistId=${playlist.playlistId}" class="btn playlistDetailsButton" id="${playlist.playlistId}"><img src="/img/icon/menu.png" alt="자세히보기" height="20px"> </a>
 	     <a href="#" class="btn playlistLikeButton" id="${playlist.playlistId}"> <img src="/img/icon/thumbs_outline.png" height="20px" alt="좋아요"> </a>
+
 	   </div>
 	 </div>
 </c:forEach>
@@ -91,6 +93,26 @@ $(function(){
 		$('#MoaModal .modal-content').load("addPlaylistModal?id=" + $(this).attr('id'));
 		$('#MoaModal').modal('show');
 	});
+	
+	$('.playlistLikeButton').click(function(){
+		var id = $(this).attr('id');
+		var label = $(this).html();
+		$.ajax({
+			type: "GET",
+			url: "/likePlaylist?playlistId=" + id,
+			success: function(data){	// ajax 잘 작동 됩니다.
+				if(label === '좋아요!'){	// 조건문 작동 됩니다.
+					$('.playlistLikeButton#' + id).text('좋아요중');	// 이 부분만 안됨!!
+					alert('.playlistLikeButton#' + id);	// 맞게 나옵니다.
+				} else {
+					$('.playlistLikeButton#' + id).text('좋아요!');
+				}
+			}, error: function(xhr, textStatus, errorThrown){
+				alert(xhr.responseText);
+			}
+		});
+	});
+	
 });
 </script>
 

@@ -95,6 +95,7 @@ public class MemberController implements ApplicationContextAware {
 	public String join(Member member, Model m) {
 		Date today = java.sql.Timestamp.valueOf(LocalDateTime.now());
 		member.setJoinDate(today);
+		member.setAdmin('0');
 		Member mem = memberService.saveMember(member);
 
 		return "redirect:loginform";

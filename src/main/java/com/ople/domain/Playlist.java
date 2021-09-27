@@ -25,6 +25,9 @@ public class Playlist implements Serializable {
 	private Long likeCount;
 	private String customTag;
 	
+	@Transient
+	private boolean like;	// 좋아요 확인용, 컬럼으로 안 들어감
+	
 	public Long getPlaylistId() {
 		return playlistId;
 	}
@@ -66,6 +69,12 @@ public class Playlist implements Serializable {
 	}
 	public void setCustomTag(String customTag) {
 		this.customTag = customTag;
+	}
+	public Boolean getLike() {
+		return like;
+	}
+	public void setLike(Boolean like) {
+		this.like = like;
 	}
 	
 	public static long getSerialversionuid() {

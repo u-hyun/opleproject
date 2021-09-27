@@ -21,7 +21,7 @@ public class PlaylistTrackServiceImpl implements PlaylistTrackService{
 
 	@Override
 	public List<PlaylistTrack> getPlaylistTrackByPlaylistId(Long playlistId) {
-		return playlistTrackRepo.findByPlaylistId(playlistId);
+		return playlistTrackRepo.findByPlaylistIdOrderByListOrderAsc(playlistId);
 	}
 
 	@Override
@@ -33,5 +33,14 @@ public class PlaylistTrackServiceImpl implements PlaylistTrackService{
 	public void deleteTrack(Long playlistTrackId) {
 		playlistTrackRepo.deleteById(playlistTrackId);		
 	}
-	
+
+	@Override
+	public PlaylistTrack getPlaylistTrackById(Long playlistTrackId) {
+		return playlistTrackRepo.getById(playlistTrackId);
+	}
+
+	@Override
+	public List<PlaylistTrack> getPlaylistTrack() {
+		return null;
+	}
 }

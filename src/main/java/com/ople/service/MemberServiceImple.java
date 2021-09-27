@@ -1,5 +1,8 @@
 package com.ople.service;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,6 +72,35 @@ public class MemberServiceImple implements MemberService {
 	@Override
 	public void profileImage(String path, String id) {
 		memberRepo.imageUpoload(path, id);
+	}
+
+	@Override
+	public List<Member> findByIdAndNickname(String keyword) {
+		List<Member> idList = memberRepo.findByMemberIdContainingIgnoreCase(keyword);
+		List<Member> nickList = memberRepo.findByMemberNicknameContainingIgnoreCase(keyword);
+		idList.addAll(nickList);
+		List<Member> memberList = new ArrayList<>(new HashSet<>(nickList)); // 중복 제거
+		return memberList;
+	}
+
+	@Override
+	public long countMember() {
+		return memberRepo.count();
+	}
+
+	@Override
+	public long countByDate(Date start, Date end) {
+		return memberRepo.countByJoinDateBetween(start, end);
+	}
+
+	@Override
+	public long countByDateUpTo(Date date) {
+		return memberRepo.countByJoinDateLessThanEqual(date);
+	}
+
+	@Override
+	public long countLikedTag(String tag) {
+		return memberRepo.countByLikedTagsContaining(tag);
 	}
 	
 }

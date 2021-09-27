@@ -9,4 +9,6 @@ public interface PlaylistTrackService {
 	List<PlaylistTrack> getPlaylistTrackByPlaylistId(Long playlistId);
 	Long countByTrackId(String trackId);
 	void deleteTrack(Long playlistTrackId);
+	List<PlaylistTrack> getPlaylistTrack();
+	PlaylistTrack getPlaylistTrackById(Long playlistTrackId);
 }
