@@ -133,10 +133,11 @@ public class PlaylistController {
 				track.setPlaylistTrackId(pTrack.getPlaylistTrackId());
 				trackList.add(track);
 			}
+			m.addAttribute("playlistId", playlistId);
 			m.addAttribute(trackList);
 			return "playlist_sort";
 		} else {
-			return "redirect:/";
+			return "redirect:/getPlaylist?playlistId="+playlistId;
 		}
 	}
 	

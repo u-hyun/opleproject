@@ -40,7 +40,7 @@
 </div>
 <br>
 <div id="center">
-<legend>playlistTrack</legend>
+<legend>playlistTrack<input type="button" onclick="window.location.href='/playlist_sort?playlistId=${plist.playlistId}'" value="순서변경"></legend>
 <table>
 <c:forEach items= "${trackList}" var="track">
 	<tr><td>${track.trackName}</td>
