@@ -27,6 +27,9 @@ public class Track implements Serializable {
 	Long trackCount;
 	String coverimg;
 	
+	@Transient
+	Long playlistTrackId;
+	
 	public String getTrackId() {
 		return trackId;
 	}
@@ -87,5 +90,5 @@ public class Track implements Serializable {
 	public void setCoverimg(String coverimg) {
 		this.coverimg = coverimg;
 	}
-   
+
 }

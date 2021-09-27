@@ -1,5 +1,6 @@
 package com.ople.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,6 @@ import com.ople.domain.Member;
 import com.ople.domain.Playlist;
 import com.ople.domain.PlaylistTrack;
 import com.ople.domain.Track;
-import com.ople.persistence.PlaylistRepository;
 import com.ople.domain.Board;
 import com.ople.service.BoardService;
 import com.ople.service.PlaylistService;
@@ -46,13 +46,13 @@ public class PlaylistController {
 	
 	@GetMapping("/playlist")
 	public String getPlayList(Model m, @ModelAttribute("member")Member member) {
-		
+
 		if(member.getMemberId() == null) {
 			return "redirect:loginform";
 		}
-		
-		List<Playlist> pList = playlistService.getPlaylist();
-		m.addAttribute("plist", pList);
+
+		List<Playlist> playlists = playlistService.getPlaylistById(member.getMemberId());
+		m.addAttribute("playlists", playlists);
 		
 		return "playlist";
 	}
@@ -60,59 +60,61 @@ public class PlaylistController {
 	@RequestMapping("/getPlaylist")
 	public String getBoardList(Model m, @RequestParam Long playlistId,
 			@ModelAttribute("member")Member member) {
-		if(member.getMemberId() == null) {
-			return "redirect:loginform";
-		}
-		
+
 		Playlist pList = playlistService.getPlaylist(playlistId);
 		m.addAttribute("plist", pList);
+		
 		List<Board> bList = boardService.getBoardList(playlistId);
 		m.addAttribute("blist", bList);
-		List<PlaylistTrack> ptList = playlistTrackService.getPlaylistTrack();
+		
+		List<PlaylistTrack> ptList = playlistTrackService.getPlaylistTrackByPlaylistId(playlistId);
 		m.addAttribute("ptlist", ptList);
-		List<Track> pTrack = trackService.getTrack();
-		m.addAttribute("ptrack", pTrack);
+		
+		List<Track> trackList = new ArrayList<>();
+			for(PlaylistTrack pTrack : ptList) {
+				Track track = trackService.findTrack(pTrack.getTrackId()).get();
+				track.setPlaylistTrackId(pTrack.getPlaylistTrackId());
+				trackList.add(track);
+			}
+		m.addAttribute("trackList", trackList);
+		
+		
+		m.addAttribute("playlistId", playlistId);
 		
 		return "getPlaylist";
 	}
-		
-	@GetMapping("/insertBoard") 
-	public String insertBoardView() {
-		return "/board/insertBoard"; 
-	}
-
+	
 	
 	@PostMapping("/insertBoard")
-	public String insertBoard(Board board, @ModelAttribute("member")Member member) {
+	public String insertBoard(Board board, @ModelAttribute("member")Member member, Long playlistId) {
 		board.setMemberId(member.getMemberId());
-		boardService.saveBoard(board);
-		return "redirect:getPlaylist";
-	}
-
-	@RequestMapping("/content/{commentId}")
-	public String getBoard(@PathVariable Long commentId, Model m) {
-		Board board = boardService.getBoard(commentId);
-		m.addAttribute("board", board);
-		return "/board/getBoard";
+		boardService.saveBoard(board);	
+		return "redirect:getPlaylist?playlistId="+playlistId;
 	}
 	
 	@GetMapping("/updateform/{commentId}")
 	public String updateform(@PathVariable Long commentId, Model m) {
 		Board board = boardService.onlyBoard(commentId);
 		m.addAttribute("board", board);
-		return "/board/updateform";
+		return "updateform";
 	}
 
 	@PostMapping("/update")
-	public String update(Board board) {
+	public String update(Board board, Long playlistId) {
 		boardService.saveBoard(board);
-		return "redirect:getPlaylist";
+		return "redirect:getPlaylist?playlistId="+playlistId;
 	}
 
-	@GetMapping("/delete/{commentId}")
-	public String delete(@PathVariable Long commentId) {
+	@GetMapping("/delete/{commentId}/{playlistId}")
+	public String delete(@PathVariable Long commentId,@PathVariable Long playlistId) {
 		boardService.deleteBoard(commentId);
-		return "redirect:getPlaylist";
+		return "redirect:/getPlaylist?playlistId="+playlistId;
+	}
+	
+	@GetMapping("/deleteTrack/{playlistTrackId}/{playlistId}")
+	public String deleteTrack(@PathVariable Long playlistTrackId,@PathVariable Long playlistId) {
+		playlistTrackService.deleteTrack(playlistTrackId);
+		return "redirect:/getPlaylist?playlistId="+playlistId;
 	}
 		
 }

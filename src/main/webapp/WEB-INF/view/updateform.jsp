@@ -4,20 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>목록보기</title>
+<title>글 수정</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
-.btn-primary{
-	margin:0;
-	padding:0;
-}
-#keywordInput{
- border-radius: 10px;
- }
- 
- .card-text{
-font-size: 10px;
-}
+	.btn-primary{margin:0; padding:0;}
+	#center{width:800px; margin-left: auto; margin-right: auto;}
+	table{width: 800px; border-collapse : collapse;}
 </style>
 </head>
 <body>
@@ -25,24 +17,24 @@ font-size: 10px;
 </div>
 <div class="collapse" id="searchbar_div" style="height:15%;">
 	<form id="searchForm" action="searchResult" method="GET">
-	<input id="keywordInput" name="keyword" style="width:50%">  <input type="image" src="/img/icon/search_outline.png" height="35px">
+		<input id="keywordInput" name="keyword" size="50">  <input type="submit" value="검색">
 	</form>
 </div>
-<h3> My 플레이리스트</h3>
-<div class="card-deck">
-<c:forEach items="${playlists}" var="playlist">
-	<div class="card songcard" id="${playlist.playlistId}">
-	   <img src="https://image.flaticon.com/icons/png/512/26/26805.png" class="card-img-top playlistcover" alt="...">
-	   <div class="card-body">
-	     <h5 class="card-title">${playlist.playlistName}</h5>
-	     <p class="card-text">${playlist.description}</p>
-	     <p class="card-text"><small class="text-muted">${playlist.memberId}</small></p>
-	     <a href="/getPlaylist?playlistId=${playlist.playlistId}" class="btn playlistDetailsButton" id="${playlist.playlistId}"><img src="/img/icon/menu.png" alt="자세히보기" height="20px"> </a>
-	     <a href="#" class="btn playlistLikeButton" id="${playlist.playlistId}"> <img src="/img/icon/thumbs_outline.png" height="20px" alt="좋아요"> </a>
-
-	   </div>
-	 </div>
-</c:forEach>
+<div>
+<form action="/update" method="post">
+	<input type="hidden" name="commentId" value="${board.commentId}">
+	<input type="hidden" name="playlistId" value="${board.playlistId}">
+	<input type="hidden" name="memberId" value="${board.memberId}">
+	<input type="hidden" name="commentLike" value="${board.commentLike}">		<input type="hidden" name="likeCount" value="${board.likeCount}">
+	<table>
+		<tr><td>내용</td><td><textarea name="content">${board.content }</textarea></td></tr>
+		<tr><td colspan="2">
+		<input type="submit" value="글 수정">	
+		<a href="/delete/${board.commentId}/${board.playlistId}" >삭제</a>
+		<a href="/getPlaylist?playlistId=${board.playlistId}">글 목록</a>
+		</td></tr>
+	</table>
+</form>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -50,7 +42,7 @@ font-size: 10px;
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
 	$(function(){
-		$('.menu_div').load("menu");
+		$('.menu_div').load("/menu");
 	});
 </script>
 </body>
