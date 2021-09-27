@@ -20,6 +20,7 @@ public class Board implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long commentId;
 	private Long playlistId;
+	@Column(name="MEMBER_ID")
 	private String memberId;
 	private String content;
 	@Column(insertable = false, updatable = false, columnDefinition = "date default sysdate")
@@ -27,4 +28,9 @@ public class Board implements Serializable {
 	private Long likeCount;
 	private Long commentLike;
    
+	@ManyToOne
+	@JoinColumn(name="MEMBER_ID", insertable = false, updatable = false)
+	Member member;
+
+
 }

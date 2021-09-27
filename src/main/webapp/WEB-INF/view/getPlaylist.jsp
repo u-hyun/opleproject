@@ -44,7 +44,7 @@
 		<td>${track.artistName}</td>
 		<td>${track.albumName}</td>
 	<c:if test="${plist.memberId eq member.memberId}">
-		<td><a href="/deleteTrack/${track.trackId}/${board.playlistId}" >삭제</a></td>
+	<td><a href="/deleteTrack/${track.playlistTrackId}/${plist.playlistId}" >삭제</a></td>
 	</c:if>
 	</tr>
 </c:forEach>
@@ -55,7 +55,7 @@
 <legend>Comment</legend>
 <form method="post" action="insertBoard">
 	<table>
-    <tr><td><input type="hidden" name="playlistId" value="${playlist.playlistId}"></td>
+    <tr><td><input type="hidden" name="playlistId" value="${plist.playlistId}"></td>
 		<td><textarea name="content" cols="90" rows="1"></textarea></td>
 		<td><input type="submit" value="등록"></td>
 	</tr>
@@ -63,7 +63,7 @@
 </form>
 	<table>
 		<c:forEach items= "${blist}" var="board">
-		<tr><td>${board.memberId}</td>
+		<tr><td>${board.member.memberNickname}</td>
 			<td>${board.content}</td>
 			<td><fmt:formatDate value="${board.commentDate}" pattern="yy.MM.dd HH:mm"/></td>
 			<td>${board.likeCount}</td>

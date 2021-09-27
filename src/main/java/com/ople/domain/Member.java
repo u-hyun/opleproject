@@ -18,7 +18,7 @@ public class Member implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "MEMBERID")
+	@Column(name="MEMBER_ID")
 	private String memberId;
 	private String memberPw;
 	private String memberName;

@@ -27,6 +27,9 @@ public class Track implements Serializable {
 	Long trackCount;
 	String coverimg;
 	
+	@Transient
+	Long playlistTrackId;
+	
 	public String getTrackId() {
 		return trackId;
 	}
