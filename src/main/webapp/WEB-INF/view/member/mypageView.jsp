@@ -8,6 +8,11 @@
 <title>Ople : 마이페이지</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style type="text/css">
+
+#keywordInput{
+ border-radius: 10px;
+ }
+ 
 .box {
     width: 150px;
     height: 150px; 
@@ -21,22 +26,34 @@
     object-fit: cover;
 }
 
-.profile {
-text-align: center;
+.left{
+width: 40%;
+margin: 0;
+float: left;
+position: relative;
 }
 
-.foot{
-text-align: center;}
-
-.left{
-float: left;}
-
 .right{
-float: right;}
+width: 40%;
+float: right;
+position: relative;
 
-.family{
-margin-right: 300px;
+ }
 
+.foot{
+text-align: center;
+clear: both;
+
+}
+
+
+ .family{
+width: 70%;
+overflow: hidden;
+}
+
+/* 회원탈퇴 버튼 위치 조절  */
+#delete{
 }
 
 
@@ -48,22 +65,20 @@ margin-right: 300px;
 </div>
 <div class="collapse" id="searchbar_div" style="height:15%;">
 	<form id="searchForm" action="searchResult" method="GET">
-		<input id="keywordInput" name="keyword" size="50">  <input type="submit" value="검색">
+	<input id="keywordInput" name="keyword" style="width:50%">  <input type="image" src="/img/icon/search_outline.png" height="35px">
 	</form>
 </div>
 <br><br><h4>마이페이지</h4>	
 <div class="family">
 <form action="/updateForm" method="post" id="mypageForm" enctype="multipart/form-data">
-
 <br><br>
+
 <div class="left">
 <table id="table1">
 <tr><td>닉네임: &emsp;</td><td><input name="memberNickname" id="memberNickname" value="${member.memberNickname}"></td></tr>
 <tr><td>생&emsp;일: &emsp;</td><td><fmt:formatDate value="${member.birthday}" pattern="yyyy-MM-dd" /></td></tr>
-
 </table>
 <br><br>
-
 <table id="table2">  
 <tr><td>관심있는 장르</td></tr>
 		<tr>
@@ -90,18 +105,13 @@ margin-right: 300px;
 		<td><input type="checkbox" class="tagBox" name="likedTags" value="soundtrack">soundtrack</td>
 		</tr>
 </table>
-
-
-<div class="foot"><hr><input type="submit" value="변경">&emsp;<input type="button" value="취소" onclick="history.back()"></div>
 </div>
 
 <div class="right">
-<div class="profile">
 <div class="box">
 <img class="profileImage" width="100" height="100" src="${member.imagePath }" alt="profile image">
 </div>
 <br><input type="file" name="pImage">
-</div>
 
 <table id="table3">
 	<tr><td>아이디: &emsp;</td><td>${member.memberId}</td></tr>
@@ -112,9 +122,13 @@ margin-right: 300px;
 	<tr><td><input id="delete" type="button" value="회원탈퇴" onclick="location.href='deleteMemberView'" ></td></tr>
 </table>
 </div>
-
 </form>
+<div class="foot"><br><br><br><br><hr><input type="submit" value="변경">&emsp;<input type="button" value="취소" onclick="history.back()"></div>
 </div>
+
+
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
