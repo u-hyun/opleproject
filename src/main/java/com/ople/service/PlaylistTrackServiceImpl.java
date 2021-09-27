@@ -41,6 +41,6 @@ public class PlaylistTrackServiceImpl implements PlaylistTrackService{
 
 	@Override
 	public List<PlaylistTrack> getPlaylistTrack() {
-		return null;
+		return playlistTrackRepo.findAll();
 	}
 }
