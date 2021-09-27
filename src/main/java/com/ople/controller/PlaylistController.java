@@ -1,7 +1,11 @@
 package com.ople.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -113,6 +117,36 @@ public class PlaylistController {
 	public String delete(@PathVariable Long commentId) {
 		boardService.deleteBoard(commentId);
 		return "redirect:getPlaylist";
+	}
+	
+	@GetMapping("/playlist_sort")
+	public String playlistSort(Model m, @RequestParam Long playlistId, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute("member");
+		Playlist playlist = playlistService.getPlaylist(playlistId);
+		if(member != null && member.getMemberId().equals(playlist.getMemberId())) {
+			List<PlaylistTrack> pTrackList = playlistTrackService.getPlaylistTrackByPlaylistId(playlistId);
+			List<Track> trackList = new ArrayList<>();
+			for(PlaylistTrack pTrack : pTrackList) {
+				Track track = trackService.findTrack(pTrack.getTrackId()).get();
+				track.setPlaylistTrackId(pTrack.getPlaylistTrackId());
+				trackList.add(track);
+			}
+			m.addAttribute(trackList);
+			return "playlist_sort";
+		} else {
+			return "redirect:/";
+		}
+	}
+	
+	@PostMapping("/playlist_sort")
+	public String playlistSortSubmit(@RequestParam(value="pTrackIds[]") String[] pTrackIds) {
+		for(int i = 0; i < pTrackIds.length; i++) {
+			PlaylistTrack pTrack = playlistTrackService.getPlaylistTrackById(Long.valueOf(pTrackIds[i]));
+			pTrack.setListOrder(Long.valueOf(i));
+			playlistTrackService.savePlaylistTrack(pTrack);
+		}
+		return "success";
 	}
 		
 }

@@ -9,4 +9,5 @@ public interface PlaylistTrackService {
 	List<PlaylistTrack> getPlaylistTrackByPlaylistId(Long playlistId);
 	Long countByTrackId(String trackId);
 	List<PlaylistTrack> getPlaylistTrack();
+	PlaylistTrack getPlaylistTrackById(Long playlistTrackId);
 }
