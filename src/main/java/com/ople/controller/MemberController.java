@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -134,7 +135,11 @@ public class MemberController implements ApplicationContextAware {
 		
 		//태그
 		String tags = member.getLikedTags();
-		String[] tagsList = tags.split(",");
+		String[] tagsList;
+		if (tags != null)
+			tagsList = tags.split(",");
+		else
+			tagsList = new String[1];
 		m.addAttribute("tagsList",tagsList);
 		
 		return "member/mypageView";
@@ -143,7 +148,7 @@ public class MemberController implements ApplicationContextAware {
 	
 	
 	@PostMapping("/updateForm")
-	public String update(@ModelAttribute("member") Member member, MultipartFile pImage, @RequestParam(value="tagBox", required=false) String tags) {
+	public String update(@ModelAttribute("member") Member member, MultipartFile pImage, @RequestParam(value="likedTags", required=false) String tags) {
 		
 		String id = member.getMemberId();
 		

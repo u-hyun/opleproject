@@ -6,6 +6,7 @@
 <style>
 	h4{text-align: center;}
 	table{margin: auto;}
+	
 </style>
 </head>
 <body>
@@ -58,39 +59,37 @@
 		</td>
 		
 		<tr><td>프로필</td></tr>
-		<tr><td colspan="2"><textarea rows="5" cols="60" placeholder="소개글을 입력하세요" name="profileComment" id="profileComment"></textarea></td>
-		
+		<tr><td colspan="2"><textarea rows="5" cols="60" placeholder="소개글을 입력하세요" name="profileComment" id="profileComment"></textarea></td></tr>
+</table>		
+<table>
 		<tr><td>관심있는 장르</td></tr>
 		<tr>
-		<td colspan="2">
-		<input type="checkbox" name="likedTags" value="rock">rock&emsp;
-		<input type="checkbox" name="likedTags" value="electronic">electronic&emsp;
-		<input type="checkbox" name="likedTags" value="pop">pop&emsp;
-		<input type="checkbox" name="likedTags" value="funk">funk
-		</td>
+		<td>
+		<input type="checkbox" name="likedTags" value="rock">rock&emsp;</td>
+		<td><input type="checkbox" name="likedTags" value="electronic">electronic&emsp;</td>
+		<td><input type="checkbox" name="likedTags" value="pop">pop&emsp;</td>
+		<td><input type="checkbox" name="likedTags" value="funk">funk</td>
 		</tr>
 		
 		<tr>
-		<td colspan="2">
-		<input type="checkbox" name="likedTags" value="metal">metal&emsp;
-		<input type="checkbox" name="likedTags" value="jazz">jazz&emsp;
-		<input type="checkbox" name="likedTags" value="hip-hop">hip-hop&emsp;
-		<input type="checkbox" name="likedTags" value="classical">classical
-		</td>
+		<td>
+		<input type="checkbox" name="likedTags" value="metal">metal&emsp;</td>
+		<td><input type="checkbox" name="likedTags" value="jazz">jazz&emsp;</td>
+		<td><input type="checkbox" name="likedTags" value="hip-hop">hip-hop&emsp;</td>
+		<td><input type="checkbox" name="likedTags" value="classical">classical</td>
 		</tr>
 		
 		<tr>
-		<td colspan="2">
-		<input type="checkbox" name="likedTags" value="blues">blues&emsp;
-		<input type="checkbox" name="likedTags" value="acoustic">acoustic&emsp;
-		<input type="checkbox" name="likedTags" value="instrumental">instrumental&emsp;
-		<input type="checkbox" name="likedTags" value="soundtrack">soundtrack
-		</td>
+		<td>
+		<input type="checkbox" name="likedTags" value="blues">blues&emsp;</td>
+		<td><input type="checkbox" name="likedTags" value="acoustic">acoustic&emsp;</td>
+		<td><input type="checkbox" name="likedTags" value="instrumental">instrumental&emsp;</td>
+		<td><input type="checkbox" name="likedTags" value="soundtrack">soundtrack</td>
 		</tr>		
 		
 		
 		<tr>
-		<td colspan="2" align="center"><input type="submit" value="가입">&emsp;
+		<td colspan="4" align="center"><input type="submit" value="가입">&emsp;
 		<input type="button" value="취소" onclick="history.back()"></td>
 		</tr>
 	</table>

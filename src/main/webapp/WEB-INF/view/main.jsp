@@ -11,6 +11,22 @@
 	margin:0;
 	padding:0;
 }
+
+#keywordInput{
+ border-radius: 10px;
+ }
+ 
+h3{
+ font-size: 15px;}
+ 
+a.playlistLikeButton, a.playlistDetailsButton{
+	padding: 0;
+}
+
+.card-text{
+font-size: 10px;
+}
+
 </style>
 </head>
 <body>
@@ -18,14 +34,13 @@
 </div>
 <div class="collapse" id="searchbar_div" style="height:15%;">
 	<form id="searchForm" action="searchResult" method="GET">
-		<input id="keywordInput" name="keyword" size="50">  <input type="submit" value="검색">
+	<input id="keywordInput" name="keyword" style="width:50%">  <input type="image" src="/img/icon/search_outline.png" height="35px">
 	</form>
 </div>
 
 <div class="main" style="padding:30px">
 
 <h3>곡 추천 ></h3>
-
 <div class="card-deck">
 <c:forEach items="${topTracks}" var="track">
 	<div class="card songcard" id="${track.trackId}">
@@ -35,27 +50,24 @@
 	     <h5 class="card-title">${track.trackName}</h5>
 	     <p class="card-text">${track.artistName}</p>
 	     <a href="#" class="btn btn-primary addplaylistbutton" id="${track.trackId}">추가</a>
-<<<<<<< HEAD
 	     <a href="/editTag?trackId=${track.trackId}" class="btn btn-primary edittagbutton" id="${track.trackId}">태그 수정</a>
-=======
->>>>>>> 0962be9c5428a85663f19fcd228f92f089b773cb
 	   </div>
 	 </div>
 </c:forEach>
 </div>
 
-<hr>
+<hr width="87%" align="right">
 <h3>플레이리스트 추천 ></h3>
 <div class="card-deck">
 <c:forEach items="${topPlaylists}" var="playlist">
 	<div class="card songcard" id="${playlist.playlistId}">
-	   <img src="https://image.flaticon.com/icons/png/512/26/26805.png" class="card-img-top playlistcover" alt="...">
+	   <img src="https://image.flaticon.com/icons/png/512/26/26805.png" class="card-img-top playlistcover" alt="..." height="50%">
 	   <div class="card-body">
 	     <h5 class="card-title">${playlist.playlistName}</h5>
 	     <p class="card-text">${playlist.description}</p>
 	     <p class="card-text"><small class="text-muted">${playlist.memberId}</small></p>
-	     <a href="getPlaylist" class="btn btn-primary playlistDetailsButton" id="${playlist.playlistId}">자세히 보기</a>
-	     <a href="#" class="btn btn-primary playlistLikeButton" id="${playlist.playlistId}">좋아요!</a>
+	     <a href="/getPlaylist?playlistId=${playlist.playlistId}" class="btn playlistDetailsButton" id="${playlist.playlistId}"><img src="/img/icon/menu.png" alt="자세히보기" height="20px"> </a>
+	     <a href="#" class="btn playlistLikeButton" id="${playlist.playlistId}"> <img src="/img/icon/thumbs_outline.png" height="20px" alt="좋아요"> </a>
 	   </div>
 	 </div>
 </c:forEach>

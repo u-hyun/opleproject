@@ -10,7 +10,8 @@
 검색
 <form action="searchResult">
 	<input name="keyword"/>
-	<input type="submit" value="검색"/>
+	<input type="image" src="/img/icon/search_outline.png"/>
+<!-- 	<input type="submit" value="검색"/> -->
 </form>
 </body>
 </html>
