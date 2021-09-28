@@ -28,6 +28,8 @@ font-size: 10px;
 	<input id="keywordInput" name="keyword" style="width:50%">  <input type="image" src="/img/icon/search_outline.png" height="35px">
 	</form>
 </div>
+<br>
+<br>
 <h3> My 플레이리스트</h3>
 <div class="card-deck">
 <c:forEach items="${playlists}" var="playlist">

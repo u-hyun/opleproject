@@ -10,7 +10,8 @@ public interface BoardService {
 
 	void saveBoard(Board board);
 	Board onlyBoard(Long commentId);
-	void deleteBoard(Long commentId);
+	void deleteComment(Long commentId);
 	List<Board> getBoardList(Long playlistId);
+	void deleteBoard(Long playlistId);
 	
 }

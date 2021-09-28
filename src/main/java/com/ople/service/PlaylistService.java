@@ -18,4 +18,8 @@ public interface PlaylistService {
 
 	Playlist getPlaylist(Long playlistId);
 
+	void deletePlaylist(Long playlistId);
+
+	Playlist onlyPlaylist(Long playlistId);
+
 }

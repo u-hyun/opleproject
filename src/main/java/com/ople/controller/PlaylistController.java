@@ -87,6 +87,26 @@ public class PlaylistController {
 		return "getPlaylist";
 	}
 	
+	@GetMapping("/updatePlaylist/{playlistId}")
+	public String updatePlaylist(@PathVariable Long playlistId, Model m) {
+		Playlist pList = playlistService.onlyPlaylist(playlistId);
+		m.addAttribute("plist", pList);
+		return "updatePlaylist";
+	}
+
+	@PostMapping("/update")
+	public String update(Playlist playlist, Long playlistId) {
+		playlistService.savePlaylist(playlist);
+		return "redirect:/getPlaylist?playlistId="+playlistId;
+	}	
+	
+	@GetMapping("/deletePlaylist/{playlistId}")
+	public String deletePlaylist(@PathVariable Long playlistId) {
+		playlistService.deletePlaylist(playlistId);
+		playlistTrackService.deletePlaylistTrack(playlistId);
+		boardService.deleteBoard(playlistId);
+		return "redirect:/playlist";
+	}
 	
 	@PostMapping("/insertBoard")
 	public String insertBoard(Board board, @ModelAttribute("member")Member member, Long playlistId) {
@@ -102,7 +122,7 @@ public class PlaylistController {
 		return "updateform";
 	}
 
-	@PostMapping("/update")
+	@PostMapping("/updateBoard")
 	public String update(Board board, Long playlistId) {
 		boardService.saveBoard(board);
 		return "redirect:getPlaylist?playlistId="+playlistId;
@@ -110,7 +130,7 @@ public class PlaylistController {
 
 	@GetMapping("/delete/{commentId}/{playlistId}")
 	public String delete(@PathVariable Long commentId,@PathVariable Long playlistId) {
-		boardService.deleteBoard(commentId);
+		boardService.deleteComment(commentId);
 		return "redirect:/getPlaylist?playlistId="+playlistId;
 	}
 	

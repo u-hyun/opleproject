@@ -43,4 +43,10 @@ public class PlaylistTrackServiceImpl implements PlaylistTrackService{
 	public List<PlaylistTrack> getPlaylistTrack() {
 		return playlistTrackRepo.findAll();
 	}
+
+	@Override
+	public void deletePlaylistTrack(Long playlistId) {
+		playlistTrackRepo.deletePlaylistTrack(playlistId);
+		
+	}
 }

@@ -29,34 +29,47 @@
 <br>
 
 <div id="center">
-<legend>playlist info</legend>
+<h2>${plist.playlistName}</h2>
 <table>
-	<tr><td>${plist.playlistName}</td>
-		<td>${plist.description}</td>
+	<tr><td>${plist.description}</td>
 		<td>${plist.viewCount}</td>
 		<td>${plist.likeCount}</td>
+	<c:if test="${plist.memberId eq member.memberId}">
+		<td><a href="/updatePlaylist/${plist.playlistId}" ><img src="/img/icon/update_button.png" height="20px"></a></td>
+		<td><a href="/deletePlaylist/${plist.playlistId}" ><img src="/img/icon/delete_button.png" height="20px"></a></td>
+	</c:if>
 	</tr>	
 </table>
 </div>
 <br>
+<br>
 <div id="center">
-<legend>playlistTrack<input type="button" onclick="window.location.href='/playlist_sort?playlistId=${plist.playlistId}'" value="순서변경"></legend>
+<legend>PlaylistTrack</legend>
 <table>
+    <tr><td></td><td></td><td></td>
+    <c:if test="${plist.memberId eq member.memberId}">
+    <td><a href='/playlist_sort?playlistId=${plist.playlistId}'>
+    <img src="/img/icon/update_button.png" height="20px"></a></td>
+    </c:if>
+    </tr>
 <c:forEach items= "${trackList}" var="track">
-	<tr><td>${track.trackName}</td>
+	<tr height="50px">
+		<td>${track.trackName}</td>
 		<td>${track.artistName}</td>
 		<td>${track.albumName}</td>
 	<c:if test="${plist.memberId eq member.memberId}">
-	<td><a href="/deleteTrack/${track.playlistTrackId}/${plist.playlistId}" >삭제</a></td>
+	    <td><a href="/deleteTrack/${track.playlistTrackId}/${plist.playlistId}" >
+	    <img src="/img/icon/delete_button.png" height="20px"></a></td>
 	</c:if>
 	</tr>
 </c:forEach>
 </table>
 </div>
 <br>
+<br>
 <div id="center">
 <legend>Comment</legend>
-<form method="post" action="insertBoard">
+<form action="/insertBoard" method="post">
 	<table>
     <tr><td><input type="hidden" name="playlistId" value="${plist.playlistId}"></td>
 		<td><textarea name="content" cols="90" rows="1"></textarea></td>
@@ -66,13 +79,14 @@
 </form>
 	<table>
 		<c:forEach items= "${blist}" var="board">
-		<tr><td>${board.member.memberNickname}</td>
+		<tr height="50px">
+		<td>${board.member.memberNickname}</td>
 			<td>${board.content}</td>
 			<td><fmt:formatDate value="${board.commentDate}" pattern="yy.MM.dd HH:mm"/></td>
 			<td>${board.likeCount}</td>
 		<c:if test="${board.memberId eq member.memberId}">
-			<td><a href="/updateform/${board.commentId}" >수정</a></td>
-			<td><a href="/delete/${board.commentId}/${board.playlistId}" >삭제</a></td>
+			<td><a href="/updateform/${board.commentId}" ><img src="/img/icon/update_button.png" height="20px"></a></td>
+			<td><a href="/delete/${board.commentId}/${board.playlistId}" ><img src="/img/icon/delete_button.png" height="20px"></a></td>
 		</c:if>
 		</tr>
 		</c:forEach>	

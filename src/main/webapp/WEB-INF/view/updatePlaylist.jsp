@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>글 수정</title>
+<title>플레이리스트 수정</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
 	.btn-primary{margin:0; padding:0;}
@@ -20,18 +20,19 @@
 		<input id="keywordInput" name="keyword" size="50">  <input type="submit" value="검색">
 	</form>
 </div>
-<div>
-<form action="updateBoard" method="post">
-	<input type="hidden" name="commentId" value="${board.commentId}">
-	<input type="hidden" name="playlistId" value="${board.playlistId}">
-	<input type="hidden" name="memberId" value="${board.memberId}">
-	<input type="hidden" name="commentLike" value="${board.commentLike}">
-	<input type="hidden" name="likeCount" value="${board.likeCount}">
+<div id="center">
+<form action="/update" method="post">
+	<input type="hidden" name="playlistId" value="${plist.playlistId}">
+	<input type="hidden" name="memberId" value="${plist.memberId}">
+	<input type="hidden" name="viewCount" value="${plist.viewCount}">
+	<input type="hidden" name="likeCount" value="${plist.likeCount}">
 	<table>
-		<tr><td>댓글 수정</td><td><textarea name="content" cols="70" rows="1">${board.content}</textarea></td>
-			<td><input type="submit" value="수정"></td></tr>
-		<tr><td><a href="/getPlaylist?playlistId=${board.playlistId}">글 목록</a></td>
-				<td><a href="/delete/${board.commentId}/${board.playlistId}" >삭제</a></td>
+		<tr><td>Playlist 제목</td><td><textarea name="playlistName" cols="50" rows="1">${plist.playlistName}</textarea></td></tr>
+		<tr><td>Playlist 설명</td><td><textarea name="description" cols="50" rows="1">${plist.description }</textarea></td></tr>
+		<tr>
+			<td><a href="/getPlaylist?playlistId=${plist.playlistId}">글 목록</a></td>
+			<td><a href="/deletePlaylist/${plist.playlistId}" >삭제</a>
+		    	<input type="submit" value="수정"></td>
 		</tr>
 	</table>
 </form>
