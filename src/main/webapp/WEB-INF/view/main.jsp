@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +26,11 @@ a.playlistLikeButton, a.playlistDetailsButton{
 
 .card-text{
 font-size: 10px;
+}
+
+.songcard{
+min-width: 150px;
+max-width: 15%;
 }
 
 </style>
@@ -63,15 +69,22 @@ font-size: 10px;
 <div class="card-deck">
 <c:forEach items="${topPlaylists}" var="playlist">
 	<div class="card songcard" id="${playlist.playlistId}">
-	   <img src="https://image.flaticon.com/icons/png/512/26/26805.png" class="card-img-top playlistcover" alt="..." height="50%">
+	   <img src="https://image.flaticon.com/icons/png/512/26/26805.png" class="card-img-top playlistcover" alt="...">
 	   <div class="card-body">
 	     <h5 class="card-title">${playlist.playlistName}</h5>
 	     <p class="card-text">${playlist.description}</p>
 	     <p class="card-text"><small class="text-muted">${playlist.memberId}</small></p>
-
 	     <a href="/getPlaylist?playlistId=${playlist.playlistId}" class="btn playlistDetailsButton" id="${playlist.playlistId}"><img src="/img/icon/menu.png" alt="자세히보기" height="20px"> </a>
-	     <a href="#" class="btn playlistLikeButton" id="${playlist.playlistId}"> <img src="/img/icon/thumbs_outline.png" height="20px" alt="좋아요"> </a>
-
+	     <a href="#" class="btn playlistLikeButton" id="${playlist.playlistId}"> 
+	     <c:choose>
+			<c:when test="${playlist.like}">
+	     		<img id="${playlist.playlistId}" src="/img/icon/thumbs_glyph.png" height="20px" alt="좋아요 취소"> 
+			</c:when>
+			<c:otherwise>
+	     		<img id="${playlist.playlistId}" src="/img/icon/thumbs_outline.png" height="20px" alt="좋아요"> 
+			</c:otherwise>
+		</c:choose>
+	     </a>
 	   </div>
 	 </div>
 </c:forEach>
@@ -97,22 +110,31 @@ $(function(){
 	});
 	
 	$('.playlistLikeButton').click(function(){
+		<c:if test="${member ne null}">
 		var id = $(this).attr('id');
-		var label = $(this).html();
+		var $img = $(this).children('img');
+		var imgsrc = $img.attr("src");
 		$.ajax({
 			type: "GET",
 			url: "/likePlaylist?playlistId=" + id,
 			success: function(data){	// ajax 잘 작동 됩니다.
-				if(label === '좋아요!'){	// 조건문 작동 됩니다.
-					$('.playlistLikeButton#' + id).text('좋아요중');	// 이 부분만 안됨!!
-					alert('.playlistLikeButton#' + id);	// 맞게 나옵니다.
+				if(imgsrc === '/img/icon/thumbs_outline.png'){	// 조건문 작동 됩니다.
+					$img.attr('src', "/img/icon/thumbs_glyph.png");
 				} else {
-					$('.playlistLikeButton#' + id).text('좋아요!');
+					$img.attr('src', "/img/icon/thumbs_outline.png");
 				}
 			}, error: function(xhr, textStatus, errorThrown){
 				alert(xhr.responseText);
 			}
 		});
+		</c:if>
+		<c:if test="${member eq null}">
+			alert("로그인이 필요합니다.");
+		</c:if>
+	});
+	
+	$(window).resize(function(){
+		$(".placeholdercard").css("width", "0");
 	});
 	
 });

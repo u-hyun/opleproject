@@ -82,6 +82,12 @@ public class Playlist implements Serializable {
 		this.like = like;
 	}
 	
+	public Member getMember() {
+		return member;
+	}
+	public void setMember(Member member) {
+		this.member = member;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
