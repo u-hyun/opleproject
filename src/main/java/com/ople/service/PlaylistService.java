@@ -22,4 +22,6 @@ public interface PlaylistService {
 
 	Playlist onlyPlaylist(Long playlistId);
 
+	void deletePlaylist(String memberId);
+
 }

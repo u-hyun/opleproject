@@ -13,5 +13,6 @@ public interface BoardService {
 	void deleteComment(Long commentId);
 	List<Board> getBoardList(Long playlistId);
 	void deleteBoard(Long playlistId);
+	void deleteBoard(String memberId);
 	
 }

@@ -22,4 +22,9 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long>{
 	@Query("UPDATE Playlist p SET p.viewCount = p.viewCount+1 WHERE p.playlistId=?1")
 	int updateViewCount(Long playlistId);
 	
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM Playlist p WHERE p.memberId=?1")
+	void deletePlaylist(String memberId);
+	
 }
