@@ -29,20 +29,28 @@
 <br>
 
 <div id="center">
-<h1><b>${plist.playlistName}</b></h1>
+<h2><b>${plist.playlistName}</b></h2>
 <table border="0">
 	<tr><td>
-		<c:if test="${plist.member.imagePath} eq null">
-		<img src="/img/icon/update_button.png" width="100px" height="100px" >
-		</c:if>
-		<c:if test="${plist.member.imagePath} ne null">
+		<c:if test="${plist.member.imagePath ne null}">
 		<img src="${plist.member.imagePath}" width="100px" height="100px">
 		</c:if>
+		<c:if test="${plist.member.imagePath eq null}">
+		<img src="/img/icon/update_button.png" width="100px" height="100px" >
+		</c:if>
 		</td>
-		<td width="550px">${plist.description}</td>
-		<td>조회수 ${plist.viewCount}</td>
+		<td width="400px">${plist.description}</td>
+		<td >조회수 ${plist.viewCount}</td>
 		<td>${plist.likeCount}</td>
 	<c:if test="${plist.memberId eq member.memberId}">
+		<c:choose>
+			<c:when test="${plist.like}">
+				<td width="30px"><a href="#" class="btn playlistLikeButton" id="${plist.playlistId}"> <img class="likeimage" id="${plist.playlistId}" src="/img/icon/update_button.png" height="20px" alt="좋아요취소"></a></td>
+			</c:when>
+			<c:otherwise>
+				<td width="30px"><a href="#" class="btn playlistLikeButton" id="${plist.playlistId}"> <img class="likeimage" id="${plist.playlistId}" src="/img/icon/thumbs_outline.png" height="20px" alt="좋아요"></a></td>
+			</c:otherwise>
+		</c:choose>
 		<td width="30px"><a href="/updatePlaylist/${plist.playlistId}" ><img src="/img/icon/update_button.png" height="20px"></a></td>
 		<td width="30px"><a href="/deletePlaylist/${plist.playlistId}" ><img src="/img/icon/delete_button.png" height="20px"></a></td>
 	</c:if>
@@ -109,6 +117,24 @@
 <script>
 	$(function(){
 		$('.menu_div').load("menu");
+		$('.playlistLikeButton').click(function(){
+			var id = $(this).attr('id');
+			var imgsrc = $(this).children('img').attr("src");
+			var $img = $(this).children('img');
+			$.ajax({
+				type: "GET",
+				url: "/likePlaylist?playlistId=" + id,
+				success: function(data){	
+					if(imgsrc === '/img/icon/thumbs_outline.png'){
+						$img.attr('src', "/img/icon/update_button.png");
+					} else {
+						$img.attr('src', "/img/icon/thumbs_outline.png");
+					}
+				}, error: function(xhr, textStatus, errorThrown){
+					alert(xhr.responseText);
+				}
+			});
+		});
 	});
 </script>
 

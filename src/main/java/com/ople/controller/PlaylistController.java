@@ -24,6 +24,7 @@ import com.ople.domain.PlaylistTrack;
 import com.ople.domain.Track;
 import com.ople.domain.Board;
 import com.ople.service.BoardService;
+import com.ople.service.LikedPlaylistService;
 import com.ople.service.PlaylistService;
 import com.ople.service.PlaylistTrackService;
 import com.ople.service.TrackService;
@@ -45,6 +46,8 @@ public class PlaylistController {
 	private PlaylistTrackService playlistTrackService;
 	@Autowired
 	private TrackService trackService;
+	@Autowired
+	private LikedPlaylistService likedPlaylistService;
 	
 	
 	@GetMapping("/playlist")
@@ -69,6 +72,7 @@ public class PlaylistController {
 		}
 
 		Playlist pList = playlistService.getPlaylist(playlistId);
+		pList.setLike(likedPlaylistService.checkLike(member.getMemberId(), pList.getPlaylistId()));
 		m.addAttribute("plist", pList);
 		
 		List<Board> bList = boardService.getBoardList(playlistId);
@@ -84,7 +88,6 @@ public class PlaylistController {
 				trackList.add(track);
 			}
 		m.addAttribute("trackList", trackList);
-		
 		
 		m.addAttribute("playlistId", playlistId);
 		
