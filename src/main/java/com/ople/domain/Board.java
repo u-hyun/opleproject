@@ -27,6 +27,7 @@ public class Board implements Serializable {
 	private Date commentDate;
 	private Long likeCount;
 	private Long commentLike;
+	
 	public Long getCommentId() {
 		return commentId;
 	}

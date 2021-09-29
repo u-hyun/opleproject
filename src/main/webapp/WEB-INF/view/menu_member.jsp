@@ -12,15 +12,15 @@
 	<b>${member.memberNickname}</b>님 반갑습니다.
 	</div>
 	<ul class="nav flex-column">
-		<li class="nav-item"><a class="nav-link active" id="logout" href="logout">로그아웃</a>
+		<li class="nav-item"><a class="nav-link active" id="logout" href="/logout">로그아웃</a>
 		</li>
-		<li class="nav-item"><a class="nav-link" id="mypage" href="mypageView">마이페이지</a>
+		<li class="nav-item"><a class="nav-link" id="mypage" href="/mypageView">마이페이지</a>
 		</li>
-		<li class="nav-item"><a class="nav-link" id="playlist" href="playlist">플레이리스트</a></li>
+		<li class="nav-item"><a class="nav-link" id="playlist" href="/playlist">플레이리스트</a></li>
 		<c:if test="${member.admin eq '1'.charAt(0)}">
-		<li class="nav-item"><a class="nav-link" id="playlist" href="admin">관리자 메뉴</a></li>		
+		<li class="nav-item"><a class="nav-link" id="playlist" href="/admin">관리자 메뉴</a></li>		
 		</c:if>
-		<li class="nav-item"><a class="nav-link" id="about" href="admin">사이트 정보</a></li>		
+		<li class="nav-item"><a class="nav-link" id="about" href="/admin">사이트 정보</a></li>		
 	</ul>
 	<div style="position: relative; width: 600px; height: 800px;">    
 	

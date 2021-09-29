@@ -41,4 +41,14 @@ public class PlaylistServiceImpl implements PlaylistService{
 		playlistRepo.updateViewCount(playlistId);
 		return playlistRepo.getById(playlistId);
 	}
+
+	@Override
+	public void deletePlaylist(Long playlistId) {
+		playlistRepo.deleteById(playlistId);
+	}
+
+	@Override
+	public Playlist onlyPlaylist(Long playlistId) {
+		return playlistRepo.getById(playlistId);
+	}
 }

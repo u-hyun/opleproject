@@ -28,11 +28,13 @@ font-size: 10px;
 	<input id="keywordInput" name="keyword" style="width:50%">  <input type="image" src="/img/icon/search_outline.png" height="35px">
 	</form>
 </div>
+<br>
+<br>
 <h3> My 플레이리스트</h3>
 <div class="card-deck">
 <c:forEach items="${playlists}" var="playlist">
 	<div class="card songcard" id="${playlist.playlistId}">
-	   <img src="https://image.flaticon.com/icons/png/512/26/26805.png" class="card-img-top playlistcover" alt="...">
+	   <img src="/img/icon/free-icon-cd-player-1765570.png" class="card-img-top playlistcover" alt="...">	   
 	   <div class="card-body">
 	     <h5 class="card-title">${playlist.playlistName}</h5>
 	     <p class="card-text">${playlist.description}</p>
