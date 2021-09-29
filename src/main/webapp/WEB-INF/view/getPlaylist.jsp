@@ -31,7 +31,15 @@
 <div id="center">
 <h1><b>${plist.playlistName}</b></h1>
 <table border="0">
-	<tr><td width="600px">${plist.description}</td>
+	<tr><td>
+		<c:if test="${plist.member.imagePath} eq null">
+		<img src="/img/icon/update_button.png" width="100px" height="100px" >
+		</c:if>
+		<c:if test="${plist.member.imagePath} ne null">
+		<img src="${plist.member.imagePath}" width="100px" height="100px">
+		</c:if>
+		</td>
+		<td width="550px">${plist.description}</td>
 		<td>조회수 ${plist.viewCount}</td>
 		<td>${plist.likeCount}</td>
 	<c:if test="${plist.memberId eq member.memberId}">

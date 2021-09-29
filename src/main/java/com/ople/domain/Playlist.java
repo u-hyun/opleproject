@@ -19,11 +19,16 @@ public class Playlist implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long playlistId;
 	private String playlistName;
+	@Column(name="MEMBER_ID")
 	private String memberId;
 	private String description;
 	private Long viewCount;
 	private Long likeCount;
 	private String customTag;
+	
+	@ManyToOne
+	@JoinColumn(name="MEMBER_ID", insertable = false, updatable = false)
+	Member member;
 	
 	@Transient
 	private boolean like;	// 좋아요 확인용, 컬럼으로 안 들어감
