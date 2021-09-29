@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ople.domain.Member;
+import com.ople.persistence.BoardRepository;
 import com.ople.persistence.MemberRepository;
+import com.ople.persistence.PlaylistRepository;
+import com.ople.persistence.PlaylistTrackRepository;
 
 @Service
 public class MemberServiceImple implements MemberService {

@@ -79,8 +79,6 @@ public class MemberController implements ApplicationContextAware {
 		memberService.saveMember(member, newPw);
 		return "redirect:index.html";
 	}
-	
-	
 
 	@RequestMapping("/check_id")
 	@ResponseBody

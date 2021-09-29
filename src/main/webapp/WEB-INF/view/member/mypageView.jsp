@@ -46,16 +46,10 @@ clear: both;
 
 }
 
-
  .family{
 width: 70%;
 overflow: hidden;
 }
-
-/* 회원탈퇴 버튼 위치 조절  */
-#delete{
-}
-
 
 
 </style>
