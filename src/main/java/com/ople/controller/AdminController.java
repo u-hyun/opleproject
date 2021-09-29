@@ -66,11 +66,6 @@ public class AdminController {
 		return "/admin/admin_member";
 	}
 	
-	@RequestMapping("/admin_playlist")
-	public String adminPlaylist() {
-		return "/admin/admin_playlist";
-	}
-	
 	@RequestMapping("/admin_member_search")
 	@ResponseBody
 	public List<Member> adminMemberSearch(@RequestParam String keyword){
@@ -99,4 +94,10 @@ public class AdminController {
 		memberService.saveMember(member);
 	}
 	
+	@RequestMapping("/admin_playlist")
+	public String adminPlaylist() {
+		return "/admin/admin_playlist";
+	}
+	
 }
+
