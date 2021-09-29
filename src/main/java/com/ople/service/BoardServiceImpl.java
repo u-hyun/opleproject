@@ -24,16 +24,20 @@ public class BoardServiceImpl implements BoardService {
 	public void saveBoard(Board board) {
 		boardRepo.save(board);
 	}
-	
-	
+		
 	@Override
 	public Board onlyBoard(Long commentId) {
 		return boardRepo.getById(commentId);
 	}
 	
 	@Override
-	public void deleteBoard(Long commentId) {
+	public void deleteComment(Long commentId) {
 		boardRepo.deleteById(commentId);
+	}
+	
+	@Override
+	public void deleteBoard(Long playlistId) {
+		boardRepo.deleteBoard(playlistId);
 	}
 
 	

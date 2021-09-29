@@ -55,7 +55,7 @@ $(function(){
     			alert("성공");
     		}
     	});
-    	/* location.href = "/"; */
+    	location.href = "/getPlaylist?playlistId=${playlistId}";
     });
 });
 </script>

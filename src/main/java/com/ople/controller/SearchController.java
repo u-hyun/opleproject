@@ -150,7 +150,7 @@ public class SearchController {
 			m.addAttribute("playlists", playlists);
 			return "addPlaylistModal";
 		} else {	// 세션에 로그인이 안 돼 있을 때 -> 로그인 창으로
-			return "loginModal";
+			return "redirect:loginform";
 		}
 	}
 	

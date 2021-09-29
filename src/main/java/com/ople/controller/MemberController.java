@@ -100,9 +100,15 @@ public class MemberController implements ApplicationContextAware {
 	}
 
 	@GetMapping("/loginform")
-	public String loginView() {
-
-		return "member/loginView";
+	public String loginView(SessionStatus status, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute("member");
+		if(member != null)
+			return "redirect:/";
+		else {
+			status.setComplete();
+			return "member/loginView";
+		}
 	}
 
 	@RequestMapping("/login")

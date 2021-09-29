@@ -33,6 +33,7 @@ public class MainController {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("member");
 		if(member != null) {	// 로그인 했을 때의 메인화면
+			m.addAttribute("member", member);
 			String likedTags = member.getLikedTags();
 			List<String> tags = Arrays.asList(likedTags.split(","));
 			System.out.println(tags.toString());
