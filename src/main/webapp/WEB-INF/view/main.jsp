@@ -44,7 +44,7 @@ font-size: 10px;
 <div class="card-deck">
 <c:forEach items="${topTracks}" var="track">
 	<div class="card songcard" id="${track.trackId}">
-	   <img src="http://coverartarchive.org/release/${track.coverimg}" onError="this.onerror=null;this.src='https://image.flaticon.com/icons/png/512/26/26805.png';"
+	   <img src="http://coverartarchive.org/release/${track.coverimg}" onError="this.onerror=null;this.src='/img/icon/free-icon-music-876333.png';"
 	    class="card-img-top albumcover" alt="...">
 	   <div class="card-body">
 	     <h5 class="card-title">${track.trackName}</h5>
@@ -63,7 +63,7 @@ font-size: 10px;
 <div class="card-deck">
 <c:forEach items="${topPlaylists}" var="playlist">
 	<div class="card songcard" id="${playlist.playlistId}">
-	   <img src="https://image.flaticon.com/icons/png/512/26/26805.png" class="card-img-top playlistcover" alt="..." height="50%">
+	   <img src="/img/icon/free-icon-cd-player-1765570.png" class="card-img-top playlistcover" alt="..." height="50%">
 	   <div class="card-body">
 	     <h5 class="card-title">${playlist.playlistName}</h5>
 	     <p class="card-text">${playlist.description}</p>
