@@ -34,7 +34,7 @@ font-size: 10px;
 <div class="card-deck">
 <c:forEach items="${playlists}" var="playlist">
 	<div class="card songcard" id="${playlist.playlistId}">
-	   <img src="https://image.flaticon.com/icons/png/512/26/26805.png" class="card-img-top playlistcover" alt="...">
+	   <img src="/img/icon/free-icon-cd-player-1765570.png" class="card-img-top playlistcover" alt="...">	   
 	   <div class="card-body">
 	     <h5 class="card-title">${playlist.playlistName}</h5>
 	     <p class="card-text">${playlist.description}</p>

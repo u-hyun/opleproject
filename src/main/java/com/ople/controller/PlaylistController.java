@@ -63,6 +63,10 @@ public class PlaylistController {
 	@RequestMapping("/getPlaylist")
 	public String getBoardList(Model m, @RequestParam Long playlistId,
 			@ModelAttribute("member")Member member) {
+		
+		if(member.getMemberId() == null) {
+			return "redirect:loginform";
+		}
 
 		Playlist pList = playlistService.getPlaylist(playlistId);
 		m.addAttribute("plist", pList);

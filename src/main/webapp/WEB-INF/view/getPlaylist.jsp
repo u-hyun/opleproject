@@ -29,14 +29,14 @@
 <br>
 
 <div id="center">
-<h2>${plist.playlistName}</h2>
-<table>
-	<tr><td>${plist.description}</td>
-		<td>${plist.viewCount}</td>
+<h1><b>${plist.playlistName}</b></h1>
+<table border="0">
+	<tr><td width="600px">${plist.description}</td>
+		<td>조회수 ${plist.viewCount}</td>
 		<td>${plist.likeCount}</td>
 	<c:if test="${plist.memberId eq member.memberId}">
-		<td><a href="/updatePlaylist/${plist.playlistId}" ><img src="/img/icon/update_button.png" height="20px"></a></td>
-		<td><a href="/deletePlaylist/${plist.playlistId}" ><img src="/img/icon/delete_button.png" height="20px"></a></td>
+		<td width="30px"><a href="/updatePlaylist/${plist.playlistId}" ><img src="/img/icon/update_button.png" height="20px"></a></td>
+		<td width="30px"><a href="/deletePlaylist/${plist.playlistId}" ><img src="/img/icon/delete_button.png" height="20px"></a></td>
 	</c:if>
 	</tr>	
 </table>
@@ -45,20 +45,23 @@
 <br>
 <div id="center">
 <legend>PlaylistTrack</legend>
-<table>
-    <tr><td></td><td></td><td></td>
+<table border="0">
+    <tr><td></td><td></td><td></td><td></td>
     <c:if test="${plist.memberId eq member.memberId}">
-    <td><a href='/playlist_sort?playlistId=${plist.playlistId}'>
-    <img src="/img/icon/update_button.png" height="20px"></a></td>
+    <td width="80px"><a href="/playlist_sort?playlistId=${plist.playlistId}" class="btn btn-primary edittagbutton" >
+    순서변경</a></td>
     </c:if>
     </tr>
+ </table>
+ <table border="0">
 <c:forEach items= "${trackList}" var="track">
 	<tr height="50px">
 		<td>${track.trackName}</td>
-		<td>${track.artistName}</td>
-		<td>${track.albumName}</td>
+		<td width="170px">${track.artistName}</td>
+		<td width="270px">${track.albumName}</td>
 	<c:if test="${plist.memberId eq member.memberId}">
-	    <td><a href="/deleteTrack/${track.playlistTrackId}/${plist.playlistId}" >
+		<td width="30px"><a href="/editTag?trackId=${track.trackId}" id="${track.trackId}"><img src="/img/icon/update_button.png" height="20px" alt="태그등록"></a></td>
+	    <td width="30px"><a href="/deleteTrack/${track.playlistTrackId}/${plist.playlistId}" >
 	    <img src="/img/icon/delete_button.png" height="20px"></a></td>
 	</c:if>
 	</tr>
@@ -70,23 +73,22 @@
 <div id="center">
 <legend>Comment</legend>
 <form action="/insertBoard" method="post">
-	<table>
+	<table border="0">
     <tr><td><input type="hidden" name="playlistId" value="${plist.playlistId}"></td>
-		<td><textarea name="content" cols="90" rows="1"></textarea></td>
-		<td><input type="submit" value="등록"></td>
+		<td><textarea name="content" cols="95" rows="2"></textarea></td>
+		<td width="50px"><input type="submit" value="등록"></td>
 	</tr>
 	</table>
 </form>
-	<table>
+	<table border="0">
 		<c:forEach items= "${blist}" var="board">
 		<tr height="50px">
-		<td>${board.member.memberNickname}</td>
+		<td width="120px">${board.member.memberNickname}</td>
 			<td>${board.content}</td>
-			<td><fmt:formatDate value="${board.commentDate}" pattern="yy.MM.dd HH:mm"/></td>
-			<td>${board.likeCount}</td>
+			<td width="120px" style="font-size:50%;"><fmt:formatDate value="${board.commentDate}" pattern="yy.MM.dd HH:mm"/></td>
 		<c:if test="${board.memberId eq member.memberId}">
-			<td><a href="/updateform/${board.commentId}" ><img src="/img/icon/update_button.png" height="20px"></a></td>
-			<td><a href="/delete/${board.commentId}/${board.playlistId}" ><img src="/img/icon/delete_button.png" height="20px"></a></td>
+			<td width="30px"><a href="/updateform/${board.commentId}" ><img src="/img/icon/update_button.png" height="20px"></a></td>
+			<td width="30px"><a href="/delete/${board.commentId}/${board.playlistId}" ><img src="/img/icon/delete_button.png" height="20px"></a></td>
 		</c:if>
 		</tr>
 		</c:forEach>	
