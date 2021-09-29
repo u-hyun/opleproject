@@ -46,16 +46,10 @@ clear: both;
 
 }
 
-
  .family{
 width: 70%;
 overflow: hidden;
 }
-
-/* 회원탈퇴 버튼 위치 조절  */
-#delete{
-}
-
 
 
 </style>
@@ -122,8 +116,8 @@ overflow: hidden;
 	<tr><td><input id="delete" type="button" value="회원탈퇴" onclick="location.href='deleteMemberView'" ></td></tr>
 </table>
 </div>
-</form>
 <div class="foot"><br><br><br><br><hr><input type="submit" value="변경">&emsp;<input type="button" value="취소" onclick="history.back()"></div>
+</form>
 </div>
 
 

@@ -7,5 +7,6 @@
 		<class>com.ople.domain.Board</class>
 		<class>com.ople.domain.Track</class>
 		<class>com.ople.domain.Tag</class>
+		<class>com.ople.domain.LikedPlaylist</class>
 	</persistence-unit>
 </persistence>

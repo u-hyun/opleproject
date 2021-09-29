@@ -79,8 +79,6 @@ public class MemberController implements ApplicationContextAware {
 		memberService.saveMember(member, newPw);
 		return "redirect:index.html";
 	}
-	
-	
 
 	@RequestMapping("/check_id")
 	@ResponseBody
@@ -102,13 +100,13 @@ public class MemberController implements ApplicationContextAware {
 	}
 
 	@GetMapping("/loginform")
-	public String loginView(@ModelAttribute("member") Member member) {
+	public String loginView() {
 
 		return "member/loginView";
 	}
 
 	@RequestMapping("/login")
-	public String login(Member member, Model model) {
+	public String login(Member member, Model model, SessionStatus status) {
 		Member findMember = memberService.getMember(member);
 		if (findMember != null && findMember.getMemberPw().equals(member.getMemberPw())) {
 			model.addAttribute("member", findMember);
@@ -120,6 +118,7 @@ public class MemberController implements ApplicationContextAware {
 			return "redirect:/";
 		} else {
 			model.addAttribute("loginFailed", true);
+			status.setComplete();
 			return "member/loginView";
 		}
 	}
@@ -197,7 +196,7 @@ public class MemberController implements ApplicationContextAware {
 		System.out.println("PATH::"+path);
 		try {
 			pImage.transferTo(new File(path));
-		} catch (IllegalStateException | IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

@@ -27,6 +27,7 @@ public class Board implements Serializable {
 	private Date commentDate;
 	private Long likeCount;
 	private Long commentLike;
+	
 	public Long getCommentId() {
 		return commentId;
 	}
@@ -73,6 +74,15 @@ public class Board implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="MEMBER_ID", insertable = false, updatable = false)
 	Member member;
+
+	public Member getMember() {
+		return member;
+	}
+	public void setMember(Member member) {
+		this.member = member;
+	}
+	
+	
 
 
 }
