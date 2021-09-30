@@ -49,4 +49,10 @@ public class PlaylistTrackServiceImpl implements PlaylistTrackService{
 		playlistTrackRepo.deletePlaylistTrack(playlistId);
 		
 	}
+	
+	@Override
+	public void deletePlaylistTrack(String memberId) {
+		playlistTrackRepo.deletePlaylistTrack(memberId);
+		
+	}
 }

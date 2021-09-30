@@ -96,6 +96,8 @@ $(function(){
 		$('#MoaModal').modal('show');
 	});
 	
+	
+	
 	$('.playlistLikeButton').click(function(){
 		var id = $(this).attr('id');
 		var label = $(this).html();

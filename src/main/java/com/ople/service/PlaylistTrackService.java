@@ -12,4 +12,7 @@ public interface PlaylistTrackService {
 	List<PlaylistTrack> getPlaylistTrack();
 	PlaylistTrack getPlaylistTrackById(Long playlistTrackId);
 	void deletePlaylistTrack(Long playlistId);
+	void deletePlaylistTrack(String memberId);
+	
+	
 }

@@ -14,6 +14,9 @@
 	#center{width:800px; margin-left: auto; margin-right: auto;}
 	table{width: 800px; border-collapse : collapse;}
 	a{margin: 10px auto;}
+	#profile{
+	border-radius: 30%;
+	}
 </style>
 </head>
 <body>
@@ -32,11 +35,11 @@
 <h1><b>${plist.playlistName}</b></h1>
 <table border="0">
 	<tr><td>
-		<c:if test="${plist.member.imagePath} eq null">
+		<c:if test="${plist.member.imagePath eq null}">
 		<img src="/img/icon/update_button.png" width="100px" height="100px" >
 		</c:if>
-		<c:if test="${plist.member.imagePath} ne null">
-		<img src="${plist.member.imagePath}" width="100px" height="100px">
+		<c:if test="${plist.member.imagePath ne null}">
+		<img id="profile" src="${plist.member.imagePath}" width="100px" height="100px">
 		</c:if>
 		</td>
 		<td width="550px">${plist.description}</td>

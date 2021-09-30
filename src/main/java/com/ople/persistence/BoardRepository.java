@@ -19,5 +19,10 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 	@Modifying
 	@Query("DELETE FROM Board b WHERE b.playlistId=?1")
 	void deleteBoard(Long playlistId);
+	
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM Board b WHERE b.memberId=?1")
+	void deleteBoard(String memberId);
 		
 }

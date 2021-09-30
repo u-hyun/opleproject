@@ -51,4 +51,9 @@ public class PlaylistServiceImpl implements PlaylistService{
 	public Playlist onlyPlaylist(Long playlistId) {
 		return playlistRepo.getById(playlistId);
 	}
+	
+	@Override
+	public void deletePlaylist(String memberId) {
+		playlistRepo.deletePlaylist(memberId);
+	}
 }
