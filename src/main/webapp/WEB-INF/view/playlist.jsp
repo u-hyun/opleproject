@@ -34,14 +34,13 @@ font-size: 10px;
 <div class="card-deck">
 <c:forEach items="${playlists}" var="playlist">
 	<div class="card songcard" id="${playlist.playlistId}">
-	   <img src="/img/icon/free-icon-cd-player-1765570.png" class="card-img-top playlistcover" alt="...">	   
+	   <img src="/img/icon/cd.png" class="card-img-top playlistcover" alt="...">	   
 	   <div class="card-body">
 	     <h5 class="card-title">${playlist.playlistName}</h5>
 	     <p class="card-text">${playlist.description}</p>
-	     <p class="card-text"><small class="text-muted">${playlist.memberId}</small></p>
+	     <p class="card-text"><small class="text-muted">${playlist.member.memberNickname}</small></p>
 	     <a href="/getPlaylist?playlistId=${playlist.playlistId}" class="btn playlistDetailsButton" id="${playlist.playlistId}"><img src="/img/icon/menu.png" alt="자세히보기" height="20px"> </a>
 	     <a href="#" class="btn playlistLikeButton" id="${playlist.playlistId}"> <img src="/img/icon/thumbs_outline.png" height="20px" alt="좋아요"> </a>
-
 	   </div>
 	 </div>
 </c:forEach>
@@ -51,9 +50,28 @@ font-size: 10px;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
-	$(function(){
-		$('.menu_div').load("menu");
+$(function(){
+	$('.menu_div').load("menu");
+
+	$('.playlistLikeButton').click(function(){
+		var id = $(this).attr('id');
+		var imgsrc = $(this).children('img').attr("src");
+		var $img = $(this).children('img');
+		$.ajax({
+			type: "GET",
+			url: "/likePlaylist?playlistId=" + id,
+			success: function(data){	
+				if(imgsrc === '/img/icon/thumbs_outline.png'){
+					$img.attr('src', "/img/icon/update_button.png");
+				} else {
+					$img.attr('src', "/img/icon/thumbs_outline.png");
+				}
+			}, error: function(xhr, textStatus, errorThrown){
+				alert(xhr.responseText);
+			}
+		});
 	});
+});
 </script>
 </body>
 </html>

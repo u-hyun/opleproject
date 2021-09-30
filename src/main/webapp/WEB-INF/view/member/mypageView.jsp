@@ -103,9 +103,9 @@ overflow: hidden;
 
 <div class="right">
 <div class="box">
-<img class="profileImage" width="100" height="100" src="${member.imagePath }" alt="profile image">
+<img class="profileImage" width="100" height="100" src="${member.imagePath}" alt="profile image">
 </div>
-<br><input type="file" name="pImage">
+<br><input type="file" name="pImage" id="${member.imagePath}">
 
 <table id="table3">
 	<tr><td>아이디: &emsp;</td><td>${member.memberId}</td></tr>

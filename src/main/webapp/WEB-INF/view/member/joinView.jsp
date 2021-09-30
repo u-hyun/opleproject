@@ -12,7 +12,7 @@
 <body>
 <h4>회원 가입</h4>
 <form action="/join" method="post" id="joinForm">
-	<table >
+	<table>
 		<tr><td>아이디</td></tr>
 		<tr><td>
 		<input type="email" name="memberId" id="memberId" placeholder="이메일">
