@@ -20,7 +20,7 @@
 		<c:if test="${member.admin eq '1'.charAt(0)}">
 		<li class="nav-item"><a class="nav-link" id="playlist" href="/admin">관리자 메뉴</a></li>		
 		</c:if>
-		<li class="nav-item"><a class="nav-link" id="about" href="/admin">사이트 정보</a></li>		
+		<li class="nav-item"><a class="nav-link" id="about" href="/about">사이트 정보</a></li>		
 	</ul>
 	<div style="position: relative; width: 600px; height: 800px;">    
 	
