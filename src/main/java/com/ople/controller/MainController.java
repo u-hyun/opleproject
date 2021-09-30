@@ -33,17 +33,27 @@ public class MainController {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("member");
 		if(member != null) {	// 로그인 했을 때의 메인화면
-			m.addAttribute("member", member);
-			String likedTags = member.getLikedTags();
-			List<String> tags = Arrays.asList(likedTags.split(","));
-			System.out.println(tags.toString());
-			List<Track> topTracks = trackService.getTopTracksByTags(tags);
-			List<Playlist> topPlaylists = playlistService.getTopPlaylists();
-			for(Playlist playlist : topPlaylists) {
-				playlist.setLike(likedPlaylistService.checkLike(member.getMemberId(), playlist.getPlaylistId()));
+			try {
+				m.addAttribute("member", member);
+				String likedTags = member.getLikedTags();
+				List<String> tags = Arrays.asList(likedTags.split(","));
+				System.out.println(tags.toString());
+				List<Track> topTracks = trackService.getTopTracksByTags(tags);
+				List<Playlist> topPlaylists = playlistService.getTopPlaylists();
+				for(Playlist playlist : topPlaylists) {
+					playlist.setLike(likedPlaylistService.checkLike(member.getMemberId(), playlist.getPlaylistId()));
+				}
+				m.addAttribute("topTracks", topTracks);
+				m.addAttribute("topPlaylists", topPlaylists);
+			} catch (NullPointerException npe) {
+				npe.printStackTrace();
+				session.invalidate();
+				List<Track> topTracks = trackService.getTopTracks();
+				List<Playlist> topPlaylists = playlistService.getTopPlaylists();
+				m.addAttribute("topTracks", topTracks);
+				m.addAttribute("topPlaylists", topPlaylists);
+				return "main";
 			}
-			m.addAttribute("topTracks", topTracks);
-			m.addAttribute("topPlaylists", topPlaylists);
 		} else {	// 로그인 하지 않았을 때의 메인화면		
 			List<Track> topTracks = trackService.getTopTracks();
 			List<Playlist> topPlaylists = playlistService.getTopPlaylists();
