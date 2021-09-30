@@ -21,4 +21,11 @@ public interface PlaylistTrackRepository extends JpaRepository<PlaylistTrack, Lo
 	@Modifying
 	@Query("DELETE FROM PlaylistTrack p WHERE p.playlistId=?1")
 	void deletePlaylistTrack(Long playlistId);
+	
+	
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM PlaylistTrack p WHERE p.memberId=?1")
+	void deletePlaylistTrack(String memberId);
+
 }

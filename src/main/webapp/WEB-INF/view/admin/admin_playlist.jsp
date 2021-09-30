@@ -6,12 +6,17 @@
 <meta charset="UTF-8">
 <title>OPLE 관리자 페이지</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+#keywordInput{
+ border-radius: 10px;
+ }
+</style>
 </head>
 <body>
 <div class="menu_div" style="float:left; width: 200px;"></div>
 <div class="collapse" id="searchbar_div" style="height:15%;">
 	<form id="searchForm" action="searchResult" method="GET">
-		<input id="keywordInput" name="keyword" size="50">  <input type="submit" value="검색">
+		<input id="keywordInput" name="keyword" style="width:50%">  <input type="image" src="/img/icon/search_outline.png" height="35px">
 	</form>
 </div>
 <div class="main" style="padding:30px">

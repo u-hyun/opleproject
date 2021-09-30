@@ -29,7 +29,13 @@ public class Playlist implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="MEMBER_ID", insertable = false, updatable = false)
 	Member member;
-	
+	public Member getMember() {
+		return member;
+	}
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
 	@Transient
 	private boolean like;	// 좋아요 확인용, 컬럼으로 안 들어감
 	

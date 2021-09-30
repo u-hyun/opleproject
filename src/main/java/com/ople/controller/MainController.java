@@ -62,7 +62,7 @@ public class MainController {
 		}
 		return "main";
 	}
-	
+
 	@RequestMapping("/menu")
 	public String loadMenu(HttpServletRequest request, Model m) {
 		HttpSession session = request.getSession();

@@ -39,6 +39,11 @@ public class BoardServiceImpl implements BoardService {
 	public void deleteBoard(Long playlistId) {
 		boardRepo.deleteBoard(playlistId);
 	}
+	
+	@Override
+	public void deleteBoard(String memberId) {
+		boardRepo.deleteBoard(memberId);
+	}
 
 	
 }

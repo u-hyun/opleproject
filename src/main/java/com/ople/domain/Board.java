@@ -74,6 +74,7 @@ public class Board implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="MEMBER_ID", insertable = false, updatable = false)
 	Member member;
+	
 	public Member getMember() {
 		return member;
 	}

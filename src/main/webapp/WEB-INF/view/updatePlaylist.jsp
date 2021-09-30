@@ -10,6 +10,9 @@
 	.btn-primary{margin:0; padding:0;}
 	#center{width:800px; margin-left: auto; margin-right: auto;}
 	table{width: 800px; border-collapse : collapse;}
+	#keywordInput{
+ border-radius: 10px;
+ }
 </style>
 </head>
 <body>
@@ -17,7 +20,7 @@
 </div>
 <div class="collapse" id="searchbar_div" style="height:15%;">
 	<form id="searchForm" action="searchResult" method="GET">
-		<input id="keywordInput" name="keyword" size="50">  <input type="submit" value="검색">
+		<input id="keywordInput" name="keyword" style="width:50%">  <input type="image" src="/img/icon/search_outline.png" height="35px">
 	</form>
 </div>
 <div id="center">
