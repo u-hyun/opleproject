@@ -86,4 +86,9 @@ public class MainController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	@RequestMapping("about")
+	public String about() {
+		return "about";
+	}
 }
