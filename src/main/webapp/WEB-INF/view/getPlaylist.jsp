@@ -71,7 +71,7 @@
 		<td width="180px">${track.artistName}</td>
 		<td width="280px">${track.albumName}</td>
 	<c:if test="${plist.memberId eq member.memberId}">
-		<td width="30px"><a href="/editTag?trackId=${track.trackId}" id="${track.trackId}"><img src="/img/icon/update_button.png" height="20px" alt="태그등록"></a></td>
+		<td width="30px"><a href="/editTag?trackId=${track.trackId}&pListId=${plist.playlistId}" id="${track.trackId}"><img src="/img/icon/update_button.png" height="20px" alt="태그등록"></a></td>
 	    <td width="30px"><a href="/deleteTrack/${track.playlistTrackId}/${plist.playlistId}" >
 	    <img src="/img/icon/delete_button.png" height="20px"></a></td>
 	</c:if>

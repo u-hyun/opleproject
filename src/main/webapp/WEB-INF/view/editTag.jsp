@@ -48,7 +48,7 @@
 	</ul>
 	<div style=' display:none; '> <!-- 보이지 않는 체크박스 리스트 (form submit 용) -->
 		<input name="trackId" value="${track.trackId}">
-		
+		<input name="pListId" value="${pListId}">
 	    <input type="checkbox" class="tagBox" name="tagBox" value="rock">
 	    <input type="checkbox" class="tagBox" name="tagBox" value="electronic">
 	    <input type="checkbox" class="tagBox" name="tagBox" value="pop">
