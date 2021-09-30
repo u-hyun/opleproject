@@ -14,6 +14,9 @@
 	#center{width:800px; margin-left: auto; margin-right: auto;}
 	table{width: 800px; border-collapse : collapse; font-size: 90%;}
 	a{margin: 10px auto;}
+	#profile{
+	border-radius: 30%;
+	}
 </style>
 </head>
 <body>

@@ -34,10 +34,9 @@ import com.ople.service.TrackService;
 @Controller
 public class PlaylistController {
 	
-	@ModelAttribute("member")
-	public Member getMember() {
-		return new Member();
-	}
+	/*
+	 * @ModelAttribute("member") public Member getMember() { return new Member(); }
+	 */
 	
 	@Autowired
 	private BoardService boardService;
@@ -65,10 +64,11 @@ public class PlaylistController {
 		
 	@RequestMapping("/getPlaylist")
 	public String getBoardList(Model m, @RequestParam Long playlistId,
-			@ModelAttribute("member")Member member) {
+			HttpServletRequest request) {
+		Member member = (Member) request.getSession().getAttribute("member");
 		
-		if(member.getMemberId() == null) {
-			return "redirect:/loginform";
+		if(member == null) {
+			return "redirect:loginform";
 		}
 
 		Playlist pList = playlistService.getPlaylist(playlistId);

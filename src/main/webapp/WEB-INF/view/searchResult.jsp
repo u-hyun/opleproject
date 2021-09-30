@@ -11,6 +11,10 @@
 #keywordInput{
  border-radius: 10px;
  }
+ 
+ img{
+ border-radius: 30%;
+ }
  </style>
 </head>
 <body>
@@ -52,8 +56,8 @@
 <table>
 	<c:forEach items="${memberSearchResult}" var="member">
 	<tr>
-	<td><img class="memberProfilePicture"></td>
-	<td><b>${member.memberNickname}</b>
+	<td><img class="memberProfilePicture" src="${member.imagePath }" width="30px" height="30px"></td>
+	<td><b>${member.memberNickname}</b></td>
 	</tr>
 	</c:forEach>
 </table>

@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +37,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ople.domain.EmailVO;
 import com.ople.domain.Member;
+import com.ople.service.BoardService;
 import com.ople.service.MemberService;
+import com.ople.service.PlaylistService;
+import com.ople.service.PlaylistTrackService;
 
 @SessionAttributes("member")
 @Controller
@@ -51,6 +55,12 @@ public class MemberController implements ApplicationContextAware {
 
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private BoardService boardService;
+	@Autowired
+	private PlaylistService playlistService;
+	@Autowired
+	private PlaylistTrackService playlistTrackService;
 
 	
 	@ModelAttribute("member")
@@ -216,9 +226,14 @@ public class MemberController implements ApplicationContextAware {
 	
 	
 	@PostMapping("/deleteMember")
-	public String delete(@ModelAttribute("model") Member member, String memberPw, SessionStatus status) {
+	public String delete(@ModelAttribute("model") Member member, String memberPw, SessionStatus status, String memberId) {
 		Member findMember = memberService.getMember(member);
 		if (findMember != null && findMember.getMemberPw().equals(memberPw)) {
+			
+			playlistService.deletePlaylist(memberId);
+			playlistTrackService.deletePlaylistTrack(memberId);
+			boardService.deleteBoard(memberId);
+			
 			status.setComplete();
 			memberService.delete(member);
 		} else {
@@ -226,8 +241,5 @@ public class MemberController implements ApplicationContextAware {
 		}
 		return "redirect:/";
 	}
-	
-	
-	
 
 }
