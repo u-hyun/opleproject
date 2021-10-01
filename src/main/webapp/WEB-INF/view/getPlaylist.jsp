@@ -67,13 +67,13 @@ a {
 							width="100px" height="100px">
 					</c:if></td>
 				<td>${plist.description}</td>
-				<td width="70px"><img src="/img/icon/view.png" height="20px">&emsp;${plist.viewCount}</td>
+				<td width="60px"><img src="/img/icon/view.png" width="20px" height="20px">&emsp;${plist.viewCount}</td>
 				<c:choose>
 					<c:when test="${plist.like}">
 						<td width="70px"><a href="#" class="btn playlistLikeButton"
 							id="${plist.playlistId}"> <img class="likeimage"
 								id="${plist.playlistId}" src="/img/icon/update_button.png"
-								height="20px" alt="좋아요취소"></a>${plist.likeCount}</td>
+								width="20px" height="20px" alt="좋아요취소"></a>${plist.likeCount}</td>
 					</c:when>
 					<c:otherwise>
 						<td width="70px"><a href="#" class="btn playlistLikeButton"
@@ -84,9 +84,9 @@ a {
 				</c:choose>
 				<c:if test="${plist.memberId eq member.memberId}">
 					<td width="30px"><a href="/updatePlaylist/${plist.playlistId}"><img
-							src="/img/icon/update_button.png" height="20px"></a></td>
+							src="/img/icon/update_button.png" width="20px" height="20px"></a></td>
 					<td width="30px"><a href="/deletePlaylist/${plist.playlistId}"><img
-							src="/img/icon/delete_button.png" height="20px"></a></td>
+							src="/img/icon/delete_button.png" width="20px" height="20px"></a></td>
 				</c:if>
 			</tr>
 		</table>
