@@ -62,7 +62,7 @@ $(function(){
 			url: "/likePlaylist?playlistId=" + id,
 			success: function(data){	
 				if(imgsrc === '/img/icon/thumbs_outline.png'){
-					$img.attr('src', "/img/icon/update_button.png");
+					$img.attr('src', "/img/icon/thumbs_glyph.png");
 				} else {
 					$img.attr('src', "/img/icon/thumbs_outline.png");
 				}

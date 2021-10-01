@@ -49,7 +49,7 @@ padding:10px;
 				<div class="card-body">
 					<h5 class="card-title">박유현</h5>
 					<p class="card-text"><small class="text-muted">회원</small></p>
-					<p class="card-text">ㅋㅋㅋㅋㅋㅋ</p>
+					<p class="card-text">바지 사장</p>
 				</div>
 			</div>
 			<div class="card">

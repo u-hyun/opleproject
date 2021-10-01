@@ -60,11 +60,6 @@ $(function(){
 		$('#newMemberStat').css('display', 'block');
 	});
 	
-	$('#visitorStatButton').click(function(){
-		$('.chart').css('display', 'none');
-		$('#visitorStat').css('display', 'block');
-	});
-	
 	$('#tagStatButton').click(function(){
 		$('.chart').css('display', 'none');
 		$('#tagStat').css('display', 'block');
