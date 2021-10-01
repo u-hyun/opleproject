@@ -42,20 +42,23 @@ public class RecommendController {
 	PlaylistService playlistService;
 	
 	@GetMapping("/editTag")
-	public String editTag(HttpServletRequest request, Model m, @RequestParam String trackId) {
+	public String editTag(HttpServletRequest request, Model m, 
+			@RequestParam String trackId, @RequestParam(required=false) Long pListId) {
 		HttpSession session = request.getSession();
 		String memberId = ((Member)session.getAttribute("member")).getMemberId();
 		Track track = trackService.findTrack(trackId).get();
 		m.addAttribute("track", track);
 		String[] tagList = tagService.getTags(trackId, memberId);
 		m.addAttribute("tagList", tagList);
+		m.addAttribute("pListId", pListId);
 		return "editTag";
 	}
 	
 	@PostMapping("/editTag")
 	public String submitTag(HttpServletRequest request, 
 				@RequestParam("tagBox")String[] tags,
-				@RequestParam String trackId) {
+				@RequestParam String trackId, 
+				@RequestParam(required=false) Long pListId) {
 		HttpSession session = request.getSession();
 		String memberId = ((Member)session.getAttribute("member")).getMemberId();
 		if (tags == null) tags = new String[0];
@@ -87,7 +90,11 @@ public class RecommendController {
 			track.setTopTags(topTags);
 			trackService.saveTrack(track);
 		}
-		return "redirect:/";
+		
+		if (pListId != null && pListId != 0)
+			return "redirect:getPlaylist?playlistId=" + pListId;
+		else
+			return "redirect:/";
 	}
 	
 	@RequestMapping("/likePlaylist")

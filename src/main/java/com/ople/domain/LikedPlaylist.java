@@ -21,6 +21,7 @@ public class LikedPlaylist implements Serializable {
 	private Long likedPlaylistId;
 	private String memberId;
 	private Long playlistId;
+	
 	public Long getLikedPlaylistId() {
 		return likedPlaylistId;
 	}
