@@ -51,7 +51,6 @@ a {
 	<br>
 	<br>
 	<br>
-
 	<div id="center">
 		<h2>
 			<b>${plist.playlistName}</b>
@@ -167,7 +166,6 @@ a {
 			</c:forEach>
 		</table>
 	</div>
-
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
