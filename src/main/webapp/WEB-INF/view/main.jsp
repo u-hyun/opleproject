@@ -69,7 +69,7 @@ max-width: 15%;
 <div class="card-deck">
 <c:forEach items="${topPlaylists}" var="playlist">
 	<div class="card songcard" id="${playlist.playlistId}">
-	   <img src="https://image.flaticon.com/icons/png/512/26/26805.png" class="card-img-top playlistcover" alt="...">
+	   <img src="/img/icon/cd.png" class="card-img-top playlistcover" alt="...">
 	   <div class="card-body">
 	     <h5 class="card-title">${playlist.playlistName}</h5>
 	     <p class="card-text">${playlist.description}</p>

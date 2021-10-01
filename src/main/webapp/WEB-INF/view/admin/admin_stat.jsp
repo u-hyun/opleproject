@@ -28,7 +28,6 @@
 			<tr>
 				<td width="150"><a href="#" id="memberStatButton">회원수</a></td>
 				<td width="150"><a href="#" id="newMemberStatButton">신규회원</a></td>
-				<td width="150"><a href="#" id="visitorStatButton">방문자</a></td>
 				<td width="150"><a href="#" id="tagStatButton">태그</a></td>
 			</tr>
 		</table>
