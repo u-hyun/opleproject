@@ -23,7 +23,6 @@
 	<div class="list-group">
 	  <a href="/admin_stat" class="list-group-item list-group-item-action">웹사이트 통계</a>
 	  <a href="/admin_member" class="list-group-item list-group-item-action">회원 관리</a>
-	  <a href="/admin_playlist" class="list-group-item list-group-item-action">플레이리스트 관리</a>
 	</div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

@@ -79,8 +79,7 @@ $(function(){
 						"성별: " + data.gender + "<br>" +
 						"생년월일: " + data.birthday.slice(0, 10) + "<br>" +
 						"가입일: " + data.joinDate.slice(0, 10) + "<br>" +
-						"태그: " + data.likedTags + "<br>" +
-						"가입일: " + data.memberId + "<br>"
+						"태그: " + data.likedTags + "<br>"
 						);
 			}
 		});
