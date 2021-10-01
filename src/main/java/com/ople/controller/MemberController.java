@@ -169,7 +169,7 @@ public class MemberController implements ApplicationContextAware {
 		String id = member.getMemberId();
 		
 		//프로필사진
-		if(pImage.getOriginalFilename() != "") {
+		if(!pImage.isEmpty() && pImage.getOriginalFilename() != "") {
 		String path = getPath(pImage);
 		
 	

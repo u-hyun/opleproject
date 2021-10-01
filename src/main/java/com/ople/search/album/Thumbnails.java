@@ -3,7 +3,7 @@ package com.ople.search.album;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Thumbnails {
-	@JsonProperty("250")
+	@JsonProperty("small")
 	String thumbnailUrl;
 
 	public String getThumbnailUrl() {
